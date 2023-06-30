@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My New Hugo Site</title>
+    <link>/posts/</link>
+    <description>Recent content in Posts on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Jun 2023 15:22:40 +0800</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Problems</title>
+      <link>/posts/problems/</link>
+      <pubDate>Fri, 30 Jun 2023 15:22:40 +0800</pubDate>
+      
+      <guid>/posts/problems/</guid>
+      <description>
+        
+          
+            #这次实践遇到了以下问题：在创建博客以及发布帖子过程中，输入了一些错误的指令，仔细观看教程后纠正了过来。 #在将博客发到github过程中，我没有取消勾选keep private，在将仓库上传到github后在setting里面改了过来。 #在创建github账号过程中，用学校的邮箱没有收到验证码，导致我的账号没有创建，GitHub desktop也一直没有响应，换了自己的邮箱来进行验证。 #写了第二篇博客，不知道怎么在github上更新最新的博客，询问了学长之后得到了解决。 #在上传第二篇博客时，由于一些原因导致github访问博客出现了一些图标问题，所以我把之前的仓库重新创了一个。
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>MyFirstArticle</title>
+      <link>/posts/myfirstarticle/</link>
+      <pubDate>Fri, 30 Jun 2023 15:17:49 +0800</pubDate>
+      
+      <guid>/posts/myfirstarticle/</guid>
+      <description>
+        
+          
+            我的第一篇博客
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
