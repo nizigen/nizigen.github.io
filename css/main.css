@@ -3607,6 +3607,10 @@ mjx-container::-webkit-scrollbar {
   opacity: 1;
 }
 
+#waifu-toggle {
+  z-index: 1;
+}
+
 [data-theme="dark"] ::-webkit-scrollbar, [data-theme="dark"] ::-webkit-scrollbar-track {
   background-color: #616161;
 }
