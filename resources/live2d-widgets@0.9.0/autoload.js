@@ -1,10 +1,5 @@
 // live2d_path 参数建议使用绝对路径
 const live2d_path = "https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/";
-//const live2d_path = "/live2d-api/";
-//const live2d_path = "/live2d-widget/";
-
-// 备用CDN配置，如果主CDN无法访问可以切换使用
-// const USE_BACKUP_CDN = true;
 
 // 封装异步加载资源的方法
 function loadExternalResource (url, type) {
@@ -29,9 +24,6 @@ function loadExternalResource (url, type) {
   });
 }
 
-// 如果你担心移动设备上的显示问题，可以使用 screen.width 来判断是否加载
-// if (screen.width < 768) return;
-
 // 避免跨域图片资源问题
 const OriginalImage = window.Image;
 window.Image = function (...args) {
@@ -43,15 +35,12 @@ window.Image.prototype = OriginalImage.prototype;
 
 // 加载 waifu.css 和 waifu-tips.js
 (async () => {
-  // 如果你担心移动设备上的显示问题，可以使用 screen.width 来判断是否加载
-  // if (screen.width < 768) return;
-
   // 备用CDN列表，如果主CDN无法访问会自动尝试备用CDN
   const cdnList = [
-    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@latest/",
-    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@latest/",
-    "https://raw.githubusercontent.com/nizigen/live2d_api/main/",
-    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@latest/"
+    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v1.4/",
+    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v1.4/",
+    "https://raw.githubusercontent.com/nizigen/live2d_api/v1.4/",
+    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v1.4/"
   ];
 
   let currentCdnIndex = 0;
