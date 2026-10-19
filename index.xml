@@ -34,10 +34,10 @@
 2: 配置Reimu主题中的Live2D
 </h2><p>Reimu主题内置Live2D支持（在<code>themes/reimu/static/resources/live2d-widgets@0.9.0/autoload.js</code>）。别的主题也应该有，如果没有的话可以把live2d-widget仓库下载下来把autoload.js保存到跟这个主题对应的位置。我的autoload.js是已经修改过的，所以说可能和原版不太一样，如果原版的不太行的话，可以尝试一下我的：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// live2d_path 参数建议使用绝对路径
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">live2d_path</span> <span class="o">=</span> <span class="s2">&#34;https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/&#34;</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">live2d_path</span> <span class="o">=</span> <span class="s2">&#34;https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 封装异步加载资源的方法
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">loadExternalResource</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">loadExternalResource</span> <span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">((</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nx">tag</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -60,7 +60,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 避免跨域图片资源问题
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">OriginalImage</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Image</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">OriginalImage</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Image</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">Image</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(...</span><span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">img</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OriginalImage</span><span class="p">(...</span><span class="nx">args</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">img</span><span class="p">.</span><span class="nx">crossOrigin</span> <span class="o">=</span> <span class="s2">&#34;anonymous&#34;</span><span class="p">;</span>
@@ -69,9 +69,9 @@
 </span></span><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">Image</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">OriginalImage</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// 加载 waifu.css 和 waifu-tips.js
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="p">(</span><span class="kr">async</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// 备用CDN列表，如果主CDN无法访问会自动尝试备用CDN
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">const</span> <span class="nx">cdnList</span> <span class="o">=</span> <span class="p">[</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">cdnList</span> <span class="o">=</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v1.4/&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v1.4/&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s2">&#34;https://raw.githubusercontent.com/nizigen/live2d_api/v1.4/&#34;</span><span class="p">,</span>
@@ -82,10 +82,10 @@
 </span></span><span class="line"><span class="cl">  <span class="kd">let</span> <span class="nx">loadSuccess</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 尝试加载资源的函数，支持本地优先+CDN回退
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">async</span> <span class="kd">function</span> <span class="nx">tryLoadResources</span> <span class="p">(</span><span class="nx">cdnUrl</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="kd">function</span> <span class="nx">tryLoadResources</span> <span class="p">(</span><span class="nx">cdnUrl</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 优先尝试加载本地CSS
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="kd">let</span> <span class="nx">cssPromise</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">      <span class="kd">let</span> <span class="nx">cssPromise</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">cssPromise</span> <span class="o">=</span> <span class="nx">loadExternalResource</span><span class="p">(</span><span class="s2">&#34;/waifu.css&#34;</span><span class="p">,</span> <span class="s2">&#34;css&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;尝试加载本地CSS: /waifu.css&#34;</span><span class="p">);</span>
@@ -107,7 +107,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 尝试所有CDN直到成功或全部失败
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">loadSuccess</span> <span class="o">&amp;&amp;</span> <span class="nx">currentCdnIndex</span> <span class="o">&lt;</span> <span class="nx">cdnList</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">loadSuccess</span> <span class="o">&amp;&amp;</span> <span class="nx">currentCdnIndex</span> <span class="o">&lt;</span> <span class="nx">cdnList</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">tryLoadResources</span><span class="p">(</span><span class="nx">cdnList</span><span class="p">[</span><span class="nx">currentCdnIndex</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`成功使用CDN: </span><span class="si">${</span><span class="nx">result</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
@@ -124,7 +124,7 @@
 </span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">workingCdn</span> <span class="o">=</span> <span class="nx">cdnList</span><span class="p">[</span><span class="nx">currentCdnIndex</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 配置选项的具体用法见 README.md
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">try</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;初始化Live2D Widget...&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;工作CDN:&#34;</span><span class="p">,</span> <span class="nx">workingCdn</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;waifu-tips.json路径:&#34;</span><span class="p">,</span> <span class="nx">workingCdn</span> <span class="o">+</span> <span class="s2">&#34;waifu-tips.json&#34;</span><span class="p">);</span>
@@ -136,13 +136,13 @@
 </span></span><span class="line"><span class="cl">      <span class="nx">cubism5Path</span><span class="o">:</span> <span class="s2">&#34;https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">tools</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;hitokoto&#34;</span><span class="p">,</span> <span class="s2">&#34;asteroids&#34;</span><span class="p">,</span> <span class="s2">&#34;switch-model&#34;</span><span class="p">,</span> <span class="s2">&#34;switch-texture&#34;</span><span class="p">,</span> <span class="s2">&#34;photo&#34;</span><span class="p">,</span> <span class="s2">&#34;info&#34;</span><span class="p">,</span> <span class="s2">&#34;quit&#34;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">logLevel</span><span class="o">:</span> <span class="s2">&#34;info&#34;</span><span class="p">,</span> <span class="c1">// 改为info级别以获得更多调试信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">drag</span><span class="o">:</span> <span class="kc">false</span>
+</span></span></span><span class="line"><span class="cl">      <span class="nx">drag</span><span class="o">:</span> <span class="kc">false</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Live2D Widget初始化完成&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 添加必要的CSS样式确保Live2D正确显示
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kr">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;style&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">style</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="sb">`
 </span></span></span><span class="line"><span class="cl"><span class="sb">      #waifu.waifu-active {
 </span></span></span><span class="line"><span class="cl"><span class="sb">        bottom: 0 !important;
@@ -169,7 +169,7 @@
 </span></span><span class="line"><span class="cl">    <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">style</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 清除可能导致问题的缓存
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s2">&#34;modelId&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s2">&#34;modelId&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s2">&#34;modelTexturesId&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">&#34;Live2D初始化失败:&#34;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
@@ -177,16 +177,16 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 添加全局错误处理，防止Live2D错误导致页面崩溃
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// 处理Live2D相关的错误
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">message</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;hitTest&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">message</span> <span class="o">&amp;&amp;</span> <span class="nx">event</span><span class="p">.</span><span class="nx">message</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;hitTest&#39;</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&#34;Live2D hitTest错误，已自动修复:&#34;</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> <span class="c1">// 阻止错误传播
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 处理资源加载错误
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">filename</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">filename</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;live2d&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">filename</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;textures.cache&#39;</span><span class="p">)))</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">filename</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">filename</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;live2d&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">event</span><span class="p">.</span><span class="nx">filename</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;textures.cache&#39;</span><span class="p">)))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&#34;Live2D资源加载错误，已自动处理:&#34;</span><span class="p">,</span> <span class="nx">event</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
@@ -194,7 +194,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">});</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="c1">// 添加额外的检查和调试信息
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">  <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">waifuElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;waifu&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">live2dCanvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;live2d&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -213,23 +213,23 @@
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果画布存在但不可见，强制显示
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">live2dCanvas</span> <span class="o">&amp;&amp;</span> <span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">live2dCanvas</span><span class="p">).</span><span class="nx">display</span> <span class="o">===</span> <span class="s1">&#39;none&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">live2dCanvas</span> <span class="o">&amp;&amp;</span> <span class="nx">getComputedStyle</span><span class="p">(</span><span class="nx">live2dCanvas</span><span class="p">).</span><span class="nx">display</span> <span class="o">===</span> <span class="s1">&#39;none&#39;</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;强制显示Live2D画布&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">live2dCanvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;block&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">live2dCanvas</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">visibility</span> <span class="o">=</span> <span class="s1">&#39;visible&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果waifu元素存在但没有active类，添加它
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">waifuElement</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">waifuElement</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;waifu-active&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">waifuElement</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">waifuElement</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;waifu-active&#39;</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;添加waifu-active类&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">waifuElement</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;waifu-active&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 如果Live2D加载失败，尝试降级方案
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">live2dCanvas</span> <span class="o">||</span> <span class="nx">live2dCanvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">live2dCanvas</span> <span class="o">||</span> <span class="nx">live2dCanvas</span><span class="p">.</span><span class="nx">width</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="s2">&#34;Live2D模型加载失败，尝试降级显示&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="c1">// 可以在这里添加降级的静态图片显示
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span> <span class="mi">3000</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">})();</span>
 </span></span><span class="line"><span class="cl">
@@ -255,5 +255,26 @@
 </span></span></code></pre></div><ol>
 <li>
 <p><strong>启用Live2D</strong>：在<code>config/_default/params.yml</code>中设置（这就是Reimu专属的配置文件了，别的主题我不清楚，所以推荐大家都来用这个主题喵！）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">live2d_widgets:
+</span></span><span class="line"><span class="cl">  enable: true
+</span></span><span class="line"><span class="cl">  position: left  # 或 right
+</span></span></code></pre></div></li>
+<li>
+<p><strong>修改autoload.js</strong>：原来的版本会有一个live2d-path，可以直接改成<code>https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/</code>,我这里直接使用了多个cdn链接防止有的cdn链接无法访问，编辑<code>themes/reimu/static/resources/live2d-widgets@0.9.0/autoload.js</code>，调整CDN列表以避免加载失败：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="k">const</span> <span class="n">cdnList</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;https://cdn.jsdelivr.net/gh/nizigen/live2d_api@main/&#34;</span><span class="p">,</span>  <span class="o">//</span> <span class="err">稳定</span><span class="n">CDN优先</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;https://fastly.jsdelivr.net/gh/nizigen/live2d_api@main/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;https://gcore.jsdelivr.net/gh/nizigen/live2d_api@main/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="s2">&#34;https://raw.githubusercontent.com/nizigen/live2d_api/main/&#34;</span>  <span class="o">//</span> <span class="err">作为备用</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div><ul>
+<li>为什么这样？GitHub Raw不稳定（易400错误、限流），优先用jsDelivr代理，下面第三点对应的workingcdn其实就是通过cdnlist里面第一个能够使用的链接。还有就是加载Cubism3及以上的live2d模型需要core，我的尝试下<code>https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/</code>，这个版本是可以找到对应的core的。</li>
+</ul>
+</li>
+<li>
+<p><strong>初始化</strong>：在autoload.js的initWidget函数配置的仓库：
+详细的关于initWidget的参数的问题可以去原仓库看readme，这里不详细介绍了。大家在使用的时候把cdn列表里面的任意一个改为自己的用户名以及仓库名替换这里的workingcdn就好了，live2d_path建议就使用我在第二点提到的那个。</p>
+</li>
+</ol>
         
         <hr><p>Published on 2025-09-29 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-09-29</p>]]></description></item></channel></rss>
