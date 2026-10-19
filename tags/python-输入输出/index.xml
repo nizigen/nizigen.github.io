@@ -1,1 +1,68 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-输入输出 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate/><atom:link href="https://nizigen.github.io/tags/python-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-输入输出 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Thu, 20 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/index.xml" rel="self" type="application/rss+xml"/><item><title>08. 输入输出</title><link>https://nizigen.github.io/post/08-input-output/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/08-input-output/</guid><description>
+<![CDATA[<h1>08. 输入输出</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="input">
+<a class="header-anchor" href="#input"></a>
+input()
+</h2><p><code>input()</code> 是 Python 的内置函数，用于从控制台读取用户输入的内容，并存放到一个变量里。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">变量</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;提示信息：&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
+<li>变量是一个字符串类型的变量，<code>input()</code> 把读取到的内容放入其中。</li>
+<li>提示信息会显示在控制台上，告诉用户应该输入什么；如果不写，就不会有任何提示。</li>
+<li><code>input()</code> 函数总是以字符串的形式处理用户输入的内容，所以用户输入的内容可以包含任何字符。要进行计算，记得先转型。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入用户名：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;用户名是：&#34;</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入年龄：&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;年龄是：&#34;</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">请输入用户名：张三
+</span></span><span class="line"><span class="cl">用户名是： 张三
+</span></span><span class="line"><span class="cl">请输入年龄：18
+</span></span><span class="line"><span class="cl">年龄是： 18
+</span></span></code></pre></div><p>输入的内容无法转换时会报错，例如在 <code>int(input(...))</code> 处输入 <code>abc</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ValueError: invalid literal for int() with base 10: &#39;abc&#39;
+</span></span></code></pre></div>
+  <blockquote class="alert-blockquote warning">
+    <p class="alert-heading">
+      Warning
+    </p>
+    <p><p><code>input(&quot;...&quot;)</code> 得到的永远是 <code>str</code>。<code>&quot;5&quot; + &quot;5&quot;</code> 是 <code>&quot;55&quot;</code> 而不是 10，所以做数值计算前要用 <code>int()</code> 或 <code>float()</code> 转换，见 <a href="/post/05-data-types/">类型转换</a>。异常的处理方法见 try-except。</p></p>
+  </blockquote>
+
+<p>age  =  int(input(&ldquo;请输入年龄：&rdquo;).split(&quot;,&quot;))
+这个时候也会报错因为split()返回的shi&rsquo;yi&rsquo;ge</p>
+<h2 id="print">
+<a class="header-anchor" href="#print"></a>
+print()
+</h2><p><code>print()</code> 把内容打印到控制台，完整形式是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
+<li><code>value</code>：可以接受任意多个变量或值，多个内容之间用逗号隔开。</li>
+<li><code>sep</code>：指定输出多个内容时的分隔符，默认是一个空格。</li>
+<li><code>end</code>：指定输出结束后追加的内容，默认是 <code>\n</code>（换行）。</li>
+<li><code>file</code>：指定输出目标，默认是 <code>sys.stdout</code>，即屏幕。</li>
+<li><code>flush</code>：是否立即刷新缓冲区，默认 <code>False</code>。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello world&#34;</span><span class="p">)</span>   <span class="c1"># 输出单个值</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = &#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="s2">&#34;，b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># 输出多个参数值，用逗号分隔</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定参数的分隔符和结尾符</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">,</span> <span class="s2">&#34;world&#34;</span><span class="p">,</span> <span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>   <span class="c1"># 单独的 print() 只输出一个换行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 用 % 格式化输出</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = </span><span class="si">%d</span><span class="s2">, b = </span><span class="si">%d</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">hello world
+</span></span><span class="line"><span class="cl">a =  1 ，b =  2
+</span></span><span class="line"><span class="cl">hello-world-python.
+</span></span><span class="line"><span class="cl">a = 1, b = 2
+</span></span></code></pre></div><h3 id="sep-与-end">
+<a class="header-anchor" href="#sep-%e4%b8%8e-end"></a>
+sep 与 end
+</h3><p><code>sep</code> 改变多个值之间的分隔符：</p>
+        
+        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item></channel></rss>

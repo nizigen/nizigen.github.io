@@ -1,1 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-规范 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate/><atom:link href="https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-规范 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/index.xml" rel="self" type="application/rss+xml"/><item><title>04. 编码规范</title><link>https://nizigen.github.io/post/04-coding-style/</link><pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/04-coding-style/</guid><description>
+<![CDATA[<h1>04. 编码规范</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>随着程序越来越长，有必要遵循一些代码格式约定，让所有人写出的代码结构大致一致。PEP 8（Python Enhancement Proposal）是最古老的 PEP 之一，向 Python 程序员提供了代码格式指南：https://python.org/dev/peps/pep-0008/</p>
+<h2 id="源文件编码">
+<a class="header-anchor" href="#%e6%ba%90%e6%96%87%e4%bb%b6%e7%bc%96%e7%a0%81"></a>
+源文件编码
+</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8，设置方法见 <a href="/post/02-environment-setup/">开发环境搭建</a>。</p>
+<h2 id="缩进">
+<a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
+缩进
+</h2><p>每级缩进使用 4 个空格，既提高可读性，又给多级缩进留下足够空间。不要混用制表符和空格，建议把编辑器设置为按 Tab 键时插入空格。缩进的语法规则和报错见 <a href="/post/03-syntax-basics/">缩进</a>。</p>
+<h2 id="导入">
+<a class="header-anchor" href="#%e5%af%bc%e5%85%a5"></a>
+导入
+</h2><p>每个 <code>import</code> 语句只导入一个模块，尽量避免一次导入多个模块。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 推荐</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 不推荐</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+</span></span></code></pre></div><h2 id="分号">
+<a class="header-anchor" href="#%e5%88%86%e5%8f%b7"></a>
+分号
+</h2><p>不要在行尾添加分号，也不要用分号把两条命令放在同一行。虽然语法上允许，但并不是所有情况都可以，所以不推荐：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>  <span class="c1"># 不要这样写</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;偶数&#34;</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;双数&#34;</span><span class="p">)</span>  <span class="c1"># 不要这样写</span>
+</span></span></code></pre></div><h2 id="行长">
+<a class="header-anchor" href="#%e8%a1%8c%e9%95%bf"></a>
+行长
+</h2><p>建议每行不超过 79 个字符，注释和文档字符串不超过 72 个字符。最初制定这一指南时，大多数终端窗口每行只能容纳 79 个字符；现在屏幕宽得多，但专业程序员常在一屏里并排打开两三个文件，标准行长可以让他们同时看到各个文件的完整行。有些工具自动生成文档时还会在每行注释开头添加格式化字符，这也是 72 的由来。</p>
+<p>这条指南并非不可逾越，有些团队把最大行长设为 99。在大多数编辑器中都可以设置一条竖线作为视觉标志。学习阶段不必过度在意，但协作开发时大家几乎都遵守 PEP 8。</p>
+<p>行太长时，建议用小括号把多行内容隐式连接起来，而不推荐用反斜杠 <code>\</code> 连接：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;C语言中文网是中国领先的C语言程序设计专业网站，&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="s2">&#34;提供C语言入门经典教程、C语言编译器、C语言函数手册等。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">C语言中文网是中国领先的C语言程序设计专业网站，提供C语言入门经典教程、C语言编译器、C语言函数手册等。
+</span></span></code></pre></div><p>此规范适用于绝大多数情况，但以下 2 种情况除外：</p>
+        
+        <hr><p>Published on 2025-03-28 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-28</p>]]></description><category>python</category></item></channel></rss>

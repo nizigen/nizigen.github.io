@@ -1,1 +1,75 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-运算符 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%BF%90%E7%AE%97%E7%AC%A6/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate/><atom:link href="https://nizigen.github.io/tags/python-%E8%BF%90%E7%AE%97%E7%AC%A6/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-运算符 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%BF%90%E7%AE%97%E7%AC%A6/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E8%BF%90%E7%AE%97%E7%AC%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>07. 运算符</title><link>https://nizigen.github.io/post/07-operators/</link><pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/07-operators/</guid><description>
+<![CDATA[<h1>07. 运算符</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="算术运算符">
+<a class="header-anchor" href="#%e7%ae%97%e6%9c%af%e8%bf%90%e7%ae%97%e7%ac%a6"></a>
+算术运算符
+</h2><p><img src="/python/attachments/Pasted%20image%2020250402195918.png" alt=""></p>
+<table>
+	<thead>
+			<tr>
+					<th>运算符</th>
+					<th>说明</th>
+					<th>实例</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>+</code></td>
+					<td>加，或取正（取正通常省略）,拼接</td>
+					<td><code>a + b</code>、<code>+a</code></td>
+			</tr>
+			<tr>
+					<td><code>-</code></td>
+					<td>减，或取负</td>
+					<td><code>a - b</code>、<code>-a</code></td>
+			</tr>
+			<tr>
+					<td><code>*</code></td>
+					<td>乘</td>
+					<td><code>a * b</code></td>
+			</tr>
+			<tr>
+					<td><code>/</code></td>
+					<td>除，结果总是 float</td>
+					<td><code>a / b</code></td>
+			</tr>
+			<tr>
+					<td><code>//</code></td>
+					<td>整除，除后向下取整</td>
+					<td><code>a // b</code></td>
+			</tr>
+			<tr>
+					<td><code>%</code></td>
+					<td>模，返回除法的余数</td>
+					<td><code>a % b</code></td>
+			</tr>
+			<tr>
+					<td><code>**</code></td>
+					<td>幂</td>
+					<td><code>a ** b</code></td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;+&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;-&#34;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>   <span class="c1"># 输出 30 次 -</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;的&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;次方结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>    <span class="c1"># 注意：结果为浮点类型</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;//&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;%&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">5 + 2 的结果为 7
+</span></span><span class="line"><span class="cl">5 - 2 的结果为 3
+</span></span><span class="line"><span class="cl">5 * 2 的结果为 10
+</span></span><span class="line"><span class="cl">------------------------------
+</span></span><span class="line"><span class="cl">5 的 2 次方结果为 25
+</span></span><span class="line"><span class="cl">5 / 2 的结果为 2.5
+</span></span><span class="line"><span class="cl">5 // 2 的结果为 2
+</span></span><span class="line"><span class="cl">5 % 2 的结果为 1
+</span></span></code></pre></div><p><code>+</code> 用于数字时表示加法，用于字符串时表示拼接；<code>*</code> 除了乘法，还可以重复字符串或序列，把 n 个同样的字符串连接起来：</p>
+        
+        <hr><p>Published on 2025-03-23 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-23</p>]]></description><category>python</category></item></channel></rss>

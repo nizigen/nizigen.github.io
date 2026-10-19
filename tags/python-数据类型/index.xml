@@ -1,1 +1,125 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-数据类型 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate/><atom:link href="https://nizigen.github.io/tags/python-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-数据类型 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Sun, 23 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.xml" rel="self" type="application/rss+xml"/><item><title>06. 布尔</title><link>https://nizigen.github.io/post/06-booleans/</link><pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/06-booleans/</guid><description>
+<![CDATA[<h1>06. 布尔</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>在编程中，经常需要知道一个表达式是 <code>True</code> 还是 <code>False</code>。Python 中任何表达式都可以求值，得到的结果要么是 <code>True</code>，要么是 <code>False</code>。</p>
+<h2 id="bool-是-int-的子类">
+<a class="header-anchor" href="#bool-%e6%98%af-int-%e7%9a%84%e5%ad%90%e7%b1%bb"></a>
+bool 是 int 的子类
+</h2><p>布尔类型（<code>bool</code>）是整型（<code>int</code>）的子类型：布尔值是整数的一个特例。</p>
+<ul>
+<li><code>True</code> 本质上相当于整数 1。</li>
+<li><code>False</code> 本质上相当于整数 0。</li>
+<li><code>isinstance(a, bool)</code> 和 <code>isinstance(a, int)</code> 对布尔值都返回 <code>True</code>。</li>
+</ul>
+<p>布尔值可以直接与整数、小数做数学运算，这是 Python 与 Java 等语言的重要区别。运算时 <code>True</code> 当作 1，<code>False</code> 当作 0。例如 <code>a = True</code>，<code>print(a + 1)</code> 输出 2。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span> <span class="ow">is</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">True
+</span></span><span class="line"><span class="cl">True
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">False
+</span></span><span class="line"><span class="cl">False
+</span></span><span class="line"><span class="cl">True True
+</span></span></code></pre></div><p><code>True == 1</code> 为 <code>True</code>，但 <code>True is 1</code> 为 <code>False</code>，因为它们是两个不同的对象，只是值相等。<code>==</code> 与 <code>is</code> 的区别见 <a href="/post/07-operators/">== 与 is</a>。</p>
+        
+        <hr><p>Published on 2025-03-23 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-23</p>]]></description><category>python</category></item><item><title>05. 数据类型与类型转换</title><link>https://nizigen.github.io/post/05-data-types/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/05-data-types/</guid><description>
+<![CDATA[<h1>05. 数据类型与类型转换</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="数据类型概述">
+<a class="header-anchor" href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e6%a6%82%e8%bf%b0"></a>
+数据类型概述
+</h2><p>Python 是动态类型语言，变量不用显式声明类型，但变量引用的每个值都有明确的数据类型（见 <a href="/post/03-syntax-basics/">变量</a>）。</p>
+<p>核心概念：一切皆对象。无论 <code>int</code>、<code>float</code>、<code>bool</code> 这样的基础类型，还是函数、类，在 Python 中都是对象。这与 Java 等语言不同，Python 是更彻底的面向对象语言。</p>
+<p>按来源可以分为三层：</p>
+<table>
+	<thead>
+			<tr>
+					<th>层次</th>
+					<th>说明</th>
+					<th>例子</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>内置类型</td>
+					<td>不需要 <code>import</code>，也无需用 pip 等工具单独下载，可以直接使用</td>
+					<td>原子类型：<code>int</code>、<code>float</code>、<code>bool</code>；容器类型：<code>list</code>、<code>dict</code>、<code>str</code></td>
+			</tr>
+			<tr>
+					<td>标准库中的类型</td>
+					<td>随 Python 安装，但需要 <code>import</code></td>
+					<td>定点小数 <code>decimal.Decimal</code>、<code>datetime.datetime</code></td>
+			</tr>
+			<tr>
+					<td>扩展 / 自定义类型</td>
+					<td>不属于 Python 核心。第三方库的类型要先 <code>pip install</code>；自定义类型用 <code>class</code> 定义</td>
+					<td><code>numpy</code>、<code>pandas</code> 的类型；自己写的 <code>Person</code> 类</td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/Pasted%20image%2020250320221108.png" alt=""></p>
+<p>内置数据类型按类别汇总如下，赋值时由解释器根据字面量自动确定类型：</p>
+<table>
+	<thead>
+			<tr>
+					<th>类别</th>
+					<th>类型</th>
+					<th>示例</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>文本类型</td>
+					<td><code>str</code></td>
+					<td><code>&quot;Hello World&quot;</code></td>
+			</tr>
+			<tr>
+					<td>数值类型</td>
+					<td><code>int</code>、<code>float</code>、<code>complex</code></td>
+					<td><code>29</code>、<code>29.5</code>、<code>1j</code></td>
+			</tr>
+			<tr>
+					<td>序列类型</td>
+					<td><code>list</code>、<code>tuple</code>、<code>range</code></td>
+					<td><code>[&quot;apple&quot;, &quot;banana&quot;]</code>、<code>(&quot;apple&quot;, &quot;banana&quot;)</code>、<code>range(6)</code></td>
+			</tr>
+			<tr>
+					<td>映射类型</td>
+					<td><code>dict</code></td>
+					<td><code>{&quot;name&quot;: &quot;Bill&quot;, &quot;age&quot;: 63}</code></td>
+			</tr>
+			<tr>
+					<td>集合类型</td>
+					<td><code>set</code>、<code>frozenset</code></td>
+					<td><code>{&quot;apple&quot;, &quot;banana&quot;}</code>、<code>frozenset({&quot;apple&quot;})</code></td>
+			</tr>
+			<tr>
+					<td>布尔类型</td>
+					<td><code>bool</code></td>
+					<td><code>True</code></td>
+			</tr>
+			<tr>
+					<td>二进制类型</td>
+					<td><code>bytes</code>、<code>bytearray</code>、<code>memoryview</code></td>
+					<td><code>b&quot;Hello&quot;</code>、<code>bytearray(5)</code>、<code>memoryview(bytes(5))</code></td>
+			</tr>
+			<tr>
+					<td>空值</td>
+					<td><code>NoneType</code></td>
+					<td><code>None</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/Pasted%20image%2020250321201323.png" alt=""></p>
+        
+        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item></channel></rss>

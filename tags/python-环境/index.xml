@@ -1,1 +1,58 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-环境 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E7%8E%AF%E5%A2%83/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate/><atom:link href="https://nizigen.github.io/tags/python-%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-环境 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E7%8E%AF%E5%A2%83/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml"/><item><title>02. 开发环境搭建</title><link>https://nizigen.github.io/post/02-environment-setup/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/02-environment-setup/</guid><description>
+<![CDATA[<h1>02. 开发环境搭建</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="安装-python">
+<a class="header-anchor" href="#%e5%ae%89%e8%a3%85-python"></a>
+安装 Python
+</h2><h3 id="下载">
+<a class="header-anchor" href="#%e4%b8%8b%e8%bd%bd"></a>
+下载
+</h3><p>官网：https://www.python.org/ ，在 Windows 下载页可以看到两类安装包。</p>
+<p><img src="/python/attachments/image-20251204172452763.png" alt=""></p>
+<table>
+	<thead>
+			<tr>
+					<th>类型</th>
+					<th>适合谁</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Installer（标准安装版）</td>
+					<td>想在自己电脑上写代码、装库、做项目的 Python 程序员，一般都选它</td>
+					<td>完整的标准库、解释器和 pip 等辅助工具，占用空间相对较大；下载 <code>.exe</code>，运行安装后在终端输入 <code>python</code> 或 <code>pip</code> 即可使用</td>
+			</tr>
+			<tr>
+					<td>Embeddable Package（可嵌入包）</td>
+					<td>想把 Python 运行时&quot;埋&quot;进自己的程序里一起发布的开发者，例如让游戏引擎支持 Python 脚本</td>
+					<td>只含最核心的解释器和必要组件，没有完整标准库，也没有 pip，通常只有几兆；应用内部调用 <code>embed/python.exe</code> 执行脚本</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="安装">
+<a class="header-anchor" href="#%e5%ae%89%e8%a3%85"></a>
+安装
+</h3><ol>
+<li>双击下载好的文件，开始安装，建议以管理员身份运行。</li>
+<li>选择自定义安装（Customize installation），并勾选 Add python.exe to PATH。</li>
+<li>可选功能保持默认，直接 Next。</li>
+<li>修改安装路径，其余保持默认，点击 Install。</li>
+<li>安装结束时点击 Disable path length limit（取消系统对路径长度的限制，避免路径过长出错），再点 Close。</li>
+</ol>
+<p><img src="/python/attachments/image-20251204173639126.png" alt=""></p>
+<p><img src="/python/attachments/image-20251204174050865.png" alt=""></p>
+
+  <blockquote class="alert-blockquote note">
+    <p class="alert-heading">
+      Note
+    </p>
+    <p><p>&ldquo;环境&quot;指程序运行的操作系统环境，&ldquo;变量&quot;是用一个标识符代表的一个值。<code>PATH</code> 环境变量告诉 Windows 去哪些路径下找可执行程序（例如 <code>python.exe</code>），勾选后才能在任意目录直接输入 <code>python</code>。</p></p>
+  </blockquote>
+
+<h3 id="验证">
+<a class="header-anchor" href="#%e9%aa%8c%e8%af%81"></a>
+验证
+</h3><p>按 Win + R，输入 <code>cmd</code> 进入命令提示符，执行：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item></channel></rss>

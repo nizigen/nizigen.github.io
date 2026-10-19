@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/categories/python/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/categories/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 基础目录</title><link>https://nizigen.github.io/post/python-basics-catalog/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/python-basics-catalog/</guid><description>
+<![CDATA[<h1>Python 基础目录</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>本目录按学习顺序编号，<code>01</code>~<code>37</code> 连续无插队号，从语言入门一路排到并发与综合项目。建议按下面的分组从头往下读，每组内部的顺序就是推荐顺序；需要查具体知识点时直接用 <code>Ctrl + O</code> 或搜索别名。</p>
+<h2 id="入门">
+<a class="header-anchor" href="#%e5%85%a5%e9%97%a8"></a>
+入门
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="/post/01-python-overview/">Python 概述</a></td>
+					<td>计算机组成、语言演进、Python 的起源与特点、版本史、几种解释器</td>
+			</tr>
+			<tr>
+					<td><a href="/post/02-environment-setup/">开发环境搭建</a></td>
+					<td>安装 Python、REPL 与脚本、PyCharm 基础设置、创建工程、虚拟环境</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="语法与类型">
+<a class="header-anchor" href="#%e8%af%ad%e6%b3%95%e4%b8%8e%e7%b1%bb%e5%9e%8b"></a>
+语法与类型
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><a href="/post/03-syntax-basics/">语法基础</a></td>
+					<td>注释、缩进、标识符命名、关键字、变量与常量</td>
+			</tr>
+			<tr>
+					<td><a href="/post/04-coding-style/">编码规范</a></td>
+					<td>PEP 8 从哪来、UTF-8 源文件、4 空格缩进、行长、空行、分号</td>
+			</tr>
+			<tr>
+					<td><a href="/post/05-data-types/">数据类型与类型转换</a></td>
+					<td>内置类型总览、type 与 isinstance、int、float 与 Decimal、complex、各种转换函数</td>
+			</tr>
+			<tr>
+					<td><a href="/post/06-booleans/">布尔</a></td>
+					<td>真值判断、假值列表、布尔运算</td>
+			</tr>
+			<tr>
+					<td><a href="/post/07-operators/">运算符</a></td>
+					<td>算术、赋值、比较、逻辑、成员、身份、位运算、优先级</td>
+			</tr>
+			<tr>
+					<td><a href="/post/08-input-output/">输入输出</a></td>
+					<td><code>input()</code>、<code>print()</code> 的参数与常见坑</td>
+			</tr>
+			<tr>
+					<td><a href="/post/09-control-flow/">流程控制</a></td>
+					<td>顺序、分支、<code>match-case</code>、循环、<code>break</code> / <code>continue</code> / <code>pass</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="字符串">
+<a class="header-anchor" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2"></a>
+字符串
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>字符串</td>
+					<td>字面量与转义字符、三引号、原始字符串、驻留、索引与切片</td>
+			</tr>
+			<tr>
+					<td>字符编码与 bytes</td>
+					<td>ASCII / Unicode / UTF-8 / GBK、<code>ord</code> 与 <code>chr</code>、<code>encode</code> 与 <code>decode</code>、<code>bytes</code></td>
+			</tr>
+			<tr>
+					<td>字符串格式化</td>
+					<td><code>%</code> 占位符、<code>str.format()</code>、f-string、填充对齐与精度控制</td>
+			</tr>
+			<tr>
+					<td>字符串方法</td>
+					<td>查找、替换、分割合并、大小写、判断类方法、<code>dir()</code> 与 <code>help()</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="容器">
+<a class="header-anchor" href="#%e5%ae%b9%e5%99%a8"></a>
+容器
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>容器类型概述</td>
+					<td>列表/元组/字典/集合的对比、可变与不可变、容器通用操作</td>
+			</tr>
+			<tr>
+					<td>序列</td>
+					<td>索引、切片、拼接、<code>in</code>、<code>enumerate</code> 与 <code>zip</code></td>
+			</tr>
+			<tr>
+					<td>列表</td>
+					<td>增删改查、排序反转、列表推导式、用列表实现栈和队列</td>
+			</tr>
+			<tr>
+					<td>元组</td>
+					<td>创建、解包、与列表的区别、内存对比、不可替代的场景</td>
+			</tr>
+			<tr>
+					<td>字典</td>
+					<td>创建、增删改查、遍历、推导式、<code>copy()</code>、合并运算符</td>
+			</tr>
+			<tr>
+					<td>集合</td>
+					<td>去重、交并差、子集判断、推导式、<code>frozenset</code></td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="函数与文件">
+<a class="header-anchor" href="#%e5%87%bd%e6%95%b0%e4%b8%8e%e6%96%87%e4%bb%b6"></a>
+函数与文件
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>函数</td>
+					<td>定义与返回值、参数种类、参数传递、递归、一等公民、<code>lambda</code>、文档字符串</td>
+			</tr>
+			<tr>
+					<td>文件操作</td>
+					<td>路径、<code>open()</code> 全参数、读写、<code>os</code> 与 <code>shutil</code>、目录操作、速查表</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="面向对象与异常">
+<a class="header-anchor" href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b8%8e%e5%bc%82%e5%b8%b8"></a>
+面向对象与异常
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>面向对象：类与对象</td>
+					<td>类与实例、<code>__init__</code> 与 <code>self</code>、类属性与实例属性、方法与魔法方法、<code>__slots__</code></td>
+			</tr>
+			<tr>
+					<td>面向对象：封装继承多态</td>
+					<td>私有与 <code>@property</code>、继承与 <code>super()</code>、MRO、多态与鸭子类型、抽象类</td>
+			</tr>
+			<tr>
+					<td>错误与异常</td>
+					<td>语法错误与异常、<code>try-except-else-finally</code>、<code>raise</code> 与 <code>assert</code>、<code>with</code>、自定义异常</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="模块与库">
+<a class="header-anchor" href="#%e6%a8%a1%e5%9d%97%e4%b8%8e%e5%ba%93"></a>
+模块与库
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>模块与包</td>
+					<td>模块的创建与导入、<code>__name__</code>、搜索路径、<code>__init__.py</code> 与包结构</td>
+			</tr>
+			<tr>
+					<td>标准库</td>
+					<td><code>datetime</code>、<code>string</code>、<code>random</code>、<code>math</code>、<code>collections</code> 等常用模块</td>
+			</tr>
+			<tr>
+					<td>第三方库与打包</td>
+					<td>pip 命令与换源、<code>venv</code>、setuptools 打包与安装</td>
+			</tr>
+			<tr>
+					<td>正则表达式</td>
+					<td>元字符、数量词、边界、分组与环视、<code>re</code> 模块函数、常用案例</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="高级语法">
+<a class="header-anchor" href="#%e9%ab%98%e7%ba%a7%e8%af%ad%e6%b3%95"></a>
+高级语法
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>作用域与闭包</td>
+					<td>命名空间、LEGB、<code>global</code> 与 <code>nonlocal</code>、闭包三条件</td>
+			</tr>
+			<tr>
+					<td>深拷贝与浅拷贝</td>
+					<td>赋值、浅拷贝的几种写法、<code>deepcopy</code>、不可变对象的拷贝行为</td>
+			</tr>
+			<tr>
+					<td>迭代器与生成器</td>
+					<td>迭代协议、自定义迭代器、<code>yield</code>、生成器表达式、<code>send()</code></td>
+			</tr>
+			<tr>
+					<td>装饰器</td>
+					<td>闭包式装饰器、<code>@</code> 语法、多层装饰、带参数的装饰器、装饰器类</td>
+			</tr>
+			<tr>
+					<td>类型注解与泛型</td>
+					<td>类型提示、<code>list[int]</code>、<code>TypeVar</code>、<code>Generic</code>、<code>Literal</code>、mypy</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="并发与项目">
+<a class="header-anchor" href="#%e5%b9%b6%e5%8f%91%e4%b8%8e%e9%a1%b9%e7%9b%ae"></a>
+并发与项目
+</h2><table>
+	<thead>
+			<tr>
+					<th>笔记</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>进程</td>
+					<td>并行与并发、同步与异步、<code>Process</code>、进程池、进程间通信</td>
+			</tr>
+			<tr>
+					<td>线程与协程</td>
+					<td>创建线程、线程安全与互斥锁、GIL、进程/线程/协程对比与选择</td>
+			</tr>
+			<tr>
+					<td>客户管理系统</td>
+					<td>综合案例：需求、类设计、完整代码与真实运行记录</td>
+			</tr>
+			<tr>
+					<td>附录：Python 新版本特性</td>
+					<td>3.14 的注解延迟求值、t-string、多解释器、free-threaded 等</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="学习路径建议">
+<a class="header-anchor" href="#%e5%ad%a6%e4%b9%a0%e8%b7%af%e5%be%84%e5%bb%ba%e8%ae%ae"></a>
+学习路径建议
+</h2><ul>
+<li><strong>第一次学</strong>：<code>01</code> → <code>37</code> 顺序读完即可，编号就是依赖顺序。语法部分（<code>03</code><del><code>09</code>）可以边读边在 REPL 里敲，容器与字符串部分（<code>10</code></del><code>19</code>）最好配着练习过一遍方法。</li>
+<li><strong>写代码时回查</strong>：<code>07</code>（运算符）、<code>12</code>（格式化）、<code>13</code>（字符串方法）、<code>16</code>（列表）、<code>18</code>（字典）用得最频繁。</li>
+<li><strong>卡在某个概念上</strong>：作用域问题看 <code>29</code>，可变/不可变和拷贝问题看 <code>30</code>，装饰器看不懂先补 <code>29</code> 的闭包再看 <code>32</code>。</li>
+<li><strong>只看新东西</strong>：直接读 <code>37</code>，其余笔记都已按 3.13 的语法写。</li>
+</ul>
+<h2 id="相关笔记">
+<a class="header-anchor" href="#%e7%9b%b8%e5%85%b3%e7%ac%94%e8%ae%b0"></a>
+相关笔记
+</h2><ul>
+<li><a href="/post/01-python-overview/">Python 概述</a></li>
+<li>进程</li>
+<li>附录：Python 新版本特性</li>
+</ul>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>09. 流程控制</title><link>https://nizigen.github.io/post/09-control-flow/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/09-control-flow/</guid><description>
+<![CDATA[<h1>09. 流程控制</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>程序的执行流程有三种基本结构：顺序结构、分支结构和循环结构。</p>
+<h2 id="顺序结构">
+<a class="header-anchor" href="#%e9%a1%ba%e5%ba%8f%e7%bb%93%e6%9e%84"></a>
+顺序结构
+</h2><p>按照程序正常的执行顺序，依次执行每条语句。</p>
+<p><img src="/python/attachments/image-20251212213451077.png" alt=""></p>
+<h2 id="分支结构">
+<a class="header-anchor" href="#%e5%88%86%e6%94%af%e7%bb%93%e6%9e%84"></a>
+分支结构
+</h2><h3 id="单分支">
+<a class="header-anchor" href="#%e5%8d%95%e5%88%86%e6%94%af"></a>
+单分支
+</h3><p><img src="/python/attachments/image-20251212222925929.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span> <span class="n">条件表达式</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块1</span>
+</span></span></code></pre></div><ul>
+<li>Python 把任何非 0 和非空的值当作 <code>true</code>，0 或 <code>None</code>、空容器当作 <code>false</code>，规则见 <a href="/post/06-booleans/">布尔</a> 中的真值测试。</li>
+<li><code>if</code> 条件表达式后面必须加冒号 <code>:</code>。</li>
+<li>条件成立执行语句块 1，否则不执行。语句块 1 必须缩进，可以有多行语句，用缩进区分同一范围，缩进取消后就不在分支范围内了，缩进规则见 <a href="/post/03-syntax-basics/">缩进</a>。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是偶数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是双数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是可以被2整除的数&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p><code>5</code> 是奇数，条件不成立，所以没有任何输出。</p>
+<h3 id="双分支">
+<a class="header-anchor" href="#%e5%8f%8c%e5%88%86%e6%94%af"></a>
+双分支
+</h3><p><img src="/python/attachments/image-20251212223559284.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span> <span class="n">条件表达式</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块1</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块2</span>
+</span></span></code></pre></div><ul>
+<li><code>if</code> 条件表达式和 <code>else</code> 后面都必须加冒号。</li>
+<li>条件成立执行语句块 1，否则执行语句块 2，两个语句块都必须缩进。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是偶数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是双数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是可以被2整除的数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是奇数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是单数&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2">是不可以被2整除的数&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">5是奇数
+</span></span><span class="line"><span class="cl">5是单数
+</span></span><span class="line"><span class="cl">5是不可以被2整除的数
+</span></span></code></pre></div><p>只需要二选一并返回一个值时，可以用条件表达式，见 <a href="/post/07-operators/">运算符</a> 中的条件表达式。</p>
+<h3 id="多分支">
+<a class="header-anchor" href="#%e5%a4%9a%e5%88%86%e6%94%af"></a>
+多分支
+</h3><p><img src="/python/attachments/image-20251212223757647.png" alt=""></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span> <span class="n">条件1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块1</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">条件2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块2</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">条件3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块3</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>    <span class="c1"># 可选</span>
+</span></span><span class="line"><span class="cl">    <span class="n">语句块n</span><span class="o">+</span><span class="mi">1</span>
+</span></span></code></pre></div><ul>
+<li><code>if</code>、<code>elif</code>、<code>else</code> 后面别忘了加冒号。</li>
+<li>条件从上往下依次判断，上面的条件成立了，下面的条件就不再判断。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 定义年龄并打印，:= 是海象运算符，先赋值再把值传给 print</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;此人年龄为&#34;</span><span class="p">,</span> <span class="n">age</span> <span class="o">:=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这是个婴儿&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>      <span class="c1"># 2 &lt;= 年龄 &lt; 4</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这是个幼儿&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">13</span><span class="p">:</span>     <span class="c1"># 4 &lt;= 年龄 &lt; 13</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这是个儿童&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>     <span class="c1"># 13 &lt;= 年龄 &lt; 20</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这是个青少年&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">elif</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">65</span><span class="p">:</span>     <span class="c1"># 20 &lt;= 年龄 &lt; 65</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这是个成年人&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>              <span class="c1"># 65 &lt;= 年龄</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;这是个老人&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">此人年龄为 30
+</span></span><span class="line"><span class="cl">这是个成年人
+</span></span></code></pre></div><p>输出的年龄是随机的。海象运算符见 <a href="/post/07-operators/">运算符</a>，随机数见 random。</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>02. 开发环境搭建</title><link>https://nizigen.github.io/post/02-environment-setup/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/02-environment-setup/</guid><description>
+<![CDATA[<h1>02. 开发环境搭建</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="安装-python">
+<a class="header-anchor" href="#%e5%ae%89%e8%a3%85-python"></a>
+安装 Python
+</h2><h3 id="下载">
+<a class="header-anchor" href="#%e4%b8%8b%e8%bd%bd"></a>
+下载
+</h3><p>官网：https://www.python.org/ ，在 Windows 下载页可以看到两类安装包。</p>
+<p><img src="/python/attachments/image-20251204172452763.png" alt=""></p>
+<table>
+	<thead>
+			<tr>
+					<th>类型</th>
+					<th>适合谁</th>
+					<th>内容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Installer（标准安装版）</td>
+					<td>想在自己电脑上写代码、装库、做项目的 Python 程序员，一般都选它</td>
+					<td>完整的标准库、解释器和 pip 等辅助工具，占用空间相对较大；下载 <code>.exe</code>，运行安装后在终端输入 <code>python</code> 或 <code>pip</code> 即可使用</td>
+			</tr>
+			<tr>
+					<td>Embeddable Package（可嵌入包）</td>
+					<td>想把 Python 运行时&quot;埋&quot;进自己的程序里一起发布的开发者，例如让游戏引擎支持 Python 脚本</td>
+					<td>只含最核心的解释器和必要组件，没有完整标准库，也没有 pip，通常只有几兆；应用内部调用 <code>embed/python.exe</code> 执行脚本</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="安装">
+<a class="header-anchor" href="#%e5%ae%89%e8%a3%85"></a>
+安装
+</h3><ol>
+<li>双击下载好的文件，开始安装，建议以管理员身份运行。</li>
+<li>选择自定义安装（Customize installation），并勾选 Add python.exe to PATH。</li>
+<li>可选功能保持默认，直接 Next。</li>
+<li>修改安装路径，其余保持默认，点击 Install。</li>
+<li>安装结束时点击 Disable path length limit（取消系统对路径长度的限制，避免路径过长出错），再点 Close。</li>
+</ol>
+<p><img src="/python/attachments/image-20251204173639126.png" alt=""></p>
+<p><img src="/python/attachments/image-20251204174050865.png" alt=""></p>
+
+  <blockquote class="alert-blockquote note">
+    <p class="alert-heading">
+      Note
+    </p>
+    <p><p>&ldquo;环境&quot;指程序运行的操作系统环境，&ldquo;变量&quot;是用一个标识符代表的一个值。<code>PATH</code> 环境变量告诉 Windows 去哪些路径下找可执行程序（例如 <code>python.exe</code>），勾选后才能在任意目录直接输入 <code>python</code>。</p></p>
+  </blockquote>
+
+<h3 id="验证">
+<a class="header-anchor" href="#%e9%aa%8c%e8%af%81"></a>
+验证
+</h3><p>按 Win + R，输入 <code>cmd</code> 进入命令提示符，执行：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>01. Python概述</title><link>https://nizigen.github.io/post/01-python-overview/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/01-python-overview/</guid><description>
+<![CDATA[<h1>01. Python概述</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="计算机先驱">
+<a class="header-anchor" href="#%e8%ae%a1%e7%ae%97%e6%9c%ba%e5%85%88%e9%a9%b1"></a>
+计算机先驱
+</h2><ul>
+<li>艾伦·图灵（Alan Turing）：提出&quot;图灵机&quot;这一抽象计算模型，为计算机科学奠定理论基础；1950 年提出&quot;图灵测试&quot;，ACM 以他的名字设立了计算机界最高奖&quot;图灵奖&quot;。</li>
+<li>约翰·冯·诺依曼（John von Neumann）：1945 年提出存储程序原理，确立了计算机由运算器、控制器、存储器、输入设备、输出设备五部分组成，并以二进制作为数制基础。</li>
+</ul>
+<h2 id="计算机组成">
+<a class="header-anchor" href="#%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%bb%84%e6%88%90"></a>
+计算机组成
+</h2><h3 id="软件">
+<a class="header-anchor" href="#%e8%bd%af%e4%bb%b6"></a>
+软件
+</h3><table>
+	<thead>
+			<tr>
+					<th>类型</th>
+					<th>作用</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>系统软件</td>
+					<td>直接管理和控制硬件，为应用软件提供运行平台，负责协调内存、处理器等资源并提供文件管理、设备控制、任务调度等通用服务</td>
+			</tr>
+			<tr>
+					<td>应用软件</td>
+					<td>为完成特定任务而编写，满足用户的具体需求，如文档编辑、数据分析、娱乐；依赖系统软件提供的资源和服务</td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/image-20251204144910447.png" alt=""></p>
+<h3 id="硬件">
+<a class="header-anchor" href="#%e7%a1%ac%e4%bb%b6"></a>
+硬件
+</h3><p>计算机硬件由五部分组成：运算器、控制器、存储器、输入设备、输出设备。</p>
+<p><img src="/python/attachments/image-20251204144529594.png" alt=""></p>
+<h2 id="计算机语言">
+<a class="header-anchor" href="#%e8%ae%a1%e7%ae%97%e6%9c%ba%e8%af%ad%e8%a8%80"></a>
+计算机语言
+</h2><p>计算机语言是人与计算机交流的工具，用它写出来的文字叫代码，一组完成特定任务的代码叫程序。</p>
+<p><img src="/python/attachments/image-20251204145342959.png" alt=""></p>
+<h3 id="计算机语言简史">
+<a class="header-anchor" href="#%e8%ae%a1%e7%ae%97%e6%9c%ba%e8%af%ad%e8%a8%80%e7%ae%80%e5%8f%b2"></a>
+计算机语言简史
+</h3><table>
+	<thead>
+			<tr>
+					<th>世代</th>
+					<th>语言</th>
+					<th>特点</th>
+					<th>优点</th>
+					<th>缺点</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>第 1 代</td>
+					<td>机器语言</td>
+					<td>由 0 和 1 组成的二进制指令，又称机器码</td>
+					<td>机器可直接执行，速度最快</td>
+					<td>人极难读写和维护；完全依赖硬件，无法移植</td>
+			</tr>
+			<tr>
+					<td>第 2 代</td>
+					<td>汇编语言</td>
+					<td>用 <code>MOV</code>、<code>ADD</code> 等助记符代替二进制指令，是机器语言的&quot;人性化翻译&quot;</td>
+					<td>比机器语言易读写，执行效率高</td>
+					<td>仍依赖特定 CPU 指令集；编程效率低，代码量大</td>
+			</tr>
+			<tr>
+					<td>第 3 代</td>
+					<td>高级语言</td>
+					<td>接近自然语言，屏蔽大部分底层细节，如 C、C++、Java、Go、Rust、JavaScript、Python</td>
+					<td>易学易用，代码简洁，硬件无关，库和工具丰富</td>
+					<td>需要编译或解释，效率较低；对硬件的控制力弱</td>
+			</tr>
+	</tbody>
+</table>
+<p>早期的机器语言需要拨动开关、插拔连线或使用打孔纸带来输入指令：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>04. 编码规范</title><link>https://nizigen.github.io/post/04-coding-style/</link><pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/04-coding-style/</guid><description>
+<![CDATA[<h1>04. 编码规范</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>随着程序越来越长，有必要遵循一些代码格式约定，让所有人写出的代码结构大致一致。PEP 8（Python Enhancement Proposal）是最古老的 PEP 之一，向 Python 程序员提供了代码格式指南：https://python.org/dev/peps/pep-0008/</p>
+<h2 id="源文件编码">
+<a class="header-anchor" href="#%e6%ba%90%e6%96%87%e4%bb%b6%e7%bc%96%e7%a0%81"></a>
+源文件编码
+</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8，设置方法见 <a href="/post/02-environment-setup/">开发环境搭建</a>。</p>
+<h2 id="缩进">
+<a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
+缩进
+</h2><p>每级缩进使用 4 个空格，既提高可读性，又给多级缩进留下足够空间。不要混用制表符和空格，建议把编辑器设置为按 Tab 键时插入空格。缩进的语法规则和报错见 <a href="/post/03-syntax-basics/">缩进</a>。</p>
+<h2 id="导入">
+<a class="header-anchor" href="#%e5%af%bc%e5%85%a5"></a>
+导入
+</h2><p>每个 <code>import</code> 语句只导入一个模块，尽量避免一次导入多个模块。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 推荐</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 不推荐</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+</span></span></code></pre></div><h2 id="分号">
+<a class="header-anchor" href="#%e5%88%86%e5%8f%b7"></a>
+分号
+</h2><p>不要在行尾添加分号，也不要用分号把两条命令放在同一行。虽然语法上允许，但并不是所有情况都可以，所以不推荐：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>  <span class="c1"># 不要这样写</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;偶数&#34;</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;双数&#34;</span><span class="p">)</span>  <span class="c1"># 不要这样写</span>
+</span></span></code></pre></div><h2 id="行长">
+<a class="header-anchor" href="#%e8%a1%8c%e9%95%bf"></a>
+行长
+</h2><p>建议每行不超过 79 个字符，注释和文档字符串不超过 72 个字符。最初制定这一指南时，大多数终端窗口每行只能容纳 79 个字符；现在屏幕宽得多，但专业程序员常在一屏里并排打开两三个文件，标准行长可以让他们同时看到各个文件的完整行。有些工具自动生成文档时还会在每行注释开头添加格式化字符，这也是 72 的由来。</p>
+<p>这条指南并非不可逾越，有些团队把最大行长设为 99。在大多数编辑器中都可以设置一条竖线作为视觉标志。学习阶段不必过度在意，但协作开发时大家几乎都遵守 PEP 8。</p>
+<p>行太长时，建议用小括号把多行内容隐式连接起来，而不推荐用反斜杠 <code>\</code> 连接：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;C语言中文网是中国领先的C语言程序设计专业网站，&#34;</span>
+</span></span><span class="line"><span class="cl">     <span class="s2">&#34;提供C语言入门经典教程、C语言编译器、C语言函数手册等。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">C语言中文网是中国领先的C语言程序设计专业网站，提供C语言入门经典教程、C语言编译器、C语言函数手册等。
+</span></span></code></pre></div><p>此规范适用于绝大多数情况，但以下 2 种情况除外：</p>
+        
+        <hr><p>Published on 2025-03-28 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-28</p>]]></description><category>python</category></item><item><title>07. 运算符</title><link>https://nizigen.github.io/post/07-operators/</link><pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/07-operators/</guid><description>
+<![CDATA[<h1>07. 运算符</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="算术运算符">
+<a class="header-anchor" href="#%e7%ae%97%e6%9c%af%e8%bf%90%e7%ae%97%e7%ac%a6"></a>
+算术运算符
+</h2><p><img src="/python/attachments/Pasted%20image%2020250402195918.png" alt=""></p>
+<table>
+	<thead>
+			<tr>
+					<th>运算符</th>
+					<th>说明</th>
+					<th>实例</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>+</code></td>
+					<td>加，或取正（取正通常省略）,拼接</td>
+					<td><code>a + b</code>、<code>+a</code></td>
+			</tr>
+			<tr>
+					<td><code>-</code></td>
+					<td>减，或取负</td>
+					<td><code>a - b</code>、<code>-a</code></td>
+			</tr>
+			<tr>
+					<td><code>*</code></td>
+					<td>乘</td>
+					<td><code>a * b</code></td>
+			</tr>
+			<tr>
+					<td><code>/</code></td>
+					<td>除，结果总是 float</td>
+					<td><code>a / b</code></td>
+			</tr>
+			<tr>
+					<td><code>//</code></td>
+					<td>整除，除后向下取整</td>
+					<td><code>a // b</code></td>
+			</tr>
+			<tr>
+					<td><code>%</code></td>
+					<td>模，返回除法的余数</td>
+					<td><code>a % b</code></td>
+			</tr>
+			<tr>
+					<td><code>**</code></td>
+					<td>幂</td>
+					<td><code>a ** b</code></td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;+&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;-&#34;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>   <span class="c1"># 输出 30 次 -</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;的&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;次方结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>    <span class="c1"># 注意：结果为浮点类型</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;//&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;%&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">5 + 2 的结果为 7
+</span></span><span class="line"><span class="cl">5 - 2 的结果为 3
+</span></span><span class="line"><span class="cl">5 * 2 的结果为 10
+</span></span><span class="line"><span class="cl">------------------------------
+</span></span><span class="line"><span class="cl">5 的 2 次方结果为 25
+</span></span><span class="line"><span class="cl">5 / 2 的结果为 2.5
+</span></span><span class="line"><span class="cl">5 // 2 的结果为 2
+</span></span><span class="line"><span class="cl">5 % 2 的结果为 1
+</span></span></code></pre></div><p><code>+</code> 用于数字时表示加法，用于字符串时表示拼接；<code>*</code> 除了乘法，还可以重复字符串或序列，把 n 个同样的字符串连接起来：</p>
+        
+        <hr><p>Published on 2025-03-23 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-23</p>]]></description><category>python</category></item><item><title>06. 布尔</title><link>https://nizigen.github.io/post/06-booleans/</link><pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/06-booleans/</guid><description>
+<![CDATA[<h1>06. 布尔</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>在编程中，经常需要知道一个表达式是 <code>True</code> 还是 <code>False</code>。Python 中任何表达式都可以求值，得到的结果要么是 <code>True</code>，要么是 <code>False</code>。</p>
+<h2 id="bool-是-int-的子类">
+<a class="header-anchor" href="#bool-%e6%98%af-int-%e7%9a%84%e5%ad%90%e7%b1%bb"></a>
+bool 是 int 的子类
+</h2><p>布尔类型（<code>bool</code>）是整型（<code>int</code>）的子类型：布尔值是整数的一个特例。</p>
+<ul>
+<li><code>True</code> 本质上相当于整数 1。</li>
+<li><code>False</code> 本质上相当于整数 0。</li>
+<li><code>isinstance(a, bool)</code> 和 <code>isinstance(a, int)</code> 对布尔值都返回 <code>True</code>。</li>
+</ul>
+<p>布尔值可以直接与整数、小数做数学运算，这是 Python 与 Java 等语言的重要区别。运算时 <code>True</code> 当作 1，<code>False</code> 当作 0。例如 <code>a = True</code>，<code>print(a + 1)</code> 输出 2。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span> <span class="ow">is</span> <span class="n">d</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">True
+</span></span><span class="line"><span class="cl">True
+</span></span><span class="line"><span class="cl">2
+</span></span><span class="line"><span class="cl">False
+</span></span><span class="line"><span class="cl">False
+</span></span><span class="line"><span class="cl">True True
+</span></span></code></pre></div><p><code>True == 1</code> 为 <code>True</code>，但 <code>True is 1</code> 为 <code>False</code>，因为它们是两个不同的对象，只是值相等。<code>==</code> 与 <code>is</code> 的区别见 <a href="/post/07-operators/">== 与 is</a>。</p>
+        
+        <hr><p>Published on 2025-03-23 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-23</p>]]></description><category>python</category></item><item><title>08. 输入输出</title><link>https://nizigen.github.io/post/08-input-output/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/08-input-output/</guid><description>
+<![CDATA[<h1>08. 输入输出</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="input">
+<a class="header-anchor" href="#input"></a>
+input()
+</h2><p><code>input()</code> 是 Python 的内置函数，用于从控制台读取用户输入的内容，并存放到一个变量里。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">变量</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;提示信息：&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
+<li>变量是一个字符串类型的变量，<code>input()</code> 把读取到的内容放入其中。</li>
+<li>提示信息会显示在控制台上，告诉用户应该输入什么；如果不写，就不会有任何提示。</li>
+<li><code>input()</code> 函数总是以字符串的形式处理用户输入的内容，所以用户输入的内容可以包含任何字符。要进行计算，记得先转型。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入用户名：&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;用户名是：&#34;</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入年龄：&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;年龄是：&#34;</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">请输入用户名：张三
+</span></span><span class="line"><span class="cl">用户名是： 张三
+</span></span><span class="line"><span class="cl">请输入年龄：18
+</span></span><span class="line"><span class="cl">年龄是： 18
+</span></span></code></pre></div><p>输入的内容无法转换时会报错，例如在 <code>int(input(...))</code> 处输入 <code>abc</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ValueError: invalid literal for int() with base 10: &#39;abc&#39;
+</span></span></code></pre></div>
+  <blockquote class="alert-blockquote warning">
+    <p class="alert-heading">
+      Warning
+    </p>
+    <p><p><code>input(&quot;...&quot;)</code> 得到的永远是 <code>str</code>。<code>&quot;5&quot; + &quot;5&quot;</code> 是 <code>&quot;55&quot;</code> 而不是 10，所以做数值计算前要用 <code>int()</code> 或 <code>float()</code> 转换，见 <a href="/post/05-data-types/">类型转换</a>。异常的处理方法见 try-except。</p></p>
+  </blockquote>
+
+<p>age  =  int(input(&ldquo;请输入年龄：&rdquo;).split(&quot;,&quot;))
+这个时候也会报错因为split()返回的shi&rsquo;yi&rsquo;ge</p>
+<h2 id="print">
+<a class="header-anchor" href="#print"></a>
+print()
+</h2><p><code>print()</code> 把内容打印到控制台，完整形式是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
+<li><code>value</code>：可以接受任意多个变量或值，多个内容之间用逗号隔开。</li>
+<li><code>sep</code>：指定输出多个内容时的分隔符，默认是一个空格。</li>
+<li><code>end</code>：指定输出结束后追加的内容，默认是 <code>\n</code>（换行）。</li>
+<li><code>file</code>：指定输出目标，默认是 <code>sys.stdout</code>，即屏幕。</li>
+<li><code>flush</code>：是否立即刷新缓冲区，默认 <code>False</code>。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello world&#34;</span><span class="p">)</span>   <span class="c1"># 输出单个值</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = &#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="s2">&#34;，b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># 输出多个参数值，用逗号分隔</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 指定参数的分隔符和结尾符</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">,</span> <span class="s2">&#34;world&#34;</span><span class="p">,</span> <span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>   <span class="c1"># 单独的 print() 只输出一个换行</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 用 % 格式化输出</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = </span><span class="si">%d</span><span class="s2">, b = </span><span class="si">%d</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">hello world
+</span></span><span class="line"><span class="cl">a =  1 ，b =  2
+</span></span><span class="line"><span class="cl">hello-world-python.
+</span></span><span class="line"><span class="cl">a = 1, b = 2
+</span></span></code></pre></div><h3 id="sep-与-end">
+<a class="header-anchor" href="#sep-%e4%b8%8e-end"></a>
+sep 与 end
+</h3><p><code>sep</code> 改变多个值之间的分隔符：</p>
+        
+        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item><item><title>05. 数据类型与类型转换</title><link>https://nizigen.github.io/post/05-data-types/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/05-data-types/</guid><description>
+<![CDATA[<h1>05. 数据类型与类型转换</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="数据类型概述">
+<a class="header-anchor" href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e6%a6%82%e8%bf%b0"></a>
+数据类型概述
+</h2><p>Python 是动态类型语言，变量不用显式声明类型，但变量引用的每个值都有明确的数据类型（见 <a href="/post/03-syntax-basics/">变量</a>）。</p>
+<p>核心概念：一切皆对象。无论 <code>int</code>、<code>float</code>、<code>bool</code> 这样的基础类型，还是函数、类，在 Python 中都是对象。这与 Java 等语言不同，Python 是更彻底的面向对象语言。</p>
+<p>按来源可以分为三层：</p>
+<table>
+	<thead>
+			<tr>
+					<th>层次</th>
+					<th>说明</th>
+					<th>例子</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>内置类型</td>
+					<td>不需要 <code>import</code>，也无需用 pip 等工具单独下载，可以直接使用</td>
+					<td>原子类型：<code>int</code>、<code>float</code>、<code>bool</code>；容器类型：<code>list</code>、<code>dict</code>、<code>str</code></td>
+			</tr>
+			<tr>
+					<td>标准库中的类型</td>
+					<td>随 Python 安装，但需要 <code>import</code></td>
+					<td>定点小数 <code>decimal.Decimal</code>、<code>datetime.datetime</code></td>
+			</tr>
+			<tr>
+					<td>扩展 / 自定义类型</td>
+					<td>不属于 Python 核心。第三方库的类型要先 <code>pip install</code>；自定义类型用 <code>class</code> 定义</td>
+					<td><code>numpy</code>、<code>pandas</code> 的类型；自己写的 <code>Person</code> 类</td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/Pasted%20image%2020250320221108.png" alt=""></p>
+<p>内置数据类型按类别汇总如下，赋值时由解释器根据字面量自动确定类型：</p>
+<table>
+	<thead>
+			<tr>
+					<th>类别</th>
+					<th>类型</th>
+					<th>示例</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>文本类型</td>
+					<td><code>str</code></td>
+					<td><code>&quot;Hello World&quot;</code></td>
+			</tr>
+			<tr>
+					<td>数值类型</td>
+					<td><code>int</code>、<code>float</code>、<code>complex</code></td>
+					<td><code>29</code>、<code>29.5</code>、<code>1j</code></td>
+			</tr>
+			<tr>
+					<td>序列类型</td>
+					<td><code>list</code>、<code>tuple</code>、<code>range</code></td>
+					<td><code>[&quot;apple&quot;, &quot;banana&quot;]</code>、<code>(&quot;apple&quot;, &quot;banana&quot;)</code>、<code>range(6)</code></td>
+			</tr>
+			<tr>
+					<td>映射类型</td>
+					<td><code>dict</code></td>
+					<td><code>{&quot;name&quot;: &quot;Bill&quot;, &quot;age&quot;: 63}</code></td>
+			</tr>
+			<tr>
+					<td>集合类型</td>
+					<td><code>set</code>、<code>frozenset</code></td>
+					<td><code>{&quot;apple&quot;, &quot;banana&quot;}</code>、<code>frozenset({&quot;apple&quot;})</code></td>
+			</tr>
+			<tr>
+					<td>布尔类型</td>
+					<td><code>bool</code></td>
+					<td><code>True</code></td>
+			</tr>
+			<tr>
+					<td>二进制类型</td>
+					<td><code>bytes</code>、<code>bytearray</code>、<code>memoryview</code></td>
+					<td><code>b&quot;Hello&quot;</code>、<code>bytearray(5)</code>、<code>memoryview(bytes(5))</code></td>
+			</tr>
+			<tr>
+					<td>空值</td>
+					<td><code>NoneType</code></td>
+					<td><code>None</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/Pasted%20image%2020250321201323.png" alt=""></p>
+        
+        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item><item><title>03. 语法基础</title><link>https://nizigen.github.io/post/03-syntax-basics/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/03-syntax-basics/</guid><description>
+<![CDATA[<h1>03. 语法基础</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="注释">
+<a class="header-anchor" href="#%e6%b3%a8%e9%87%8a"></a>
+注释
+</h2><p>注释是对代码的解释说明，用来提高可读性、临时屏蔽暂时不需要的代码，也有助于定位程序中出错的位置。</p>
+<h3 id="单行注释">
+<a class="header-anchor" href="#%e5%8d%95%e8%a1%8c%e6%b3%a8%e9%87%8a"></a>
+单行注释
+</h3><p>单行注释以 <code>#</code> 开头，可以单独一行，也可以写在代码行尾。建议 <code>#</code> 之后留 1 个空格，行尾注释与代码之间留 2 个空格。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 这是一个单行注释</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">)</span>  <span class="c1"># 这是一个输出语句</span>
+</span></span></code></pre></div><h3 id="多行注释">
+<a class="header-anchor" href="#%e5%a4%9a%e8%a1%8c%e6%b3%a8%e9%87%8a"></a>
+多行注释
+</h3><p>Python 会忽略没有赋给变量的字符串字面量，所以三个单引号或三个双引号括起来的文本块可以当作多行注释使用。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Python 中 3 个单引号、3 个双引号引起来的文本块可以被看成多行注释。
+</span></span></span><span class="line"><span class="cl"><span class="s2">    建议每个 .py 文件顶部的文档注释使用 3 个双引号。
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 赋给变量就不再是注释，而是一个普通的多行字符串</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    尚硅谷
+</span></span></span><span class="line"><span class="cl"><span class="s2">        让天下有学不完的技术
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+</span></span></code></pre></div><p><img src="/python/attachments/image-20251205204053679.png" alt=""></p>
+<ul>
+<li>单行注释可以嵌套在多行注释中，不会引起语法错误。</li>
+<li>同种引号的多行注释不能嵌套：第一个三引号之后的内容直到下一个三引号都被当作字符串，中间多出来的三引号会让后面的部分出错。运行结果：<code>SyntaxError: unterminated triple-quoted string literal</code>。</li>
+<li>不同种引号可以互相嵌套，例如在 <code>&quot;&quot;&quot;</code> 块内写 <code>'''内层'''</code> 不会报错。</li>
+</ul>
+<h3 id="文档注释">
+<a class="header-anchor" href="#%e6%96%87%e6%a1%a3%e6%b3%a8%e9%87%8a"></a>
+文档注释
+</h3><p>文档注释位于 <code>.py</code> 文件开头，用三个双引号开头和结尾，有固定的格式（如作者、时间、描述），用来说明当前源文件。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    @Author:Irene
+</span></span></span><span class="line"><span class="cl"><span class="s2">    @Time:2026/1/28
+</span></span></span><span class="line"><span class="cl"><span class="s2">    @Desc:这是文档注释，即当前源文件中的代码说明
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span></code></pre></div><h2 id="缩进">
+<a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
+缩进
+</h2><p><mark style="background: #FFB86CA6;">Python 采用代码缩进和冒号（ : ）来区分代码块之间的层次。</mark></p>
+        
+        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item></channel></rss>
