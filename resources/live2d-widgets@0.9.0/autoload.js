@@ -37,10 +37,10 @@ window.Image.prototype = OriginalImage.prototype;
 (async () => {
   // 备用CDN列表，如果主CDN无法访问会自动尝试备用CDN
   const cdnList = [
-    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v1.7/",
-    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v1.7/",
+    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v1.8/",
+    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v1.8/",
     "https://raw.githubusercontent.com/nizigen/live2d_api/v1.4/",
-    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v1.7/"
+    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v1.8/"
   ];
 
   let currentCdnIndex = 0;
