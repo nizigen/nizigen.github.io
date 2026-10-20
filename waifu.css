@@ -46,31 +46,30 @@
 }
 
 #waifu-tips {
+  /* osu! 风格：深色玻璃卡片 hsl(333,10%,15%) + 10px 圆角 + 细边框 */
   animation: shake 50s ease-in-out 5s infinite;
-  background-color: rgba(173, 216, 250, 0.1); /* 淡蓝色半透明背景 */
-  border: 1px solid rgba(135, 206, 235, 0.3); /* 淡蓝色边框 */
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(135, 206, 235, 0.4); /* 淡蓝色阴影 */
-  color: #ffffff; /* 白色文字，更清晰 */
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* 文字阴影，更清晰 */
-  font-size: 14px;
-  line-height: 24px;
-  margin: -70px 20px 0;
-  /* 调整位置到模型上方 */
-  min-height: 70px;
+  background: hsla(333, 10%, 15%, 0.88);
+  border: 1px solid hsla(333, 10%, 34%, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 hsla(333, 10%, 100%, 0.07);
+  color: hsl(333, 40%, 96%);
+  text-shadow: none;
+  font-size: 13px;
+  line-height: 1.55;
+  margin: -74px 20px 0;
+  min-height: 62px;
   opacity: 0;
   overflow: hidden;
-  padding: 5px 10px;
+  padding: 9px 12px;
   position: absolute;
   text-overflow: ellipsis;
   transition: opacity 1s;
   width: 250px;
   word-break: break-all;
   top: 0;
-  /* 确保在顶部 */
   left: 20px;
-  /* 与模型对齐 */
-  backdrop-filter: blur(10px); /* 毛玻璃效果 */
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(140%);
 }
 
 #waifu-tips.waifu-tips-active {
@@ -79,7 +78,8 @@
 }
 
 #waifu-tips span {
-  color: #87ceeb; /* 亮蓝色强调文字 */
+  color: #ff66aa; /* osu! pink */
+  font-weight: 600;
 }
 
 #live2d {
