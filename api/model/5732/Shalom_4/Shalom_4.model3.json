@@ -8,79 +8,79 @@
     "Motions": {
       "Idle": [
         {
-          "File": "motions/Idle.motion3.json",
+          "File": "motions/Idle.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Boring.motion3.json",
+          "File": "motions/Boring.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Greet.motion3.json",
+          "File": "motions/Greet.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Click_Head.motion3.json",
+          "File": "motions/Click_Head.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Click_Body1.motion3.json",
+          "File": "motions/Click_Body1.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Click_Body2.motion3.json",
+          "File": "motions/Click_Body2.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Click_HandLeft.motion3.json",
+          "File": "motions/Click_HandLeft.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         },
         {
-          "File": "motions/Click_HandRight.motion3.json",
+          "File": "motions/Click_HandRight.motion3.json?v=2",
           "FadeInTime": 0.4,
           "FadeOutTime": 0.4
         }
       ],
       "TapBody": [
         {
-          "File": "motions/Boring.motion3.json",
+          "File": "motions/Boring.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         },
         {
-          "File": "motions/Click_Body1.motion3.json",
+          "File": "motions/Click_Body1.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         },
         {
-          "File": "motions/Click_Body2.motion3.json",
+          "File": "motions/Click_Body2.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         },
         {
-          "File": "motions/Click_HandLeft.motion3.json",
+          "File": "motions/Click_HandLeft.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         },
         {
-          "File": "motions/Click_HandRight.motion3.json",
+          "File": "motions/Click_HandRight.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         },
         {
-          "File": "motions/Click_Head.motion3.json",
+          "File": "motions/Click_Head.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         },
         {
-          "File": "motions/Greet.motion3.json",
+          "File": "motions/Greet.motion3.json?v=2",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         }
