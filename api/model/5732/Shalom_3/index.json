@@ -3,7 +3,7 @@
   "FileReferences": {
     "Moc": "Shalom_3.moc3",
     "Textures": [
-      "textures/texture_00_2048.png"
+      "textures/texture_00_2048.webp"
     ],
     "Motions": {
       "Idle": [
@@ -76,27 +76,6 @@
         },
         {
           "File": "motions/Greet.motion3.json",
-          "FadeInTime": 0.25,
-          "FadeOutTime": 0.25
-        }
-      ],
-      "Background": [
-        {
-          "File": "motions/Background.motion3.json",
-          "FadeInTime": 0.25,
-          "FadeOutTime": 0.25
-        }
-      ],
-      "Drag_End_2": [
-        {
-          "File": "motions/Drag_End_2.motion3.json",
-          "FadeInTime": 0.25,
-          "FadeOutTime": 0.25
-        }
-      ],
-      "Level": [
-        {
-          "File": "motions/Level.motion3.json",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         }

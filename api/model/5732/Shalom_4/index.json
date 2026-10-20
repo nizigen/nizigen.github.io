@@ -3,7 +3,7 @@
   "FileReferences": {
     "Moc": "Shalom_4.moc3",
     "Textures": [
-      "textures/texture_00_4096.png"
+      "textures/texture_00_4096.webp"
     ],
     "Motions": {
       "Idle": [
@@ -81,20 +81,6 @@
         },
         {
           "File": "motions/Greet.motion3.json",
-          "FadeInTime": 0.25,
-          "FadeOutTime": 0.25
-        }
-      ],
-      "Background": [
-        {
-          "File": "motions/Background.motion3.json",
-          "FadeInTime": 0.25,
-          "FadeOutTime": 0.25
-        }
-      ],
-      "Level": [
-        {
-          "File": "motions/Level.motion3.json",
           "FadeInTime": 0.25,
           "FadeOutTime": 0.25
         }

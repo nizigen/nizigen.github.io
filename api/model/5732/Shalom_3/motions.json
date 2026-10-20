@@ -18,11 +18,7 @@
     "Click_Leg",
     "Greet"
   ],
-  "extra": [
-    "Background",
-    "Drag_End_2",
-    "Level"
-  ],
+  "extra": [],
   "hitArea": "BMask4",
   "note": "idle=待机轮播; tap=点击时随机; extra=只单独成组不自动播; hitArea=TapBody 命中用的 drawable"
 }
