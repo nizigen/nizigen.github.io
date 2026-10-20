@@ -68,6 +68,22 @@
     };
   }
 
+  /* 待机驱动：没有动作在播时随机播一个 Idle（原播放器不会自动续播） */
+  var driving = false;
+  function driveIdle() {
+    if (driving) return;
+    driving = true;
+    setInterval(function () {
+      try {
+        var m = window.__l2dModel;
+        if (!m || !m._motionManager) return;
+        if (m._motionManager._currentPriority === 0) {
+          m.startRandomMotion("Idle", 1, null, null);
+        }
+      } catch (e) { /* ignore */ }
+    }, 1200);
+  }
+
   var lastModel = null;
   var lastId = null;
 
@@ -76,6 +92,7 @@
     if (!m || typeof m.getModel !== "function") return;
 
     patchMotions(m);
+    driveIdle();
 
     var c = m.getModel();
     if (!c || typeof c.setPartOpacityByIndex !== "function") return;
