@@ -37,10 +37,10 @@ window.Image.prototype = OriginalImage.prototype;
 (async () => {
   // 备用CDN列表，如果主CDN无法访问会自动尝试备用CDN
   const cdnList = [
-    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v2.4/",
-    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v2.4/",
+    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v2.5/",
+    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v2.5/",
     "https://raw.githubusercontent.com/nizigen/live2d_api/v1.4/",
-    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v2.4/"
+    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v2.5/"
   ];
 
   let currentCdnIndex = 0;
@@ -106,8 +106,6 @@ window.Image.prototype = OriginalImage.prototype;
 
     console.log("Live2D Widget初始化完成");
 
-    // 背景开关：可选，加载失败不影响看板娘
-    loadExternalResource(workingCdn + "js/bg-toggle.js", "js").catch(function () {});
 
     // 添加必要的CSS样式确保Live2D正确显示
     const style = document.createElement('style');
