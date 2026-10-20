@@ -78,7 +78,8 @@
         var m = window.__l2dModel;
         if (!m || !m._motionManager) return;
         if (m._motionManager._currentPriority === 0) {
-          m.startRandomMotion("Idle", 1, null, null);
+          var n = m._modelSetting.getMotionCount("Idle");
+          if (n > 0) m.startMotion("Idle", Math.floor(Math.random() * n), 1, null, null);
         }
       } catch (e) { /* ignore */ }
     }, 1200);
