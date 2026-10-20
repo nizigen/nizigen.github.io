@@ -31,9 +31,8 @@
   transform: translateY(3px);
   transition: transform .3s ease-in-out, bottom 3s ease-in-out;
   z-index: 1;
-  width: 470px;
-  overflow: hidden;
-  height: 520px;
+  width: 420px;
+  height: 460px;
   /* 增加高度以容纳tips */
 }
 
@@ -85,11 +84,12 @@
 
 #live2d {
   cursor: grab;
-  height: 830px;
+  height: 700px;
   position: absolute;
-  bottom: -175px;
-  left: -150px;
-  width: 830px;
+  bottom: -100px;
+  left: -126px;
+  width: 700px;
+  clip-path: inset(140px 0 100px 0);
   z-index: 10;
   /* 确保模型在合适层级 */
 }
@@ -100,11 +100,11 @@
 
 #waifu-tool {
   color: #aaa;
-  opacity: 0;
+  opacity: .9;
   position: absolute;
-  right: -40px;
-  /* 调整到模型右侧 */
-  top: 80px;
+  right: 10px;
+  /* 放回框内，避免被裁掉 */
+  top: 64px;
   /* 调整垂直位置 */
   transition: opacity 1s;
   z-index: 100;
