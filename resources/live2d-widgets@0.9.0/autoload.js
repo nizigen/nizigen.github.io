@@ -37,10 +37,10 @@ window.Image.prototype = OriginalImage.prototype;
 (async () => {
   // 备用CDN列表，如果主CDN无法访问会自动尝试备用CDN
   const cdnList = [
-    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v3.0/",
-    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v3.0/",
+    "https://fastly.jsdelivr.net/gh/nizigen/live2d_api@v3.1/",
+    "https://cdn.jsdelivr.net/gh/nizigen/live2d_api@v3.1/",
     "https://raw.githubusercontent.com/nizigen/live2d_api/v1.4/",
-    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v3.0/"
+    "https://gcore.jsdelivr.net/gh/nizigen/live2d_api@v3.1/"
   ];
 
   let currentCdnIndex = 0;
@@ -134,21 +134,8 @@ window.Image.prototype = OriginalImage.prototype;
     `;
     document.head.appendChild(style);
 
-    // 每个模型一套取景参数（0 = Shalom_3 坐姿，1 = Shalom_4 站姿）
-    const LIVE2D_FRAME = {
-      "0": { left: "-126px", bottom: "-100px", clip: "inset(140px 0 100px 0)" },
-      "1": { left: "-126px", bottom: "-60px",  clip: "inset(180px 0 60px 0)" }
-    };
-    setInterval(function () {
-      const id = localStorage.getItem("modelId") || "0";
-      const f = LIVE2D_FRAME[id];
-      const c = document.getElementById("live2d");
-      if (!f || !c) return;
-      c.style.left = f.left;
-      c.style.bottom = f.bottom;
-      c.style.clipPath = f.clip;
-      c.style.webkitClipPath = f.clip;
-    }, 400);
+    // 只显示人物：按 part 下标隐藏场景（沙发保留），并按模型缩放
+    loadExternalResource(workingCdn + "js/char-only.js", "js").catch(function () {});
 
     // 清除可能导致问题的缓存
     localStorage.removeItem("modelId");
