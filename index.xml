@@ -1,152 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/algolia.json</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Tue, 20 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>瑟琳 Live2D 动作说明：都有哪些、怎么触发</title><link>https://nizigen.github.io/post/shalom-live2d-motions/</link><pubDate>Tue, 20 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/shalom-live2d-motions/</guid><description>
-<![CDATA[<h1>瑟琳 Live2D 动作说明：都有哪些、怎么触发</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
-        
-          <p>看板娘现在用的是从《无期迷途》客户端里直接解包出来的模型和<strong>原始动作</strong>，不是手搓的。
-这里记录动作清单，以及每个动作在游戏里和在本博客上分别是怎么触发的。</p>
-<h2 id="一模型和动作从哪来">
-<a class="header-anchor" href="#%e4%b8%80%e6%a8%a1%e5%9e%8b%e5%92%8c%e5%8a%a8%e4%bd%9c%e4%bb%8e%e5%93%aa%e6%9d%a5"></a>
-一、模型和动作从哪来
-</h2><p>游戏版本 2.4.67.0（2026-10），资源位置：</p>
-<table>
-	<thead>
-			<tr>
-					<th>内容</th>
-					<th>资源</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>模型 moc3</td>
-					<td><code>assets/art_live2d_characters_shalom_N.bundle</code></td>
-			</tr>
-			<tr>
-					<td>贴图 + meta</td>
-					<td><code>assets/art_live2d_characters_shalom_N_shalom_N.4096.bundle</code></td>
-			</tr>
-			<tr>
-					<td>动作 <code>.fade</code></td>
-					<td><code>assets/art_live2d_characters_shalom_N_motion.bundle</code></td>
-			</tr>
-			<tr>
-					<td>时间轴 AnimationClip</td>
-					<td><code>assets/art_live2d_characters_shalom_N_animation.bundle</code></td>
-			</tr>
-	</tbody>
-</table>
-<p>解包 → 转 <code>motion3.json</code> → 放进 <a href="https://github.com/nizigen/live2d_api">live2d_api</a> 的 <code>model/5732/Shalom_N/</code>。
-转换细节见另一篇《如何在博客里用你自己的 Live2D 模型》。</p>
-<p>四套模型（<code>Shalom_2</code> ~ <code>Shalom_5</code>），动作数量不一样：</p>
-<table>
-	<thead>
-			<tr>
-					<th>模型</th>
-					<th>动作数</th>
-					<th>说明</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>Shalom_2</td>
-					<td>9</td>
-					<td>黑西装、审判席</td>
-			</tr>
-			<tr>
-					<td>Shalom_3</td>
-					<td>10</td>
-					<td>红丝绒、夜花如昼</td>
-			</tr>
-			<tr>
-					<td>Shalom_4</td>
-					<td>10</td>
-					<td>深蓝星空、红裙（最精细，574 个参数）</td>
-			</tr>
-			<tr>
-					<td>Shalom_5</td>
-					<td>3</td>
-					<td>水墨兰亭（兰亭月会）</td>
-			</tr>
-	</tbody>
-</table>
-<h2 id="二动作清单">
-<a class="header-anchor" href="#%e4%ba%8c%e5%8a%a8%e4%bd%9c%e6%b8%85%e5%8d%95"></a>
-二、动作清单
-</h2><p>动作名就是游戏里的事件名，<code>motion3.json</code> 里的 <code>Meta.Loop</code> 只有 <code>Idle</code> 是 <code>true</code>（无限循环），
-其余都是一次性播放完就回到待机。</p>
-<table>
-	<thead>
-			<tr>
-					<th>动作</th>
-					<th>游戏里的触发</th>
-					<th>博客上的触发</th>
-					<th>是否循环</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td><code>Idle</code></td>
-					<td>待机，一直循环</td>
-					<td>加载完成、以及任何动作播完后自动接上</td>
-					<td>✅</td>
-			</tr>
-			<tr>
-					<td><code>Greet</code></td>
-					<td>登场 / 打招呼</td>
-					<td>切换模型、刷新页面时先播一次</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Click_Head</code></td>
-					<td>点头部</td>
-					<td>点画面上方 30%</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Click_Body</code> / <code>Click_Body1</code> / <code>Click_Body2</code></td>
-					<td>点身体</td>
-					<td>点画面中部</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Click_Hand</code> / <code>Click_HandLeft</code> / <code>Click_HandRight</code></td>
-					<td>点手</td>
-					<td>点画面中部（优先于身体）</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Click_Leg</code></td>
-					<td>点腿</td>
-					<td>点画面下方 28%</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Boring</code></td>
-					<td>长时间不操作</td>
-					<td>60 秒没有任何点击</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Background</code></td>
-					<td>切场景 / 背景演出</td>
-					<td>不自动播，留着手动调</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Level</code></td>
-					<td>升级 / 突破</td>
-					<td>不自动播</td>
-					<td>❌</td>
-			</tr>
-			<tr>
-					<td><code>Drag_End_2</code></td>
-					<td>拖拽结束时</td>
-					<td>不自动播（博客里没做拖拽）</td>
-					<td>❌</td>
-			</tr>
-	</tbody>
-</table>
-<p>几点说明：</p>
-        
-        <hr><p>Published on 2026-10-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-20</p>]]></description></item><item><title>Python 基础目录</title><link>https://nizigen.github.io/post/python-basics-catalog/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/python-basics-catalog/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/algolia.json</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 基础目录</title><link>https://nizigen.github.io/post/python-basics-catalog/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/python-basics-catalog/</guid><description>
 <![CDATA[<h1>Python 基础目录</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
           <p>本目录按学习顺序编号，<code>01</code>~<code>37</code> 连续无插队号，从语言入门一路排到并发与综合项目。建议按下面的分组从头往下读，每组内部的顺序就是推荐顺序；需要查具体知识点时直接用 <code>Ctrl + O</code> 或搜索别名。</p>
@@ -1157,5 +1009,95 @@ print()
 <a class="header-anchor" href="#sep-%e4%b8%8e-end"></a>
 sep 与 end
 </h3><p><code>sep</code> 改变多个值之间的分隔符：</p>
+        
+        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item><item><title>05. 数据类型与类型转换</title><link>https://nizigen.github.io/post/05-data-types/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/05-data-types/</guid><description>
+<![CDATA[<h1>05. 数据类型与类型转换</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <h2 id="数据类型概述">
+<a class="header-anchor" href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e6%a6%82%e8%bf%b0"></a>
+数据类型概述
+</h2><p>Python 是动态类型语言，变量不用显式声明类型，但变量引用的每个值都有明确的数据类型（见 <a href="/post/03-syntax-basics/">变量</a>）。</p>
+<p>核心概念：一切皆对象。无论 <code>int</code>、<code>float</code>、<code>bool</code> 这样的基础类型，还是函数、类，在 Python 中都是对象。这与 Java 等语言不同，Python 是更彻底的面向对象语言。</p>
+<p>按来源可以分为三层：</p>
+<table>
+	<thead>
+			<tr>
+					<th>层次</th>
+					<th>说明</th>
+					<th>例子</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>内置类型</td>
+					<td>不需要 <code>import</code>，也无需用 pip 等工具单独下载，可以直接使用</td>
+					<td>原子类型：<code>int</code>、<code>float</code>、<code>bool</code>；容器类型：<code>list</code>、<code>dict</code>、<code>str</code></td>
+			</tr>
+			<tr>
+					<td>标准库中的类型</td>
+					<td>随 Python 安装，但需要 <code>import</code></td>
+					<td>定点小数 <code>decimal.Decimal</code>、<code>datetime.datetime</code></td>
+			</tr>
+			<tr>
+					<td>扩展 / 自定义类型</td>
+					<td>不属于 Python 核心。第三方库的类型要先 <code>pip install</code>；自定义类型用 <code>class</code> 定义</td>
+					<td><code>numpy</code>、<code>pandas</code> 的类型；自己写的 <code>Person</code> 类</td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/Pasted%20image%2020250320221108.png" alt=""></p>
+<p>内置数据类型按类别汇总如下，赋值时由解释器根据字面量自动确定类型：</p>
+<table>
+	<thead>
+			<tr>
+					<th>类别</th>
+					<th>类型</th>
+					<th>示例</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>文本类型</td>
+					<td><code>str</code></td>
+					<td><code>&quot;Hello World&quot;</code></td>
+			</tr>
+			<tr>
+					<td>数值类型</td>
+					<td><code>int</code>、<code>float</code>、<code>complex</code></td>
+					<td><code>29</code>、<code>29.5</code>、<code>1j</code></td>
+			</tr>
+			<tr>
+					<td>序列类型</td>
+					<td><code>list</code>、<code>tuple</code>、<code>range</code></td>
+					<td><code>[&quot;apple&quot;, &quot;banana&quot;]</code>、<code>(&quot;apple&quot;, &quot;banana&quot;)</code>、<code>range(6)</code></td>
+			</tr>
+			<tr>
+					<td>映射类型</td>
+					<td><code>dict</code></td>
+					<td><code>{&quot;name&quot;: &quot;Bill&quot;, &quot;age&quot;: 63}</code></td>
+			</tr>
+			<tr>
+					<td>集合类型</td>
+					<td><code>set</code>、<code>frozenset</code></td>
+					<td><code>{&quot;apple&quot;, &quot;banana&quot;}</code>、<code>frozenset({&quot;apple&quot;})</code></td>
+			</tr>
+			<tr>
+					<td>布尔类型</td>
+					<td><code>bool</code></td>
+					<td><code>True</code></td>
+			</tr>
+			<tr>
+					<td>二进制类型</td>
+					<td><code>bytes</code>、<code>bytearray</code>、<code>memoryview</code></td>
+					<td><code>b&quot;Hello&quot;</code>、<code>bytearray(5)</code>、<code>memoryview(bytes(5))</code></td>
+			</tr>
+			<tr>
+					<td>空值</td>
+					<td><code>NoneType</code></td>
+					<td><code>None</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="/python/attachments/Pasted%20image%2020250321201323.png" alt=""></p>
         
         <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item></channel></rss>
