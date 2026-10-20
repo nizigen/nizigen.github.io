@@ -10,12 +10,23 @@
   // 每个模型的人物缩放（隐藏场景后模型会重排，需要各自补偿）
   var FRAME = { "0": { scale: 1.45, bottom: -55 }, "1": { scale: 1.70, bottom: -95 } };
 
+
+  /* 停止动作轮询：这个运行时里 motion3 无法被正常创建，会导致每帧重试下载
+     （数千次请求）。先关掉，保证只加载一次、不耗流量。 */
+  function stopMotion(model) {
+    if (!model || model.__motionStopped) return;
+    model.__motionStopped = true;
+    model.startMotion = function () { return null; };
+    model.startRandomMotion = function () { return null; };
+  }
+
   var lastModel = null;
   var lastId = null;
 
   setInterval(function () {
     var m = window.__l2dModel;
     if (!m || typeof m.getModel !== "function") return;
+    stopMotion(m);
     var c = m.getModel();
     if (!c || typeof c.setPartOpacityByIndex !== "function") return;
 
