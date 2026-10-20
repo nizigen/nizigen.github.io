@@ -31,9 +31,9 @@
   transform: translateY(3px);
   transition: transform .3s ease-in-out, bottom 3s ease-in-out;
   z-index: 1;
-  width: 380px;
-  /* 增加宽度以容纳工具栏 */
-  height: 380px;
+  width: 470px;
+  overflow: hidden;
+  height: 520px;
   /* 增加高度以容纳tips */
 }
 
@@ -85,11 +85,11 @@
 
 #live2d {
   cursor: grab;
-  height: 400px;
+  height: 830px;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 400px;
+  bottom: -175px;
+  left: -150px;
+  width: 830px;
   z-index: 10;
   /* 确保模型在合适层级 */
 }
