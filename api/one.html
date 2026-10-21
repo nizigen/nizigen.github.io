@@ -1,0 +1,71 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>单动作</title>
+<style>body{margin:0;height:100vh;background:#1c1719;color:#ddd;font:13px system-ui}
+#hud{position:fixed;left:8px;top:8px;z-index:20;background:#262023;padding:6px 10px;border-radius:8px}</style>
+</head><body><div id="hud">…</div>
+<script>
+(function(){
+  var BASE='/api/';
+  var q=new URLSearchParams(location.search);
+  var mid=q.get('mid')||'0';
+  var file=q.get('m')||'Idle.motion3.json';
+  var speed=Number(q.get('speed')||1);
+  localStorage.setItem('modelId',mid);
+
+  var st=document.createElement('style');
+  st.textContent='#waifu{position:fixed!important;left:0!important;bottom:0!important;z-index:9!important;opacity:1!important;display:block!important}#waifu.waifu-active{bottom:0!important;transform:none!important}';
+  document.head.appendChild(st);
+  var css=document.createElement('link'); css.rel='stylesheet'; css.href='/waifu.css?v='+Date.now(); document.head.appendChild(css);
+  var s=document.createElement('script'); s.type='module'; s.src=BASE+'waifu-tips.js?v='+Date.now(); document.head.appendChild(s);
+
+  function val(sg,t){ if(t<=sg[0]) return sg[1]; var i=2,pt=sg[0],pv=sg[1]; while(i<sg.length){ var ty=sg[i]; if(ty===0){ var nt=sg[i+1],nv=sg[i+2]; if(t<=nt){ var r=(t-pt)/((nt-pt)||1); return pv+(nv-pv)*r; } pt=nt; pv=nv; } i+=3; } return pv; }
+
+  var tries=0;
+  var t=setInterval(function(){
+    var m=window.__l2dModel;
+    if(!m){ if(++tries>400) clearInterval(t); return; }
+    if(window.__started) return;
+    window.__started=true;
+    clearInterval(t);
+
+    m.startMotion=function(){return null;};
+    m.startRandomMotion=function(){return null;};
+
+    var md=m.getModel();
+    var hide={'92':[5,6,8,9,10,11,12,28,31,32,34,35,36],'108':[2,4,5,6,9,10,11,12,13,21]}[String(md.getPartCount())]||[];
+    hide.forEach(function(i){ md.setPartOpacityByIndex(i,0); });
+
+    var c=document.getElementById('live2d');
+    if(c){ c.style.transformOrigin='50% 100%'; c.style.transform='scale(1.45)'; c.style.bottom='-55px'; }
+
+    fetch(BASE+'model_list.json').then(function(r){return r.json();}).then(function(j){
+      var id=j.models[Number(mid)]||j.models[0];
+      var name=id.split('/').pop();
+      return fetch(BASE+'model/5732/'+name+'/motions/'+file).then(function(r){return r.json();}).then(function(mj){
+        var idx={},curves=[];
+        mj.Curves.forEach(function(cv){
+          if(cv.Target!=='Parameter') return;
+          if(!(cv.Id in idx)) idx[cv.Id]=md.getParameterIndex(cv.Id);
+          if(idx[cv.Id]<0) return;
+          curves.push({i:idx[cv.Id],s:cv.Segments});
+        });
+        document.getElementById('hud').textContent=file+'  '+curves.length+' 曲线  '+mj.Meta.Duration.toFixed(1)+'s';
+        var t0=performance.now();
+        var orig=md.update.bind(md);
+        md.update=function(){
+          var tt=((performance.now()-t0)/1000*speed)%mj.Meta.Duration;
+          for(var k=0;k<curves.length;k++) md.setParameterValueByIndex(curves[k].i, val(curves[k].s,tt));
+          return orig();
+        };
+      });
+    });
+  },100);
+
+  var tr=0;
+  var ti=setInterval(function(){
+    if(typeof window.initWidget==='function'){ clearInterval(ti); initWidget({waifuPath:BASE+'waifu-tips.json',cdnPath:BASE,cubism2Path:'https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/live2d.min.js',cubism5Path:'https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js',tools:['switch-model'],drag:false}); }
+    else if(++tr>200) clearInterval(ti);
+  },100);
+})();
+</script>
+</body></html>
