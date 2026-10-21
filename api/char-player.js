@@ -55,7 +55,7 @@
     ensureParams(m).then(function (map) {
       if (!map) return;
       if (cache[file]) { start(m, cache[file], file, onEnd); return; }
-      fetch("/api/model/5732/" + modelName() + "/motions/" + file)
+      fetch("/api/model/5732/" + modelName() + "/" + String(file).replace(/^\/+/, ""))
         .then(function (r) { return r.json(); })
         .then(function (j) {
           var curves = [];
