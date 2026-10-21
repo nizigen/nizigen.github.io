@@ -3,7 +3,7 @@
   "FileReferences": {
     "Moc": "Shalom_3.moc3",
     "Textures": [
-      "textures/texture_00_2048.webp"
+      "textures/texture_00_2048.png"
     ],
     "Motions": {
       "Idle": [
