@@ -32,6 +32,9 @@ window.Image.prototype = OriginalImage.prototype;
 
 (async () => {
   try {
+    // 模型数量减少时，越界的 modelId 回落到 0
+    if (Number(localStorage.getItem("modelId") || 0) > 5) localStorage.setItem("modelId", "0");
+
     await Promise.all([
       loadExternalResource("/waifu.css", "css"),
       loadExternalResource(BASE + "waifu-tips.js", "js")
@@ -48,7 +51,7 @@ window.Image.prototype = OriginalImage.prototype;
     });
 
     // 只显示人物：按 part 下标隐藏场景（沙发保留），并按模型缩放
-    await loadExternalResource(BASE + "char-player.js?v=9", "js").catch(() => {});
+    await loadExternalResource(BASE + "char-player.js?v=10", "js").catch(() => {});
 
     // 确保气泡、工具栏可见（主题里可能有裁剪）
     const style = document.createElement("style");

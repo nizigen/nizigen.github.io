@@ -9,9 +9,7 @@
     "2": { hide: [2, 6, 26], scale: 1.00, bottom: 0 },                                          // Angel_5
     "3": { hide: [], scale: 1.00, bottom: 0 },                                                   // Coquelicot_3
     "4": { hide: [], scale: 1.00, bottom: 0 },                                                   // Duruo_3
-    "5": { hide: [4, 6, 9, 84], scale: 1.00, bottom: 0 },                                        // Eleven_4
-    "6": { hide: [14], scale: 1.00, bottom: 0 },                                                 // Jasmine_3
-    "7": { hide: [], scale: 1.00, bottom: 0 }                                                    // jichuan_2
+    "5": { hide: [4, 6, 9, 84], scale: 1.00, bottom: 0 }                                         // Eleven_4
   };
 
   var cache = {};
