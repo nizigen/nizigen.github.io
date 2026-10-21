@@ -101,7 +101,9 @@
           if (!m2 || !cur) return;
           var t = (performance.now() - curStart) / 1000;
           if (t >= cur.dur) {
-            if (auto) next();
+            clearInterval(timer);
+            timer = null;
+            if (auto) window.__autoT = setTimeout(next, gap * 1000);
             return;
           }
           var md2 = m2.getModel();
@@ -109,10 +111,7 @@
             md2.setParameterValueByIndex(cur.curves[k].i, valueAt(cur.curves[k].s, t));
           }
         }, 33);
-        if (auto) {
-          clearTimeout(window.__autoT);
-          window.__autoT = setTimeout(next, gap * 1000);
-        }
+        if (window.__autoT) clearTimeout(window.__autoT);
       })
       .catch(function (e) { document.getElementById('now').textContent = '加载失败: ' + file; });
   }
@@ -130,7 +129,13 @@
       var b = document.createElement('button');
       b.textContent = f.replace('.motion3.json', '');
       b.dataset.f = f;
-      b.onclick = function () { idx = motions.indexOf(f); play(f); };
+      b.onclick = function () {
+        if (window.__autoT) clearTimeout(window.__autoT);
+        idx = motions.indexOf(f);
+        auto = false;
+        document.getElementById('auto').textContent = '自动轮播：关';
+        play(f);
+      };
       list.appendChild(b);
     });
   }
