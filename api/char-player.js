@@ -2,11 +2,17 @@
 (function () {
   "use strict";
 
-  var HIDE = {
-    "92":  [5, 6, 8, 9, 10, 11, 12, 28, 31, 32, 34, 35, 36],
-    "108": [2, 4, 5, 6, 9, 10, 11, 12, 13, 21]
+  /* 按 model_list 下标配置：隐藏的 part、缩放、下移 */
+  var CFG = {
+    "0": { hide: [5, 6, 8, 9, 10, 11, 12, 28, 31, 32, 34, 35, 36], scale: 1.00, bottom: 0 },   // Shalom_3
+    "1": { hide: [2, 4, 5, 6, 9, 10, 11, 12, 13, 21], scale: 1.00, bottom: 0 },                // Shalom_4
+    "2": { hide: [2, 6, 26], scale: 1.00, bottom: 0 },                                          // Angel_5
+    "3": { hide: [], scale: 1.00, bottom: 0 },                                                   // Coquelicot_3
+    "4": { hide: [], scale: 1.00, bottom: 0 },                                                   // Duruo_3
+    "5": { hide: [4, 6, 9, 84], scale: 1.00, bottom: 0 },                                        // Eleven_4
+    "6": { hide: [14], scale: 1.00, bottom: 0 },                                                 // Jasmine_3
+    "7": { hide: [], scale: 1.00, bottom: 0 }                                                    // jichuan_2
   };
-  var FRAME = { "0": { scale: 1.0, bottom: 0 }, "1": { scale: 1.0, bottom: 0 } };
 
   var cache = {};
   var paramIndex = null;     // { id: index } 来自 moc3 参数顺序
@@ -160,11 +166,11 @@
     var id = localStorage.getItem("modelId") || "0";
     if (m === lastModel && id === lastId) return;
 
-    var list = HIDE[String(c.getPartCount())];
-    if (list) for (var i = 0; i < list.length; i++) c.setPartOpacityByIndex(list[i], 0);
+    var cfg = CFG[id] || { hide: [], scale: 1, bottom: 0 };
+    for (var i = 0; i < cfg.hide.length; i++) c.setPartOpacityByIndex(cfg.hide[i], 0);
 
     var canvas = document.getElementById("live2d");
-    var f = FRAME[id] || { scale: 1, bottom: 0 };
+    var f = { scale: cfg.scale, bottom: cfg.bottom };
     if (canvas) {
       canvas.style.transformOrigin = "50% 100%";
       canvas.style.transform = "scale(" + f.scale + ")";

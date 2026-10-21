@@ -48,7 +48,7 @@ window.Image.prototype = OriginalImage.prototype;
     });
 
     // 只显示人物：按 part 下标隐藏场景（沙发保留），并按模型缩放
-    await loadExternalResource(BASE + "char-player.js?v=7", "js").catch(() => {});
+    await loadExternalResource(BASE + "char-player.js?v=8", "js").catch(() => {});
 
     // 确保气泡、工具栏可见（主题里可能有裁剪）
     const style = document.createElement("style");
