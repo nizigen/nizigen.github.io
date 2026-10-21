@@ -75,6 +75,24 @@
   }
 
   var paramsPromise = null;
+  var playback = { cur: null, t0: 0 };
+  function hookModel() {
+    var m = window.__l2dModel; if (!m) return;
+    var md = m.getModel();
+    if (!md || md.__hooked) return;
+    md.__hooked = true;
+    var orig = md.update.bind(md);
+    md.update = function () {
+      var p = playback;
+      if (p.cur) {
+        var t = (performance.now() - p.t0) / 1000;
+        for (var k = 0; k < p.cur.curves.length; k++) {
+          md.setParameterValueByIndex(p.cur.curves[k].i, valueAt(p.cur.curves[k].s, t));
+        }
+      }
+      return orig();
+    };
+  }
   function paramMap() {
     if (!paramsPromise) {
       paramsPromise = fetch(BASE + 'model/5732/' + modelName + '/params.json')
@@ -98,7 +116,10 @@
           if (i === undefined) return;
           curves.push({ i: i, s: c.Segments });
         });
+        hookModel();
         cur = { curves: curves, dur: j.Meta.Duration };
+        playback.cur = cur;
+        playback.t0 = performance.now();
         curStart = performance.now();
         document.getElementById('now').textContent = file + '  (' + j.Meta.Duration.toFixed(1) + 's)';
         Array.prototype.forEach.call(document.querySelectorAll('#list button'), function (b) {
@@ -114,10 +135,6 @@
             timer = null;
             if (auto) window.__autoT = setTimeout(next, gap * 1000);
             return;
-          }
-          var md2 = m2.getModel();
-          for (var k = 0; k < cur.curves.length; k++) {
-            md2.setParameterValueByIndex(cur.curves[k].i, valueAt(cur.curves[k].s, t));
           }
         }, 33);
         if (window.__autoT) clearTimeout(window.__autoT);
