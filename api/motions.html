@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>动作预览</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #1c1719; color: #eee;
+    font: 13px/1.5 system-ui, "Segoe UI", sans-serif; }
+  #stage { position: fixed; left: 0; bottom: 0; width: 420px; height: 520px; }
+  #panel { position: fixed; right: 0; top: 0; bottom: 0; width: 300px; overflow: auto;
+    background: #262023; border-left: 1px solid #3a3235; padding: 12px; box-sizing: border-box; }
+  h1 { font-size: 14px; margin: 0 0 8px; color: #ff66aa; }
+  #now { font-size: 12px; color: #9e9196; margin-bottom: 10px; word-break: break-all; }
+  button { display: block; width: 100%; text-align: left; margin: 0 0 4px; padding: 6px 8px;
+    background: #2e2a2b; color: #ddd; border: 1px solid #3a3235; border-radius: 8px; cursor: pointer; }
+  button:hover { background: #3a3235; }
+  button.on { border-color: #ff66aa; color: #ff66aa; }
+  label { display: block; margin: 10px 0 4px; color: #9e9196; }
+  input[type=range] { width: 100%; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="panel">
+  <h1>动作预览</h1>
+  <div id="now">加载中…</div>
+  <label>自动轮播间隔 <span id="gapv">3.0</span>s</label>
+  <input id="gap" type="range" min="1" max="8" step="0.5" value="3">
+  <label id="auto">自动轮播：开</label>
+  <div id="list"></div>
+</div>
+
+<script>
+(function () {
+  var BASE = '/api/';
+  var mid = new URLSearchParams(location.search).get('mid') || '0';
+  var modelName = null;
+  var motions = [];
+  var idx = 0;
+  var auto = true;
+  var gap = 3;
+  var timer = null;
+  var cur = null, curStart = 0;
+
+  localStorage.setItem('modelId', mid);
+
+  var st = document.createElement('style');
+  st.textContent = '#waifu{position:fixed!important;left:0!important;bottom:0!important;z-index:9!important;opacity:1!important;display:block!important}' +
+    '#waifu.waifu-active{bottom:0!important;transform:none!important}';
+  document.head.appendChild(st);
+
+  var css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = '/waifu.css?v=' + Date.now();
+  document.head.appendChild(css);
+
+  var s = document.createElement('script');
+  s.type = 'module';
+  s.src = BASE + 'waifu-tips.js?v=' + Date.now();
+  document.head.appendChild(s);
+
+  function valueAt(seg, t) {
+    if (t <= seg[0]) return seg[1];
+    var i = 2, pt = seg[0], pv = seg[1];
+    while (i < seg.length) {
+      var ty = seg[i];
+      if (ty === 0) {
+        var nt = seg[i + 1], nv = seg[i + 2];
+        if (t <= nt) { var r = (t - pt) / ((nt - pt) || 1); return pv + (nv - pv) * r; }
+        pt = nt; pv = nv;
+      }
+      i += 3;
+    }
+    return pv;
+  }
+
+  function play(file) {
+    var m = window.__l2dModel;
+    if (!m) return;
+    fetch(BASE + 'model/5732/' + modelName + '/motions/' + file)
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var md = m.getModel();
+        var idxMap = {};
+        var curves = [];
+        j.Curves.forEach(function (c) {
+          if (c.Target !== 'Parameter') return;
+          if (!(c.Id in idxMap)) idxMap[c.Id] = md.getParameterIndex(c.Id);
+          if (idxMap[c.Id] < 0) return;
+          curves.push({ i: idxMap[c.Id], s: c.Segments });
+        });
+        cur = { curves: curves, dur: j.Meta.Duration };
+        curStart = performance.now();
+        document.getElementById('now').textContent = file + '  (' + j.Meta.Duration.toFixed(1) + 's)';
+        Array.prototype.forEach.call(document.querySelectorAll('#list button'), function (b) {
+          b.className = (b.dataset.f === file) ? 'on' : '';
+        });
+        if (timer) clearInterval(timer);
+        timer = setInterval(function () {
+          var m2 = window.__l2dModel;
+          if (!m2 || !cur) return;
+          var t = (performance.now() - curStart) / 1000;
+          if (t >= cur.dur) {
+            if (auto) next();
+            return;
+          }
+          var md2 = m2.getModel();
+          for (var k = 0; k < cur.curves.length; k++) {
+            md2.setParameterValueByIndex(cur.curves[k].i, valueAt(cur.curves[k].s, t));
+          }
+        }, 33);
+        if (auto) {
+          clearTimeout(window.__autoT);
+          window.__autoT = setTimeout(next, gap * 1000);
+        }
+      })
+      .catch(function (e) { document.getElementById('now').textContent = '加载失败: ' + file; });
+  }
+
+  function next() {
+    if (!motions.length) return;
+    idx = (idx + 1) % motions.length;
+    play(motions[idx]);
+  }
+
+  function build() {
+    var list = document.getElementById('list');
+    list.innerHTML = '';
+    motions.forEach(function (f) {
+      var b = document.createElement('button');
+      b.textContent = f.replace('.motion3.json', '');
+      b.dataset.f = f;
+      b.onclick = function () { idx = motions.indexOf(f); play(f); };
+      list.appendChild(b);
+    });
+  }
+
+  function boot() {
+    var m = window.__l2dModel;
+    if (!m) return false;
+    m.startMotion = function () { return null; };
+    m.startRandomMotion = function () { return null; };
+
+    var md = m.getModel();
+    var list = { '92': [5, 6, 8, 9, 10, 11, 12, 28, 31, 32, 34, 35, 36], '108': [2, 4, 5, 6, 9, 10, 11, 12, 13, 21] };
+    var hide = list[String(md.getPartCount())] || [];
+    hide.forEach(function (i) { md.setPartOpacityByIndex(i, 0); });
+
+    var c = document.getElementById('live2d');
+    if (c) {
+      c.style.transformOrigin = '50% 100%';
+      c.style.transform = 'scale(1.45)';
+      c.style.bottom = '-55px';
+    }
+
+    fetch(BASE + 'model_list.json').then(function (r) { return r.json(); })
+      .then(function (j) {
+        var id = j.models[Number(localStorage.getItem('modelId'))] || j.models[0];
+        modelName = id.split('/').pop();
+        return fetch(BASE + 'model/5732/' + modelName + '/motions/index.json');
+      })
+      .then(function (r) { return r.json(); })
+      .then(function (arr) {
+        motions = arr;
+        build();
+        play(motions[0]);
+      });
+    return true;
+  }
+
+  var tries = 0;
+  var t = setInterval(function () {
+    if (typeof window.initWidget === 'function' && !window.__booted) {
+      window.__booted = true;
+      initWidget({
+        waifuPath: BASE + 'waifu-tips.json',
+        cdnPath: BASE,
+        cubism2Path: 'https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/live2d.min.js',
+        cubism5Path: 'https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js',
+        tools: ['switch-model'],
+        drag: false
+      });
+    }
+    if (window.__l2dModel && !window.__started) {
+      if (boot()) window.__started = true;
+    }
+    if (++tries > 300) clearInterval(t);
+  }, 100);
+
+  document.getElementById('gap').oninput = function () {
+    gap = Number(this.value);
+    document.getElementById('gapv').textContent = gap.toFixed(1);
+  };
+  document.getElementById('auto').onclick = function () {
+    auto = !auto;
+    this.textContent = '自动轮播：' + (auto ? '开' : '关');
+  };
+})();
+</script>
+</body>
+</html>
