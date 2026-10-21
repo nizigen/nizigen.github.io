@@ -9,7 +9,7 @@
     "2": { hide: [2, 6, 26], scale: 1.00, bottom: 0 },                                          // Angel_5
     "3": { hide: [], scale: 1.00, bottom: 0 },                                                   // Coquelicot_3
     "4": { hide: [], scale: 1.00, bottom: 0 },                                                   // Duruo_3
-    "5": { hide: [4, 6, 9, 84], scale: 1.00, bottom: 0 }                                         // Eleven_4
+    "5": { hide: [], scale: 1.00, bottom: 0 }                                         // Eleven_4
   };
 
   var cache = {};
@@ -28,6 +28,10 @@
     var orig = md.update.bind(md);
     md.update = function () {
       var p = playback;
+      var cf = CFG[localStorage.getItem("modelId") || "0"];
+      if (cf && cf.hide.length) {
+        for (var hi = 0; hi < cf.hide.length; hi++) md.setPartOpacityByIndex(cf.hide[hi], 0);
+      }
       if (p.cur) {
         var t = (performance.now() - p.t0) / 1000;
         for (var k = 0; k < p.cur.curves.length; k++) {
