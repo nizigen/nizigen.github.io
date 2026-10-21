@@ -74,20 +74,29 @@
     return pv;
   }
 
+  var paramsPromise = null;
+  function paramMap() {
+    if (!paramsPromise) {
+      paramsPromise = fetch(BASE + 'model/5732/' + modelName + '/params.json')
+        .then(function (r) { return r.json(); })
+        .then(function (ids) { var m = {}; ids.forEach(function (id, i) { m[id] = i; }); return m; });
+    }
+    return paramsPromise;
+  }
+
   function play(file) {
     var m = window.__l2dModel;
     if (!m) return;
-    fetch(BASE + 'model/5732/' + modelName + '/motions/' + file)
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
+    Promise.all([paramMap(), fetch(BASE + 'model/5732/' + modelName + '/motions/' + file)]).then(function (res) {
+      var map = res[0];
+        return res[1].json().then(function (j) {
         var md = m.getModel();
-        var idxMap = {};
         var curves = [];
         j.Curves.forEach(function (c) {
           if (c.Target !== 'Parameter') return;
-          if (!(c.Id in idxMap)) idxMap[c.Id] = md.getParameterIndex(c.Id);
-          if (idxMap[c.Id] < 0) return;
-          curves.push({ i: idxMap[c.Id], s: c.Segments });
+          var i = map[c.Id];
+          if (i === undefined) return;
+          curves.push({ i: i, s: c.Segments });
         });
         cur = { curves: curves, dur: j.Meta.Duration };
         curStart = performance.now();
@@ -112,8 +121,8 @@
           }
         }, 33);
         if (window.__autoT) clearTimeout(window.__autoT);
-      })
-      .catch(function (e) { document.getElementById('now').textContent = '加载失败: ' + file; });
+        });
+      }).catch(function (e) { document.getElementById('now').textContent = '加载失败: ' + file; });
   }
 
   function next() {
