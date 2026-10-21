@@ -24,15 +24,16 @@
 
 #waifu {
   bottom: -1000px;
-  left: 0;
+  left: auto;
+  right: 0;
   line-height: 0;
   margin-bottom: -10px;
   position: fixed;
   transform: translateY(3px);
   transition: transform .3s ease-in-out, bottom 3s ease-in-out;
   z-index: 1;
-  width: 380px;
-  height: 380px;
+  width: 340px;
+  height: 340px;
   /* 增加高度以容纳tips */
 }
 
@@ -84,11 +85,11 @@
 
 #live2d {
   cursor: grab;
-  height: 400px;
+  height: 360px;
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 400px;
+  width: 360px;
   z-index: 10;
   /* 确保模型在合适层级 */
 }
@@ -101,9 +102,8 @@
   color: #aaa;
   opacity: .9;
   position: absolute;
-  right: 10px;
-  /* 放回框内，避免被裁掉 */
-  top: 64px;
+  right: 8px;
+  top: 56px;
   /* 调整垂直位置 */
   transition: opacity 1s;
   z-index: 100;
