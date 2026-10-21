@@ -115,10 +115,17 @@
     }, 100);
   }
 
+  /* 进场/场景类动作：隐藏背景后会显得很出戏，直接不用 */
+  var SKIP = /(background|level|drag_end|dragend)/i;
+
   function motionFiles(m, group) {
     var st = m._modelSetting, out = [];
     var n = st.getMotionCount(group);
-    for (var i = 0; i < n; i++) out.push(st.getMotionFileName(group, i));
+    for (var i = 0; i < n; i++) {
+      var f = st.getMotionFileName(group, i);
+      if (SKIP.test(f)) continue;
+      out.push(f);
+    }
     return out;
   }
 
