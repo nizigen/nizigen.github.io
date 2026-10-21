@@ -1,4 +1,4 @@
-/* 只显示人物 + 自建动作播放器（不走引擎的 motion manager，避免模型被画没） */
+/* 只显示人物 + 自建动作播放器 */
 (function () {
   "use strict";
 
@@ -12,6 +12,8 @@
   var timer = null;
   var curMotion = null;
   var curStart = 0;
+  var debug = { motion: null, taps: 0, plays: 0 };
+  window.__l2dDebug = debug;
 
   function valueAt(s, t) {
     if (t <= s[0]) return s[1];
@@ -29,14 +31,6 @@
       i += 3;
     }
     return pv;
-  }
-
-  function apply(m, data, t) {
-    var md = m.getModel();
-    for (var k = 0; k < data.curves.length; k++) {
-      var c = data.curves[k];
-      md.setParameterValueByIndex(c.i, valueAt(c.s, t));
-    }
   }
 
   function loadMotion(m, group, index) {
@@ -61,41 +55,62 @@
     }).catch(function () { return null; });
   }
 
-  function start(m, group, index, onEnd) {
+  function play(m, group, index, onEnd) {
     loadMotion(m, group, index).then(function (data) {
       if (!data) return;
       curMotion = data;
       curStart = performance.now();
+      debug.motion = group + "_" + index;
+      debug.plays++;
       if (timer) clearInterval(timer);
       timer = setInterval(function () {
         var m2 = window.__l2dModel;
         if (!m2 || !curMotion) return;
         var t = (performance.now() - curStart) / 1000;
         if (t >= curMotion.dur) {
-          if (onEnd) onEnd();
-          else idle(m2);
+          clearInterval(timer);
+          timer = null;
+          if (onEnd) onEnd(m2); else idle(m2);
           return;
         }
-        apply(m2, curMotion, t);
+        var md = m2.getModel();
+        for (var k = 0; k < curMotion.curves.length; k++) {
+          var c = curMotion.curves[k];
+          md.setParameterValueByIndex(c.i, valueAt(c.s, t));
+        }
       }, 33);
     });
   }
 
-  function idle(m) {
+  function pickIndex(m, group, wantClick) {
     var st = m._modelSetting;
-    var n = st.getMotionCount("Idle");
-    if (!n) return;
-    start(m, "Idle", Math.floor(Math.random() * n), null);
+    var n = st.getMotionCount(group);
+    if (!n) return -1;
+    var all = [];
+    var clicks = [];
+    for (var i = 0; i < n; i++) {
+      all.push(i);
+      var f = st.getMotionFileName(group, i) || "";
+      if (f.indexOf("Click") >= 0) clicks.push(i);
+    }
+    var pool = (wantClick && clicks.length) ? clicks : all;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function idle(m) {
+    var i = pickIndex(m, "Idle", false);
+    if (i >= 0) play(m, "Idle", i, null);
   }
 
   function tap(m) {
-    var st = m._modelSetting;
-    var n = st.getMotionCount("TapBody");
-    if (!n) return idle(m);
-    start(m, "TapBody", Math.floor(Math.random() * n), function () { idle(m); });
+    debug.taps++;
+    var i = pickIndex(m, "TapBody", true);
+    if (i >= 0) play(m, "TapBody", i, function (mm) { idle(mm); });
+    else idle(m);
   }
 
-  /* 引擎自带的动作系统会重复下载并且把模型画没，直接停掉 */
+  window.__l2dTap = function () { var m = window.__l2dModel; if (m) tap(m); };
+
   function killEngineMotions(model) {
     if (!model || model.__motionsKilled) return;
     model.__motionsKilled = true;
@@ -103,9 +118,19 @@
     model.startRandomMotion = function () { return null; };
   }
 
+  /* 点击：挂在 document 上，用 canvas 矩形判断，避免 canvas 被重建后丢监听 */
+  document.addEventListener("click", function (e) {
+    var m = window.__l2dModel;
+    var c = document.getElementById("live2d");
+    if (!m || !c) return;
+    var r = c.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right) return;
+    if (e.clientY < r.top || e.clientY > r.bottom) return;
+    tap(m);
+  }, true);
+
   var lastModel = null;
   var lastId = null;
-  var clicked = false;
 
   setInterval(function () {
     var m = window.__l2dModel;
@@ -130,13 +155,6 @@
       canvas.style.transformOrigin = "50% 100%";
       canvas.style.transform = "scale(" + f.scale + ")";
       canvas.style.bottom = f.bottom + "px";
-      if (!clicked) {
-        clicked = true;
-        canvas.addEventListener("click", function () {
-          var mm = window.__l2dModel;
-          if (mm) tap(mm);
-        });
-      }
     }
 
     lastModel = m;
