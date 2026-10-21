@@ -14,6 +14,25 @@
   var timer = null;
   var cur = null, curStart = 0;
   var debug = { motion: null, taps: 0, plays: 0, curves: 0 };
+  var playback = { cur: null, t0: 0 };
+  window.__l2dPlayback = playback;
+
+  function installHook(m) {
+    var md = m.getModel();
+    if (!md || md.__hooked) return;
+    md.__hooked = true;
+    var orig = md.update.bind(md);
+    md.update = function () {
+      var p = playback;
+      if (p.cur) {
+        var t = (performance.now() - p.t0) / 1000;
+        for (var k = 0; k < p.cur.curves.length; k++) {
+          md.setParameterValueByIndex(p.cur.curves[k].i, valueAt(p.cur.curves[k].s, t));
+        }
+      }
+      return orig();
+    };
+  }
   window.__l2dDebug = debug;
 
   function valueAt(s, t) {
@@ -74,23 +93,20 @@
   }
 
   function start(m, data, file, onEnd) {
-    cur = data; curStart = performance.now();
+    installHook(m);
+    playback.cur = data;
+    playback.t0 = performance.now();
     debug.motion = file; debug.plays++; debug.curves = data.curves.length;
+
     if (timer) clearInterval(timer);
     timer = setInterval(function () {
       var m2 = window.__l2dModel;
-      if (!m2 || !cur) return;
-      var t = (performance.now() - curStart) / 1000;
-      if (t >= cur.dur) {
+      if (!m2 || !playback.cur) return;
+      if ((performance.now() - playback.t0) / 1000 >= playback.cur.dur) {
         clearInterval(timer); timer = null;
         if (onEnd) onEnd(m2); else idle(m2);
-        return;
       }
-      var md = m2.getModel();
-      for (var k = 0; k < cur.curves.length; k++) {
-        md.setParameterValueByIndex(cur.curves[k].i, valueAt(cur.curves[k].s, t));
-      }
-    }, 33);
+    }, 100);
   }
 
   function motionFiles(m, group) {
