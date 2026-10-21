@@ -6,7 +6,7 @@
     "92":  [5, 6, 8, 9, 10, 11, 12, 28, 31, 32, 34, 35, 36],
     "108": [2, 4, 5, 6, 9, 10, 11, 12, 13, 21]
   };
-  var FRAME = { "0": { scale: 1.45, bottom: -55 }, "1": { scale: 1.70, bottom: -95 } };
+  var FRAME = { "0": { scale: 1.0, bottom: -20 }, "1": { scale: 1.2, bottom: -60 } };
 
   var cache = {};
   var paramIndex = null;     // { id: index } 来自 moc3 参数顺序
