@@ -34,8 +34,14 @@
       }
       if (p.cur) {
         var t = (performance.now() - p.t0) / 1000;
-        for (var k = 0; k < p.cur.curves.length; k++) {
-          md.setParameterValueByIndex(p.cur.curves[k].i, valueAt(p.cur.curves[k].s, t));
+        var k = Math.min(1, (performance.now() - p.t0) / 350);
+        var from = p.from || {};
+        for (var i2 = 0; i2 < p.cur.curves.length; i2++) {
+          var cv = p.cur.curves[i2];
+          var target = valueAt(cv.s, t);
+          var f0 = from[cv.i];
+          if (k < 1 && f0 !== undefined) target = f0 + (target - f0) * k;
+          md.setParameterValueByIndex(cv.i, target);
         }
       }
       return orig();
@@ -102,6 +108,13 @@
 
   function start(m, data, file, onEnd) {
     installHook(m);
+    var md0 = m.getModel();
+    var from = {};
+    for (var fi = 0; fi < data.curves.length; fi++) {
+      var ci = data.curves[fi].i;
+      try { from[ci] = md0.getParameterValueByIndex(ci); } catch (e) {}
+    }
+    playback.from = from;
     playback.cur = data;
     playback.t0 = performance.now();
     debug.motion = file; debug.plays++; debug.curves = data.curves.length;
