@@ -1,0 +1,22 @@
+{
+  "model": "Coquelicot_3",
+  "idle": [
+    "idle"
+  ],
+  "tap": [
+    "Click_Body"
+  ],
+  "hide": [
+    2,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12
+  ],
+  "extra": [],
+  "scale": 1.01,
+  "bottom": 0,
+  "note": "idle 只留真正的待机动作；Click_* 给点击；Background/Level 不进分组。hide 为要隐藏的背景/场景 part 下标。"
+}

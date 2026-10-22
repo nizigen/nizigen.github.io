@@ -44,14 +44,14 @@ window.Image.prototype = OriginalImage.prototype;
       waifuPath: BASE + "waifu-tips.json",
       cdnPath: BASE,
       cubism2Path: "https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0-rc.7/dist/live2d.min.js",
-      cubism5Path: "https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js",
+      cubism5Path: BASE + "live2dcubismcore.min.js",
       tools: ["hitokoto", "asteroids", "switch-model", "switch-texture", "photo", "info", "quit"],
       logLevel: "info",
       drag: false
     });
 
     // 只显示人物：按 part 下标隐藏场景（沙发保留），并按模型缩放
-    await loadExternalResource(BASE + "char-player.js?v=13", "js").catch(() => {});
+    await loadExternalResource(BASE + "char-player.js?v=16", "js").catch(() => {});
 
     // 确保气泡、工具栏可见（主题里可能有裁剪）
     const style = document.createElement("style");

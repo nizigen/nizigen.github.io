@@ -8,30 +8,29 @@
     "Motions": {
       "Idle": [
         {
-          "File": "motions/idle.motion3.json"
-        },
-        {
-          "File": "motions/Click_Body.motion3.json"
+          "File": "motions/idle.motion3.json",
+          "FadeInTime": 0.4,
+          "FadeOutTime": 0.4
         }
       ],
       "TapBody": [
         {
-          "File": "motions/Click_Body.motion3.json"
+          "File": "motions/Click_Body.motion3.json",
+          "FadeInTime": 0.25,
+          "FadeOutTime": 0.25
         }
       ]
-    }
-  },
-  "Groups": [
-    {
-      "Target": "Parameter",
-      "Name": "EyeBlink",
-      "Ids": []
     },
-    {
-      "Target": "Parameter",
-      "Name": "LipSync",
-      "Ids": []
-    }
-  ],
-  "HitAreas": []
+    "Groups": [
+      {
+        "Target": "Parameter",
+        "Name": "EyeBlink",
+        "Ids": [
+          "ParamEyeLOpen",
+          "ParamEyeROpen"
+        ]
+      }
+    ],
+    "HitAreas": []
+  }
 }

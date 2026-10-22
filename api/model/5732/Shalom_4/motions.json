@@ -1,25 +1,30 @@
 {
   "model": "Shalom_4",
   "idle": [
-    "Idle",
-    "Boring",
-    "Greet",
+    "Idle"
+  ],
+  "tap": [
     "Click_Head",
     "Click_Body1",
     "Click_Body2",
     "Click_HandLeft",
     "Click_HandRight"
   ],
-  "tap": [
-    "Boring",
-    "Click_Body1",
-    "Click_Body2",
-    "Click_HandLeft",
-    "Click_HandRight",
-    "Click_Head",
-    "Greet"
+  "hitArea": "Mask3",
+  "hide": [
+    2,
+    4,
+    5,
+    6,
+    9,
+    10,
+    11,
+    12,
+    13,
+    21
   ],
   "extra": [],
-  "hitArea": "Mask3",
-  "note": "idle=待机轮播; tap=点击时随机; extra=只单独成组不自动播; hitArea=TapBody 命中用的 drawable"
+  "scale": 1.26,
+  "bottom": 0,
+  "note": "idle 只留真正的待机动作；Click_* 给点击；Background/Level 不进分组。hide 为要隐藏的背景/场景 part 下标。"
 }

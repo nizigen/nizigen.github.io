@@ -1,0 +1,22 @@
+{
+  "model": "Angel_5",
+  "idle": [
+    "Idle"
+  ],
+  "tap": [
+    "Click_Head",
+    "Click_body",
+    "Click_HandL",
+    "Click_HandR",
+    "Click_leg"
+  ],
+  "hide": [
+    2,
+    6,
+    26
+  ],
+  "extra": [],
+  "scale": 1.25,
+  "bottom": 0,
+  "note": "idle 只留真正的待机动作；Click_* 给点击；Background/Level 不进分组。hide 为要隐藏的背景/场景 part 下标。"
+}
