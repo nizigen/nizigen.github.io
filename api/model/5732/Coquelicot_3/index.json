@@ -6,25 +6,17 @@
       "textures/texture_00_4096.png"
     ],
     "Motions": {
-      "Background": [
+      "Idle": [
         {
-          "File": "motions/Background.motion3.json",
-          "FadeInTime": 0.5,
-          "FadeOutTime": 0.5
+          "File": "motions/idle.motion3.json"
+        },
+        {
+          "File": "motions/Click_Body.motion3.json"
         }
       ],
-      "Click_Body": [
+      "TapBody": [
         {
-          "File": "motions/Click_Body.motion3.json",
-          "FadeInTime": 0.5,
-          "FadeOutTime": 0.5
-        }
-      ],
-      "idle": [
-        {
-          "File": "motions/idle.motion3.json",
-          "FadeInTime": 0.5,
-          "FadeOutTime": 0.5
+          "File": "motions/Click_Body.motion3.json"
         }
       ]
     }
