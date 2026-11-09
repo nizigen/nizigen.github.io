@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-字符串 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Wed, 16 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E5%AD%97%E7%AC%A6%E4%B8%B2/index.xml" rel="self" type="application/rss+xml"/><item><title>13. 字符串方法</title><link>https://nizigen.github.io/post/13-string-methods/</link><pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/13-string-methods/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-字符串 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Sun, 15 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E5%AD%97%E7%AC%A6%E4%B8%B2/index.xml" rel="self" type="application/rss+xml"/><item><title>13. 字符串方法</title><link>https://nizigen.github.io/post/13-string-methods/</link><pubDate>Sun, 15 Jun 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/13-string-methods/</guid><description>
 <![CDATA[<h1>13. 字符串方法</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
           <p>Python 为字符串内置了一组方法。字符串不可变，所有方法都不会改动原字符串，而是返回新的结果（字符串、列表、布尔值或数字）。</p>
@@ -73,7 +73,7 @@
     <p><p><code>strip()</code> 系列的参数是一组字符，不是子串，遇到集合里的任何字符都会去掉。想去掉固定的前后缀，用 <code>removeprefix()</code> / <code>removesuffix()</code>：</p></p>
   </blockquote>
         
-        <hr><p>Published on 2025-04-16 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-04-16</p>]]></description><category>python</category></item><item><title>12. 字符串格式化</title><link>https://nizigen.github.io/post/12-string-formatting/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/12-string-formatting/</guid><description>
+        <hr><p>Published on 2025-06-15 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-06-15</p>]]></description><category>python</category></item><item><title>12. 字符串格式化</title><link>https://nizigen.github.io/post/12-string-formatting/</link><pubDate>Thu, 05 Jun 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/12-string-formatting/</guid><description>
 <![CDATA[<h1>12. 字符串格式化</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
           <p>格式化指的是把变量的值按指定的样子放进字符串里。Python 有三种写法，本篇是它们的唯一详述处，<a href="/post/08-input-output/">输入输出</a>、<a href="/post/10-strings/">字符串</a>、<a href="/post/18-dicts/">字典</a> 只链接到这里。</p>
@@ -182,7 +182,7 @@
 </span></span><span class="line"><span class="cl">完成了 50%
 </span></span></code></pre></div><p>格式化字符串里有多个转换说明符时，要提供同样多的值，并且必须用小括号 <code>( )</code> 包成元组。</p>
         
-        <hr><p>Published on 2025-03-21 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-21</p>]]></description><category>python</category></item><item><title>11. 字符编码与bytes</title><link>https://nizigen.github.io/post/11-encoding-and-bytes/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/11-encoding-and-bytes/</guid><description>
+        <hr><p>Published on 2025-06-05 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-06-05</p>]]></description><category>python</category></item><item><title>11. 字符编码与bytes</title><link>https://nizigen.github.io/post/11-encoding-and-bytes/</link><pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/11-encoding-and-bytes/</guid><description>
 <![CDATA[<h1>11. 字符编码与bytes</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
           <p>计算机里只有 0 和 1，文本、数字、图片、视频最终都要变成二进制。文本里的每个字符要先对应一个数字，再把数字存成字节。字符串（<code>str</code>）面向字符，字节串（<code>bytes</code>）面向字节，两者靠“编码”和“解码”互相转换。字符串本身的用法见 <a href="/post/10-strings/">字符串</a>。</p>
@@ -247,7 +247,7 @@
     <p><p>Python 3 的 <code>str</code> 就是 Unicode 字符串。<code>str.encode()</code> 不写编码时默认用 UTF-8。源文件和文本文件也建议统一用 UTF-8，规范见 <a href="/post/04-coding-style/">编码规范</a>。</p></p>
   </blockquote>
         
-        <hr><p>Published on 2025-03-21 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-21</p>]]></description><category>python</category></item><item><title>10. 字符串</title><link>https://nizigen.github.io/post/10-strings/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/10-strings/</guid><description>
+        <hr><p>Published on 2025-05-25 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-05-25</p>]]></description><category>python</category></item><item><title>10. 字符串</title><link>https://nizigen.github.io/post/10-strings/</link><pubDate>Thu, 15 May 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/10-strings/</guid><description>
 <![CDATA[<h1>10. 字符串</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
           <p>字符串（<code>str</code>）是由字符组成的、有序且不可变的序列。Python 没有单独的字符类型，单个字符就是长度为 1 的字符串。</p>
@@ -303,4 +303,4 @@
 转义字符
 </h3><p>转义字符用来表示无法直接输入或有特殊含义的字符，如换行、制表符、反斜杠本身。它以反斜杠 <code>\</code> 开头。</p>
         
-        <hr><p>Published on 2025-03-21 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-21</p>]]></description><category>python</category></item></channel></rss>
+        <hr><p>Published on 2025-05-15 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-05-15</p>]]></description><category>python</category></item></channel></rss>

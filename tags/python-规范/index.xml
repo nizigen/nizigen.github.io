@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-规范 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Fri, 28 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/index.xml" rel="self" type="application/rss+xml"/><item><title>04. 编码规范</title><link>https://nizigen.github.io/post/04-coding-style/</link><pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/04-coding-style/</guid><description>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-规范 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Sat, 15 Mar 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E8%A7%84%E8%8C%83/index.xml" rel="self" type="application/rss+xml"/><item><title>04. 编码规范</title><link>https://nizigen.github.io/post/04-coding-style/</link><pubDate>Sat, 15 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/04-coding-style/</guid><description>
 <![CDATA[<h1>04. 编码规范</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
           <p>随着程序越来越长，有必要遵循一些代码格式约定，让所有人写出的代码结构大致一致。PEP 8（Python Enhancement Proposal）是最古老的 PEP 之一，向 Python 程序员提供了代码格式指南：https://python.org/dev/peps/pep-0008/</p>
 <h2 id="源文件编码">
 <a class="header-anchor" href="#%e6%ba%90%e6%96%87%e4%bb%b6%e7%bc%96%e7%a0%81"></a>
 源文件编码
-</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8，设置方法见 <a href="/post/02-environment-setup/">开发环境搭建</a>。</p>
+</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8，设置方法见 开发环境搭建。</p>
 <h2 id="缩进">
 <a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
 缩进
@@ -38,4 +38,4 @@
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">C语言中文网是中国领先的C语言程序设计专业网站，提供C语言入门经典教程、C语言编译器、C语言函数手册等。
 </span></span></code></pre></div><p>此规范适用于绝大多数情况，但以下 2 种情况除外：</p>
         
-        <hr><p>Published on 2025-03-28 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-28</p>]]></description><category>python</category></item></channel></rss>
+        <hr><p>Published on 2025-03-15 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-15</p>]]></description><category>python</category></item></channel></rss>
