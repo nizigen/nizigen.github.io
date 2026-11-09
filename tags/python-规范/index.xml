@@ -5,7 +5,7 @@
 <h2 id="源文件编码">
 <a class="header-anchor" href="#%e6%ba%90%e6%96%87%e4%bb%b6%e7%bc%96%e7%a0%81"></a>
 源文件编码
-</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8，设置方法见 开发环境搭建。</p>
+</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8。</p>
 <h2 id="缩进">
 <a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
 缩进
