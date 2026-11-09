@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-面向对象 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/index.xml" rel="self" type="application/rss+xml"/><item><title>23. 面向对象：封装、继承与多态</title><link>https://nizigen.github.io/post/23-oop-encapsulation-inheritance-polymorphism/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/23-oop-encapsulation-inheritance-polymorphism/</guid><description>
+<![CDATA[<h1>23. 面向对象：封装、继承与多态</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>封装、继承、多态是面向对象的三大特征。类与对象的语法见 <a href="/post/22-oop-classes/">类与对象</a>，这一篇讲三者各自的实现方式，以及把它们串起来的 MRO。</p>
+<h2 id="封装">
+<a class="header-anchor" href="#%e5%b0%81%e8%a3%85"></a>
+封装
+</h2><p>封装的目的与 Java 完全一致，只有实现方式不同：</p>
+<ol>
+<li>隐藏内部实现——把数据和操作数据的方法绑在一起，外部不必知道内部如何存储和处理；</li>
+<li>保证数据安全——限制外部随意修改，通过统一接口做校验、日志、联动更新；</li>
+<li>降低耦合——外部只依赖暴露的接口，内部实现变了，只要接口不变就不用改外部代码。</li>
+</ol>
+<p>Java 把「私有化属性」当作实现封装的唯一常规手段，于是有了「私有化 = 封装」的印象；Python 提供了多种更灵活的方式，私有化只是其中一种，而且不是最常用的。</p>
+<h3 id="约定式封装单下划线-_attr">
+<a class="header-anchor" href="#%e7%ba%a6%e5%ae%9a%e5%bc%8f%e5%b0%81%e8%a3%85%e5%8d%95%e4%b8%8b%e5%88%92%e7%ba%bf-_attr"></a>
+约定式封装：单下划线 <code>_attr</code>
+</h3><p>属性或方法以单个下划线开头（<code>self._age</code>、<code>def _calc_score(self)</code>），向其他开发者传递信号：这是内部实现，外部不要直接访问。Python 不会做任何语法限制，PyCharm 等检查工具会对外部访问给出提示，靠的是约定。下划线含义的完整规则见 <a href="/post/03-syntax-basics/">标识符与命名</a>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">math</span><span class="p">,</span> <span class="n">english</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">math</span> <span class="o">=</span> <span class="n">math</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">english</span> <span class="o">=</span> <span class="n">english</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">=</span> <span class="n">math</span> <span class="o">+</span> <span class="n">english</span>  <span class="c1"># 内部属性，外部无需关注</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 内部实现：单下划线标识，外部不要调用</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_calc_average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">/</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 外部接口：公开方法，供外部调用</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_average</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get_average</span><span class="p">())</span>  <span class="c1"># 正确用法</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">_total</span><span class="p">)</span>         <span class="c1"># 语法上能跑，PyCharm 会警告</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">_calc_average</span><span class="p">())</span>  <span class="c1"># 语法上能跑，PyCharm 会警告</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">85.0
+</span></span><span class="line"><span class="cl">170
+</span></span><span class="line"><span class="cl">85.0
+</span></span></code></pre></div><h3 id="接口式封装property">
+<a class="header-anchor" href="#%e6%8e%a5%e5%8f%a3%e5%bc%8f%e5%b0%81%e8%a3%85property"></a>
+接口式封装：<code>@property</code>
+</h3><p>这是替代 Java getter/setter 的方案，目标是「给属性加逻辑，同时保持 <code>对象.属性</code> 这种简洁接口」（<code>@property</code> 本身是装饰器的应用，见 装饰器）：</p>
+<ul>
+<li>用 <code>@property</code> 标记一个返回属性值的方法，称为 getter；</li>
+<li>用 <code>@getter方法名.setter</code> 标记一个设置属性值的方法，称为 setter；</li>
+<li>封装对调用方完全透明，以后给原本公开的属性加上校验，外部代码不用改；</li>
+<li><code>@property</code> 装饰的方法名不要和实例属性重名，否则无限递归。</li>
+</ul>
+<p>原来没有校验的 <code>Person</code>：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>22. 面向对象：类与对象</title><link>https://nizigen.github.io/post/22-oop-classes/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/22-oop-classes/</guid><description>
+<![CDATA[<h1>22. 面向对象：类与对象</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>面向过程把问题拆成一串步骤，面向对象把问题看成一组互相作用的对象。Python 两种范式都支持，程序变大之后，后者更容易扩展。这一篇讲类与对象本身：定义类、实例化、<code>self</code>、属性、三种方法、魔法方法，以及在运行时增删成员。封装、继承、多态见 <a href="/post/23-oop-encapsulation-inheritance-polymorphism/">封装、继承与多态</a>。</p>
+<h2 id="面向过程与面向对象">
+<a class="header-anchor" href="#%e9%9d%a2%e5%90%91%e8%bf%87%e7%a8%8b%e4%b8%8e%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1"></a>
+面向过程与面向对象
+</h2><table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>面向过程</th>
+					<th>面向对象</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>关注点</td>
+					<td>解决问题的步骤</td>
+					<td>涉及哪些对象、对象之间如何交互</td>
+			</tr>
+			<tr>
+					<td>组织单位</td>
+					<td>函数</td>
+					<td>类与对象</td>
+			</tr>
+			<tr>
+					<td>数据与操作</td>
+					<td>分离，数据在函数之间传来传去</td>
+					<td>绑在同一个类里</td>
+			</tr>
+			<tr>
+					<td>适合</td>
+					<td>简单、一次性的任务</td>
+					<td>需要扩展和复用的程序</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="做菜两种写法">
+<a class="header-anchor" href="#%e5%81%9a%e8%8f%9c%e4%b8%a4%e7%a7%8d%e5%86%99%e6%b3%95"></a>
+做菜：两种写法
+</h3><p>面向过程把做饭拆成五个函数，按顺序调用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">buy</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;去超市购买食材...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">wash</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;洗菜...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cut</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;切菜...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cook</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;开始烹饪...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;上菜啦！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">buy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">wash</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">cut</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">serve</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">去超市购买食材...
+</span></span><span class="line"><span class="cl">洗菜...
+</span></span><span class="line"><span class="cl">切菜...
+</span></span><span class="line"><span class="cl">开始烹饪...
+</span></span><span class="line"><span class="cl">上菜啦！
+</span></span></code></pre></div><p>流程直白，但没有通用性：想做沙拉（不切不炒）、红烧肉（多一步烹饪）、紫菜汤（只煮），要么重写，要么往函数里加分支，函数越堆越乱。</p>
+<p>面向对象先定义一个「菜」的模板，再让每种菜自己决定怎么做：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dish</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Salad</span><span class="p">(</span><span class="n">Dish</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;为制作 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 购买食材。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;清洗 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的蔬菜。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;切 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的蔬菜。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;将 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 装盘。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Stew</span><span class="p">(</span><span class="n">Dish</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;为制作 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 购买食材。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;清洗 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的肉。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;切 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的肉。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;烹饪 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;将 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 装盘。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Soup</span><span class="p">(</span><span class="n">Dish</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;为制作 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 购买食材。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;煮 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">salad</span> <span class="o">=</span> <span class="n">Salad</span><span class="p">(</span><span class="s2">&#34;蔬菜沙拉&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">stew</span> <span class="o">=</span> <span class="n">Stew</span><span class="p">(</span><span class="s2">&#34;红烧肉&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">soup</span> <span class="o">=</span> <span class="n">Soup</span><span class="p">(</span><span class="s2">&#34;紫菜鸡蛋汤&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">salad</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">stew</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">soup</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">为制作 蔬菜沙拉 购买食材。
+</span></span><span class="line"><span class="cl">清洗 蔬菜沙拉 的蔬菜。
+</span></span><span class="line"><span class="cl">切 蔬菜沙拉 的蔬菜。
+</span></span><span class="line"><span class="cl">将 蔬菜沙拉 装盘。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">为制作 红烧肉 购买食材。
+</span></span><span class="line"><span class="cl">清洗 红烧肉 的肉。
+</span></span><span class="line"><span class="cl">切 红烧肉 的肉。
+</span></span><span class="line"><span class="cl">烹饪 红烧肉。
+</span></span><span class="line"><span class="cl">将 红烧肉 装盘。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">为制作 紫菜鸡蛋汤 购买食材。
+</span></span><span class="line"><span class="cl">煮 紫菜鸡蛋汤。
+</span></span></code></pre></div><p>数据（菜名）和操作（准备过程）放在同一个类里，这是封装；三种菜各自实现 <code>prepare</code>，同一个调用 <code>菜.prepare()</code> 得到不同结果，这是多态。以后再加菜品，只要写一个新子类，已有代码一行都不用动。</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item></channel></rss>

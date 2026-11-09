@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-文件 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E6%96%87%E4%BB%B6/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E6%96%87%E4%BB%B6/index.xml" rel="self" type="application/rss+xml"/><item><title>21. 文件操作</title><link>https://nizigen.github.io/post/21-file-operations/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/21-file-operations/</guid><description>
+<![CDATA[<h1>21. 文件操作</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>程序运行时的数据都在内存里，进程一结束就没了。要把数据留下来就得写进磁盘文件，这个过程叫<strong>持久化</strong>。Python 用内置的 <code>open()</code> 打开文件拿到文件对象，再用这个对象读写；文件和目录的增删改查交给标准库 <code>os</code>、<code>os.path</code> 和 <code>shutil</code>。</p>
+<h2 id="文件的概念">
+<a class="header-anchor" href="#%e6%96%87%e4%bb%b6%e7%9a%84%e6%a6%82%e5%bf%b5"></a>
+文件的概念
+</h2><p>文件是存储在磁盘上的数据集合，可以装文本、图像、音频、视频或程序代码。文件系统靠<strong>路径 + 文件名</strong>定位文件。</p>
+<p>文件名通常由名称和扩展名组成，扩展名表示类型（<code>.txt</code> 文本、<code>.jpg</code> 图像、<code>.py</code> 代码）。路径分两种：</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>绝对路径</th>
+					<th>相对路径</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Windows</td>
+					<td>从盘符开始，如 <code>D:\atguigu\hello.py</code></td>
+					<td>不以盘符开头，如 <code>./atguigu/hello.py</code>、<code>..\..\hello.py</code></td>
+			</tr>
+			<tr>
+					<td>Linux / macOS</td>
+					<td>从根目录 <code>/</code> 开始，如 <code>/users/hello.py</code></td>
+					<td>不从 <code>/</code> 开头，如 <code>./atguigu/hello.py</code>、<code>../../hello.py</code></td>
+			</tr>
+	</tbody>
+</table>
+<ul>
+<li><code>./</code> 表示当前目录，<code>../</code> 表示上级目录。</li>
+<li>相对路径依赖<strong>当前工作目录</strong>，同一个相对路径在不同目录下运行会指向不同文件，所以脚本里操作文件时常用绝对路径，或者用 <code>os.path.join(os.path.dirname(__file__), ...)</code> 拼出稳定路径。</li>
+</ul>
+<p>按内容分两类：</p>
+<ul>
+<li><strong>纯文本文件</strong>：有统一的字符编码，可以看成一串存在磁盘上的长字符串。一般以字节为单位或一行为单位。常见编码有 ASCII、ISO-8859-1/Latin1、GB2312、GBK、UTF-8、UTF-16，编码细节见 <a href="/post/11-encoding-and-bytes/">字符编码与 bytes</a>。.py,.html,.txt,.js .md .css</li>
+<li><strong>二进制文件</strong>：没有字符编码和解码的概念，直接由 0 和 1 组成，比如图片、视频、压缩包、可执行文件。只能以字节为单位。</li>
+</ul>
+<h2 id="打开与关闭">
+<a class="header-anchor" href="#%e6%89%93%e5%bc%80%e4%b8%8e%e5%85%b3%e9%97%ad"></a>
+打开与关闭
+</h2><p>无论是读写IO操作最初都是打开文件，最后一步都是关闭文件。不close虽然不报错，但是底层C的内存释放不能自动进行。日积月累内存占用会很严重。</p>
+<h3 id="open-的参数">
+<a class="header-anchor" href="#open-%e7%9a%84%e5%8f%82%e6%95%b0"></a>
+open() 的参数
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">buffering</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">closefd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>参数</th>
+					<th>说明</th>
+					<th>默认</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>file</code></td>
+					<td>要打开的文件路径（位置 + 文件名），也可以传整数型文件描述符</td>
+					<td>必选</td>
+			</tr>
+			<tr>
+					<td><code>mode</code></td>
+					<td>操作类型（读 / 写 / 追加）和打开格式（文本 / 二进制）</td>
+					<td><code>&quot;r&quot;</code></td>
+			</tr>
+			<tr>
+					<td><code>buffering</code></td>
+					<td>读写缓冲策略。磁盘读写远慢于内存，缓冲就是先在内存里攒数据、到阈值再一次性写盘，减少 IO 次数</td>
+					<td><code>-1</code></td>
+			</tr>
+			<tr>
+					<td><code>encoding</code></td>
+					<td>文本模式下按什么编码把字节解码成字符串、把字符串编码成字节。<strong>仅文本模式有效</strong>，二进制模式指定它会直接报错。默认 <code>None</code>，表示用&quot;系统默认编码&quot;，取值由系统区域设置和 UTF-8 模式共同决定</td>
+					<td><code>None</code></td>
+			</tr>
+			<tr>
+					<td><code>errors</code></td>
+					<td>文本模式下编码或解码出错时的处理方式，只能文本模式用</td>
+					<td><code>None</code></td>
+			</tr>
+			<tr>
+					<td><code>newline</code></td>
+					<td>仅文本模式有效，控制读取时怎么解析换行符、写入时怎么替换换行符，用来抹平 Windows <code>\r\n</code>、Linux/macOS <code>\n</code>、旧 Mac <code>\r</code> 的差异</td>
+					<td><code>None</code></td>
+			</tr>
+			<tr>
+					<td><code>closefd</code></td>
+					<td>调用 <code>close()</code> 时是否连底层文件描述符一起关闭</td>
+					<td><code>True</code></td>
+			</tr>
+			<tr>
+					<td><code>opener</code></td>
+					<td>自定义打开函数，替换内置逻辑，用于权限校验、加密文件等高级场景，新手用不到</td>
+					<td><code>None</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>不传 <code>encoding</code> 时到底用什么编码，看这三个值就清楚了：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item></channel></rss>

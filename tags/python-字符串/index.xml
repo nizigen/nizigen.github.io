@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-字符串 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E5%AD%97%E7%AC%A6%E4%B8%B2/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Wed, 16 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E5%AD%97%E7%AC%A6%E4%B8%B2/index.xml" rel="self" type="application/rss+xml"/><item><title>13. 字符串方法</title><link>https://nizigen.github.io/post/13-string-methods/</link><pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/13-string-methods/</guid><description>
+<![CDATA[<h1>13. 字符串方法</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>Python 为字符串内置了一组方法。字符串不可变，所有方法都不会改动原字符串，而是返回新的结果（字符串、列表、布尔值或数字）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;abc&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="ow">is</span> <span class="n">r</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">abc ABC False
+</span></span></code></pre></div><p>方法按用途分为下面几组。字符串的创建、索引、切片见 <a href="/post/10-strings/">字符串</a>，格式化见 <a href="/post/12-string-formatting/">字符串格式化</a>，编码见 <a href="/post/11-encoding-and-bytes/">字符编码与 bytes</a>。</p>
+<h2 id="查看方法dir-与-help">
+<a class="header-anchor" href="#%e6%9f%a5%e7%9c%8b%e6%96%b9%e6%b3%95dir-%e4%b8%8e-help"></a>
+查看方法：dir() 与 help()
+</h2><p><code>dir(obj)</code> 列出某个类、模块或对象里的全部内容，包括变量、方法、函数和类；<code>obj</code> 不写时列出当前范围内的名称。<code>help(obj)</code> 查看某个函数或模块的帮助文档；<code>obj</code> 不写时进入交互式帮助。掌握这两个函数，就能自己查阅 Python 里所有方法、函数、类的用法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;upper&#34;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;abc&#34;</span><span class="o">.</span><span class="n">upper</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">True
+</span></span><span class="line"><span class="cl">Return a copy of the string converted to uppercase.
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Help on method_descriptor:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">upper(self, /) unbound builtins.str method
+</span></span><span class="line"><span class="cl">    Return a copy of the string converted to uppercase.
+</span></span></code></pre></div><h2 id="去除空白与前后缀">
+<a class="header-anchor" href="#%e5%8e%bb%e9%99%a4%e7%a9%ba%e7%99%bd%e4%b8%8e%e5%89%8d%e5%90%8e%e7%bc%80"></a>
+去除空白与前后缀
+</h2><table>
+	<thead>
+			<tr>
+					<th>方法</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>s.strip([x])</code></td>
+					<td>去掉两端的空白字符或指定字符</td>
+			</tr>
+			<tr>
+					<td><code>s.lstrip([x])</code></td>
+					<td>只去掉左边</td>
+			</tr>
+			<tr>
+					<td><code>s.rstrip([x])</code></td>
+					<td>只去掉右边</td>
+			</tr>
+			<tr>
+					<td><code>s.removeprefix(p)</code></td>
+					<td>去掉指定前缀（3.9+），没有匹配则原样返回</td>
+			</tr>
+			<tr>
+					<td><code>s.removesuffix(p)</code></td>
+					<td>去掉指定后缀（3.9+），没有匹配则原样返回</td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="s2">&#34; Hello, World! &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;***hello***&#34;</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&#34;*&#34;</span><span class="p">),</span> <span class="s2">&#34;___hello___&#34;</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&#34;_&#34;</span><span class="p">),</span> <span class="s2">&#34;___hello___&#34;</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&#34;_&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://www.example.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&#34;https://&#34;</span><span class="p">),</span> <span class="n">url</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&#34;http://&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">filename</span> <span class="o">=</span> <span class="s2">&#34;document.pdf&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&#34;.pdf&#34;</span><span class="p">),</span> <span class="n">filename</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&#34;.txt&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#39;Hello, World!&#39; &#39;Hello, World! &#39; &#39; Hello, World!&#39;
+</span></span><span class="line"><span class="cl">hello hello___ ___hello
+</span></span><span class="line"><span class="cl">www.example.com https://www.example.com
+</span></span><span class="line"><span class="cl">document document.pdf
+</span></span></code></pre></div>
+  <blockquote class="alert-blockquote warning">
+    <p class="alert-heading">
+      Warning
+    </p>
+    <p><p><code>strip()</code> 系列的参数是一组字符，不是子串，遇到集合里的任何字符都会去掉。想去掉固定的前后缀，用 <code>removeprefix()</code> / <code>removesuffix()</code>：</p></p>
+  </blockquote>
+        
+        <hr><p>Published on 2025-04-16 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-04-16</p>]]></description><category>python</category></item><item><title>12. 字符串格式化</title><link>https://nizigen.github.io/post/12-string-formatting/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/12-string-formatting/</guid><description>
+<![CDATA[<h1>12. 字符串格式化</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>格式化指的是把变量的值按指定的样子放进字符串里。Python 有三种写法，本篇是它们的唯一详述处，<a href="/post/08-input-output/">输入输出</a>、<a href="/post/10-strings/">字符串</a>、<a href="/post/18-dicts/">字典</a> 只链接到这里。</p>
+<table>
+	<thead>
+			<tr>
+					<th>写法</th>
+					<th>例子</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>%</code> 格式化</td>
+					<td><code>&quot;%s %d&quot; % (name, age)</code></td>
+					<td>最早的写法，源自 C 语言的 <code>printf</code></td>
+			</tr>
+			<tr>
+					<td><code>str.format()</code></td>
+					<td><code>&quot;{} {}&quot;.format(name, age)</code></td>
+					<td>功能完整，位置和名称都可以指定</td>
+			</tr>
+			<tr>
+					<td>f-string</td>
+					<td><code>f&quot;{name} {age}&quot;</code></td>
+					<td>3.6 引入，直接在字符串里写表达式，最常用</td>
+			</tr>
+	</tbody>
+</table>
+<p>后两种共用同一套“格式控制”规则，见下面的格式控制小节。</p>
+<h2 id="-格式化">
+<a class="header-anchor" href="#-%e6%a0%bc%e5%bc%8f%e5%8c%96"></a>
+% 格式化
+</h2><h3 id="转换说明符">
+<a class="header-anchor" href="#%e8%bd%ac%e6%8d%a2%e8%af%b4%e6%98%8e%e7%ac%a6"></a>
+转换说明符
+</h3><p>字符串里的转换说明符（Conversion Specifier）只是占位符，会被 <code>%</code> 后面表达式的值代替。<code>%</code> 前面是格式化字符串，后面是要输出的值。</p>
+<p><img src="/python/attachments/Pasted%20image%2020250402193625.png" alt=""></p>
+<table>
+	<thead>
+			<tr>
+					<th>格式符号</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>%d</code>、<code>%i</code></td>
+					<td>带符号的十进制整数</td>
+			</tr>
+			<tr>
+					<td><code>%o</code></td>
+					<td>八进制整数</td>
+			</tr>
+			<tr>
+					<td><code>%x</code>、<code>%X</code></td>
+					<td>十六进制整数（小写、大写）</td>
+			</tr>
+			<tr>
+					<td><code>%e</code>、<code>%E</code></td>
+					<td>科学计数法浮点数（小写、大写）</td>
+			</tr>
+			<tr>
+					<td><code>%f</code>、<code>%F</code></td>
+					<td>十进制浮点数</td>
+			</tr>
+			<tr>
+					<td><code>%g</code>、<code>%G</code></td>
+					<td>智能选择 <code>%f</code> 或 <code>%e</code> 格式</td>
+			</tr>
+			<tr>
+					<td><code>%c</code></td>
+					<td>单个字符，参数可以是整数码点或长度为 1 的字符串</td>
+			</tr>
+			<tr>
+					<td><code>%r</code></td>
+					<td>用 <code>repr()</code> 转成字符串</td>
+			</tr>
+			<tr>
+					<td><code>%s</code></td>
+					<td>用 <code>str()</code> 转成字符串</td>
+			</tr>
+			<tr>
+					<td><code>%%</code></td>
+					<td>输出一个 <code>%</code> 字符</td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">age</span> <span class="o">=</span> <span class="mi">21</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;我今年</span><span class="si">%d</span><span class="s2">岁了！&#34;</span> <span class="o">%</span> <span class="n">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;chiyuki&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://chiyuki20.github.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">已经</span><span class="si">%d</span><span class="s2">岁了，它的网址是</span><span class="si">%s</span><span class="s2">。&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">,</span> <span class="n">url</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mf">2.5</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = </span><span class="si">%d</span><span class="s2">, b = </span><span class="si">%f</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">%d</span><span class="s2"> </span><span class="si">%o</span><span class="s2"> </span><span class="si">%x</span><span class="s2"> </span><span class="si">%X</span><span class="s2"> </span><span class="si">%e</span><span class="s2"> </span><span class="si">%f</span><span class="s2"> </span><span class="si">%g</span><span class="s2"> </span><span class="si">%c</span><span class="s2"> </span><span class="si">%r</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">65</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mf">12345.678</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="mf">0.00001234</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="s2">&#34;hi&#34;</span><span class="p">,</span> <span class="s2">&#34;hi&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;完成了 </span><span class="si">%d%%</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="mi">50</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">我今年21岁了！
+</span></span><span class="line"><span class="cl">chiyuki已经21岁了，它的网址是http://chiyuki20.github.com。
+</span></span><span class="line"><span class="cl">a = 1, b = 2.500000
+</span></span><span class="line"><span class="cl">65 101 ff FF 1.234568e+04 3.140000 1.234e-05 A &#39;hi&#39; hi
+</span></span><span class="line"><span class="cl">完成了 50%
+</span></span></code></pre></div><p>格式化字符串里有多个转换说明符时，要提供同样多的值，并且必须用小括号 <code>( )</code> 包成元组。</p>
+        
+        <hr><p>Published on 2025-03-21 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-21</p>]]></description><category>python</category></item><item><title>11. 字符编码与bytes</title><link>https://nizigen.github.io/post/11-encoding-and-bytes/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/11-encoding-and-bytes/</guid><description>
+<![CDATA[<h1>11. 字符编码与bytes</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>计算机里只有 0 和 1，文本、数字、图片、视频最终都要变成二进制。文本里的每个字符要先对应一个数字，再把数字存成字节。字符串（<code>str</code>）面向字符，字节串（<code>bytes</code>）面向字节，两者靠“编码”和“解码”互相转换。字符串本身的用法见 <a href="/post/10-strings/">字符串</a>。</p>
+<h2 id="字符编码">
+<a class="header-anchor" href="#%e5%ad%97%e7%ac%a6%e7%bc%96%e7%a0%81"></a>
+字符编码
+</h2><h3 id="字符集与编码方式">
+<a class="header-anchor" href="#%e5%ad%97%e7%ac%a6%e9%9b%86%e4%b8%8e%e7%bc%96%e7%a0%81%e6%96%b9%e5%bc%8f"></a>
+字符集与编码方式
+</h3><ul>
+<li>字符集：规定每个字符对应哪个数字的表。最早的字符集是 ASCII，收录 0 到 127 共 128 个字符。</li>
+<li>编码方式：规定这些数字怎样存成字节。同一个字符集可以有不同的编码方式。</li>
+</ul>
+<table>
+	<thead>
+			<tr>
+					<th>名称</th>
+					<th>说明</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>ASCII</td>
+					<td>128 个字符，每个字符 1 个字节，包含英文字母、数字、标点、控制字符</td>
+			</tr>
+			<tr>
+					<td>ISO-8859-1（Latin-1）</td>
+					<td>256 个字符，每个字符 1 个字节，覆盖西欧文字</td>
+			</tr>
+			<tr>
+					<td>GB2312、GBK</td>
+					<td>简体中文。ASCII 部分 1 个字节，汉字 2 个字节。GBK 是 GB2312 的扩展</td>
+			</tr>
+			<tr>
+					<td>Big5</td>
+					<td>繁体中文</td>
+			</tr>
+			<tr>
+					<td>Shift-JIS</td>
+					<td>日文</td>
+			</tr>
+			<tr>
+					<td>Unicode</td>
+					<td>字符集，一张表收录世界上各国的常用文字</td>
+			</tr>
+			<tr>
+					<td>UTF-8、UTF-16、UTF-32</td>
+					<td>Unicode 的编码方式。UTF-8 长度可变，占 1 到 4 个字节，英文 1 个字节，常用汉字 3 个字节</td>
+			</tr>
+	</tbody>
+</table>
+<p>UTF-8、GBK、ISO-8859-1 都兼容 ASCII：纯 ASCII 文本用它们编码的结果是一样的。几个需要记住的 ASCII 值：</p>
+<ul>
+<li><code>'0'</code> 是 48，<code>'A'</code> 是 65，<code>'a'</code> 是 97。</li>
+<li>大写字母比对应小写字母小 32。</li>
+</ul>
+
+  <blockquote class="alert-blockquote tip">
+    <p class="alert-heading">
+      Tip
+    </p>
+    <p><p>Python 3 的 <code>str</code> 就是 Unicode 字符串。<code>str.encode()</code> 不写编码时默认用 UTF-8。源文件和文本文件也建议统一用 UTF-8，规范见 <a href="/post/04-coding-style/">编码规范</a>。</p></p>
+  </blockquote>
+        
+        <hr><p>Published on 2025-03-21 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-21</p>]]></description><category>python</category></item><item><title>10. 字符串</title><link>https://nizigen.github.io/post/10-strings/</link><pubDate>Fri, 21 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/10-strings/</guid><description>
+<![CDATA[<h1>10. 字符串</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>字符串（<code>str</code>）是由字符组成的、有序且不可变的序列。Python 没有单独的字符类型，单个字符就是长度为 1 的字符串。</p>
+<ul>
+<li>通用的序列操作见 <a href="/post/15-sequences/">序列</a>，容器共有的操作见 <a href="/post/14-container-overview/">容器通用操作</a>。</li>
+<li>字符与字节的转换见 <a href="/post/11-encoding-and-bytes/">字符编码与 bytes</a>，格式化输出见 <a href="/post/12-string-formatting/">字符串格式化</a>，字符串自带的方法见 <a href="/post/13-string-methods/">字符串方法</a>。</li>
+</ul>
+<h2 id="字符串字面量与转义字符">
+<a class="header-anchor" href="#%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%ad%97%e9%9d%a2%e9%87%8f%e4%b8%8e%e8%bd%ac%e4%b9%89%e5%ad%97%e7%ac%a6"></a>
+字符串字面量与转义字符
+</h2><h3 id="引号">
+<a class="header-anchor" href="#%e5%bc%95%e5%8f%b7"></a>
+引号
+</h3><p>用单引号、双引号、三个单引号或三个双引号包裹的文本都是字符串对象，类型都是 <code>str</code>。</p>
+<ul>
+<li>单行文本：单引号 <code>'hello'</code> 或双引号 <code>&quot;world&quot;</code>，内容只能在一行内。</li>
+<li>多行文本：三个单引号 <code>'''...'''</code> 或三个双引号 <code>&quot;&quot;&quot;...&quot;&quot;&quot;</code>，内容可以跨行，换行符、制表符等都原样保留（所见即所得）。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="s2">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    hello
+</span></span></span><span class="line"><span class="cl"><span class="s2">    world
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">    hello
+</span></span></span><span class="line"><span class="cl"><span class="s1">    python
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt;
+</span></span></code></pre></div><p>三引号字符串同样可以赋值给变量，常用来存放多行文本或文档注释。</p>
+
+  <blockquote class="alert-blockquote warning">
+    <p class="alert-heading">
+      Warning
+    </p>
+    <p><p>三引号结尾必须正好是三个引号。结尾写成四个引号（<code>&quot;&quot;&quot;&quot;</code>）会多出一个引号，开启一个没有结束的新字符串，报 <code>SyntaxError: unterminated string literal</code>。</p></p>
+  </blockquote>
+
+<p>字符串内容里本身有引号时：</p>
+<ul>
+<li>外层用单引号，内部可以直接写双引号，反之亦然，不需要转义。</li>
+<li>内外引号相同，才需要对内部的引号转义。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;他说：&#34;你好&#34;&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;It&#39;s fine&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;It</span><span class="se">\&#39;</span><span class="s1">s fine&#39;</span><span class="p">,</span> <span class="s2">&#34;他说：</span><span class="se">\&#34;</span><span class="s2">你好</span><span class="se">\&#34;</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">他说：&#34;你好&#34;
+</span></span><span class="line"><span class="cl">It&#39;s fine
+</span></span><span class="line"><span class="cl">It&#39;s fine 他说：&#34;你好&#34;
+</span></span></code></pre></div><h3 id="转义字符">
+<a class="header-anchor" href="#%e8%bd%ac%e4%b9%89%e5%ad%97%e7%ac%a6"></a>
+转义字符
+</h3><p>转义字符用来表示无法直接输入或有特殊含义的字符，如换行、制表符、反斜杠本身。它以反斜杠 <code>\</code> 开头。</p>
+        
+        <hr><p>Published on 2025-03-21 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-21</p>]]></description><category>python</category></item></channel></rss>

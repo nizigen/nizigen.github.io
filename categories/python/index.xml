@@ -76,19 +76,19 @@
 	</thead>
 	<tbody>
 			<tr>
-					<td>字符串</td>
+					<td><a href="/post/10-strings/">字符串</a></td>
 					<td>字面量与转义字符、三引号、原始字符串、驻留、索引与切片</td>
 			</tr>
 			<tr>
-					<td>字符编码与 bytes</td>
+					<td><a href="/post/11-encoding-and-bytes/">字符编码与 bytes</a></td>
 					<td>ASCII / Unicode / UTF-8 / GBK、<code>ord</code> 与 <code>chr</code>、<code>encode</code> 与 <code>decode</code>、<code>bytes</code></td>
 			</tr>
 			<tr>
-					<td>字符串格式化</td>
+					<td><a href="/post/12-string-formatting/">字符串格式化</a></td>
 					<td><code>%</code> 占位符、<code>str.format()</code>、f-string、填充对齐与精度控制</td>
 			</tr>
 			<tr>
-					<td>字符串方法</td>
+					<td><a href="/post/13-string-methods/">字符串方法</a></td>
 					<td>查找、替换、分割合并、大小写、判断类方法、<code>dir()</code> 与 <code>help()</code></td>
 			</tr>
 	</tbody>
@@ -105,27 +105,27 @@
 	</thead>
 	<tbody>
 			<tr>
-					<td>容器类型概述</td>
+					<td><a href="/post/14-container-overview/">容器类型概述</a></td>
 					<td>列表/元组/字典/集合的对比、可变与不可变、容器通用操作</td>
 			</tr>
 			<tr>
-					<td>序列</td>
+					<td><a href="/post/15-sequences/">序列</a></td>
 					<td>索引、切片、拼接、<code>in</code>、<code>enumerate</code> 与 <code>zip</code></td>
 			</tr>
 			<tr>
-					<td>列表</td>
+					<td><a href="/post/16-lists/">列表</a></td>
 					<td>增删改查、排序反转、列表推导式、用列表实现栈和队列</td>
 			</tr>
 			<tr>
-					<td>元组</td>
+					<td><a href="/post/17-tuples/">元组</a></td>
 					<td>创建、解包、与列表的区别、内存对比、不可替代的场景</td>
 			</tr>
 			<tr>
-					<td>字典</td>
+					<td><a href="/post/18-dicts/">字典</a></td>
 					<td>创建、增删改查、遍历、推导式、<code>copy()</code>、合并运算符</td>
 			</tr>
 			<tr>
-					<td>集合</td>
+					<td><a href="/post/19-sets/">集合</a></td>
 					<td>去重、交并差、子集判断、推导式、<code>frozenset</code></td>
 			</tr>
 	</tbody>
@@ -142,11 +142,11 @@
 	</thead>
 	<tbody>
 			<tr>
-					<td>函数</td>
+					<td><a href="/post/20-functions/">函数</a></td>
 					<td>定义与返回值、参数种类、参数传递、递归、一等公民、<code>lambda</code>、文档字符串</td>
 			</tr>
 			<tr>
-					<td>文件操作</td>
+					<td><a href="/post/21-file-operations/">文件操作</a></td>
 					<td>路径、<code>open()</code> 全参数、读写、<code>os</code> 与 <code>shutil</code>、目录操作、速查表</td>
 			</tr>
 	</tbody>
@@ -163,11 +163,11 @@
 	</thead>
 	<tbody>
 			<tr>
-					<td>面向对象：类与对象</td>
+					<td><a href="/post/22-oop-classes/">面向对象：类与对象</a></td>
 					<td>类与实例、<code>__init__</code> 与 <code>self</code>、类属性与实例属性、方法与魔法方法、<code>__slots__</code></td>
 			</tr>
 			<tr>
-					<td>面向对象：封装继承多态</td>
+					<td><a href="/post/23-oop-encapsulation-inheritance-polymorphism/">面向对象：封装继承多态</a></td>
 					<td>私有与 <code>@property</code>、继承与 <code>super()</code>、MRO、多态与鸭子类型、抽象类</td>
 			</tr>
 			<tr>
@@ -284,6 +284,470 @@
 <li>进程</li>
 <li>附录：Python 新版本特性</li>
 </ul>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>23. 面向对象：封装、继承与多态</title><link>https://nizigen.github.io/post/23-oop-encapsulation-inheritance-polymorphism/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/23-oop-encapsulation-inheritance-polymorphism/</guid><description>
+<![CDATA[<h1>23. 面向对象：封装、继承与多态</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>封装、继承、多态是面向对象的三大特征。类与对象的语法见 <a href="/post/22-oop-classes/">类与对象</a>，这一篇讲三者各自的实现方式，以及把它们串起来的 MRO。</p>
+<h2 id="封装">
+<a class="header-anchor" href="#%e5%b0%81%e8%a3%85"></a>
+封装
+</h2><p>封装的目的与 Java 完全一致，只有实现方式不同：</p>
+<ol>
+<li>隐藏内部实现——把数据和操作数据的方法绑在一起，外部不必知道内部如何存储和处理；</li>
+<li>保证数据安全——限制外部随意修改，通过统一接口做校验、日志、联动更新；</li>
+<li>降低耦合——外部只依赖暴露的接口，内部实现变了，只要接口不变就不用改外部代码。</li>
+</ol>
+<p>Java 把「私有化属性」当作实现封装的唯一常规手段，于是有了「私有化 = 封装」的印象；Python 提供了多种更灵活的方式，私有化只是其中一种，而且不是最常用的。</p>
+<h3 id="约定式封装单下划线-_attr">
+<a class="header-anchor" href="#%e7%ba%a6%e5%ae%9a%e5%bc%8f%e5%b0%81%e8%a3%85%e5%8d%95%e4%b8%8b%e5%88%92%e7%ba%bf-_attr"></a>
+约定式封装：单下划线 <code>_attr</code>
+</h3><p>属性或方法以单个下划线开头（<code>self._age</code>、<code>def _calc_score(self)</code>），向其他开发者传递信号：这是内部实现，外部不要直接访问。Python 不会做任何语法限制，PyCharm 等检查工具会对外部访问给出提示，靠的是约定。下划线含义的完整规则见 <a href="/post/03-syntax-basics/">标识符与命名</a>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">math</span><span class="p">,</span> <span class="n">english</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">math</span> <span class="o">=</span> <span class="n">math</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">english</span> <span class="o">=</span> <span class="n">english</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">=</span> <span class="n">math</span> <span class="o">+</span> <span class="n">english</span>  <span class="c1"># 内部属性，外部无需关注</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 内部实现：单下划线标识，外部不要调用</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_calc_average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total</span> <span class="o">/</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># 外部接口：公开方法，供外部调用</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_average</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calc_average</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get_average</span><span class="p">())</span>  <span class="c1"># 正确用法</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">_total</span><span class="p">)</span>         <span class="c1"># 语法上能跑，PyCharm 会警告</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">_calc_average</span><span class="p">())</span>  <span class="c1"># 语法上能跑，PyCharm 会警告</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">85.0
+</span></span><span class="line"><span class="cl">170
+</span></span><span class="line"><span class="cl">85.0
+</span></span></code></pre></div><h3 id="接口式封装property">
+<a class="header-anchor" href="#%e6%8e%a5%e5%8f%a3%e5%bc%8f%e5%b0%81%e8%a3%85property"></a>
+接口式封装：<code>@property</code>
+</h3><p>这是替代 Java getter/setter 的方案，目标是「给属性加逻辑，同时保持 <code>对象.属性</code> 这种简洁接口」（<code>@property</code> 本身是装饰器的应用，见 装饰器）：</p>
+<ul>
+<li>用 <code>@property</code> 标记一个返回属性值的方法，称为 getter；</li>
+<li>用 <code>@getter方法名.setter</code> 标记一个设置属性值的方法，称为 setter；</li>
+<li>封装对调用方完全透明，以后给原本公开的属性加上校验，外部代码不用改；</li>
+<li><code>@property</code> 装饰的方法名不要和实例属性重名，否则无限递归。</li>
+</ul>
+<p>原来没有校验的 <code>Person</code>：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>22. 面向对象：类与对象</title><link>https://nizigen.github.io/post/22-oop-classes/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/22-oop-classes/</guid><description>
+<![CDATA[<h1>22. 面向对象：类与对象</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>面向过程把问题拆成一串步骤，面向对象把问题看成一组互相作用的对象。Python 两种范式都支持，程序变大之后，后者更容易扩展。这一篇讲类与对象本身：定义类、实例化、<code>self</code>、属性、三种方法、魔法方法，以及在运行时增删成员。封装、继承、多态见 <a href="/post/23-oop-encapsulation-inheritance-polymorphism/">封装、继承与多态</a>。</p>
+<h2 id="面向过程与面向对象">
+<a class="header-anchor" href="#%e9%9d%a2%e5%90%91%e8%bf%87%e7%a8%8b%e4%b8%8e%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1"></a>
+面向过程与面向对象
+</h2><table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>面向过程</th>
+					<th>面向对象</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>关注点</td>
+					<td>解决问题的步骤</td>
+					<td>涉及哪些对象、对象之间如何交互</td>
+			</tr>
+			<tr>
+					<td>组织单位</td>
+					<td>函数</td>
+					<td>类与对象</td>
+			</tr>
+			<tr>
+					<td>数据与操作</td>
+					<td>分离，数据在函数之间传来传去</td>
+					<td>绑在同一个类里</td>
+			</tr>
+			<tr>
+					<td>适合</td>
+					<td>简单、一次性的任务</td>
+					<td>需要扩展和复用的程序</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="做菜两种写法">
+<a class="header-anchor" href="#%e5%81%9a%e8%8f%9c%e4%b8%a4%e7%a7%8d%e5%86%99%e6%b3%95"></a>
+做菜：两种写法
+</h3><p>面向过程把做饭拆成五个函数，按顺序调用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">buy</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;去超市购买食材...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">wash</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;洗菜...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cut</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;切菜...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">cook</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;开始烹饪...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;上菜啦！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">buy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">wash</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">cut</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">cook</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">serve</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">去超市购买食材...
+</span></span><span class="line"><span class="cl">洗菜...
+</span></span><span class="line"><span class="cl">切菜...
+</span></span><span class="line"><span class="cl">开始烹饪...
+</span></span><span class="line"><span class="cl">上菜啦！
+</span></span></code></pre></div><p>流程直白，但没有通用性：想做沙拉（不切不炒）、红烧肉（多一步烹饪）、紫菜汤（只煮），要么重写，要么往函数里加分支，函数越堆越乱。</p>
+<p>面向对象先定义一个「菜」的模板，再让每种菜自己决定怎么做：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Dish</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Salad</span><span class="p">(</span><span class="n">Dish</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;为制作 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 购买食材。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;清洗 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的蔬菜。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;切 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的蔬菜。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;将 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 装盘。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Stew</span><span class="p">(</span><span class="n">Dish</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;为制作 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 购买食材。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;清洗 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的肉。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;切 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 的肉。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;烹饪 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;将 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 装盘。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Soup</span><span class="p">(</span><span class="n">Dish</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;为制作 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> 购买食材。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;煮 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">。&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">salad</span> <span class="o">=</span> <span class="n">Salad</span><span class="p">(</span><span class="s2">&#34;蔬菜沙拉&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">stew</span> <span class="o">=</span> <span class="n">Stew</span><span class="p">(</span><span class="s2">&#34;红烧肉&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">soup</span> <span class="o">=</span> <span class="n">Soup</span><span class="p">(</span><span class="s2">&#34;紫菜鸡蛋汤&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">salad</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">stew</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">soup</span><span class="o">.</span><span class="n">prepare</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">为制作 蔬菜沙拉 购买食材。
+</span></span><span class="line"><span class="cl">清洗 蔬菜沙拉 的蔬菜。
+</span></span><span class="line"><span class="cl">切 蔬菜沙拉 的蔬菜。
+</span></span><span class="line"><span class="cl">将 蔬菜沙拉 装盘。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">为制作 红烧肉 购买食材。
+</span></span><span class="line"><span class="cl">清洗 红烧肉 的肉。
+</span></span><span class="line"><span class="cl">切 红烧肉 的肉。
+</span></span><span class="line"><span class="cl">烹饪 红烧肉。
+</span></span><span class="line"><span class="cl">将 红烧肉 装盘。
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">为制作 紫菜鸡蛋汤 购买食材。
+</span></span><span class="line"><span class="cl">煮 紫菜鸡蛋汤。
+</span></span></code></pre></div><p>数据（菜名）和操作（准备过程）放在同一个类里，这是封装；三种菜各自实现 <code>prepare</code>，同一个调用 <code>菜.prepare()</code> 得到不同结果，这是多态。以后再加菜品，只要写一个新子类，已有代码一行都不用动。</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>21. 文件操作</title><link>https://nizigen.github.io/post/21-file-operations/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/21-file-operations/</guid><description>
+<![CDATA[<h1>21. 文件操作</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>程序运行时的数据都在内存里，进程一结束就没了。要把数据留下来就得写进磁盘文件，这个过程叫<strong>持久化</strong>。Python 用内置的 <code>open()</code> 打开文件拿到文件对象，再用这个对象读写；文件和目录的增删改查交给标准库 <code>os</code>、<code>os.path</code> 和 <code>shutil</code>。</p>
+<h2 id="文件的概念">
+<a class="header-anchor" href="#%e6%96%87%e4%bb%b6%e7%9a%84%e6%a6%82%e5%bf%b5"></a>
+文件的概念
+</h2><p>文件是存储在磁盘上的数据集合，可以装文本、图像、音频、视频或程序代码。文件系统靠<strong>路径 + 文件名</strong>定位文件。</p>
+<p>文件名通常由名称和扩展名组成，扩展名表示类型（<code>.txt</code> 文本、<code>.jpg</code> 图像、<code>.py</code> 代码）。路径分两种：</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>绝对路径</th>
+					<th>相对路径</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Windows</td>
+					<td>从盘符开始，如 <code>D:\atguigu\hello.py</code></td>
+					<td>不以盘符开头，如 <code>./atguigu/hello.py</code>、<code>..\..\hello.py</code></td>
+			</tr>
+			<tr>
+					<td>Linux / macOS</td>
+					<td>从根目录 <code>/</code> 开始，如 <code>/users/hello.py</code></td>
+					<td>不从 <code>/</code> 开头，如 <code>./atguigu/hello.py</code>、<code>../../hello.py</code></td>
+			</tr>
+	</tbody>
+</table>
+<ul>
+<li><code>./</code> 表示当前目录，<code>../</code> 表示上级目录。</li>
+<li>相对路径依赖<strong>当前工作目录</strong>，同一个相对路径在不同目录下运行会指向不同文件，所以脚本里操作文件时常用绝对路径，或者用 <code>os.path.join(os.path.dirname(__file__), ...)</code> 拼出稳定路径。</li>
+</ul>
+<p>按内容分两类：</p>
+<ul>
+<li><strong>纯文本文件</strong>：有统一的字符编码，可以看成一串存在磁盘上的长字符串。一般以字节为单位或一行为单位。常见编码有 ASCII、ISO-8859-1/Latin1、GB2312、GBK、UTF-8、UTF-16，编码细节见 <a href="/post/11-encoding-and-bytes/">字符编码与 bytes</a>。.py,.html,.txt,.js .md .css</li>
+<li><strong>二进制文件</strong>：没有字符编码和解码的概念，直接由 0 和 1 组成，比如图片、视频、压缩包、可执行文件。只能以字节为单位。</li>
+</ul>
+<h2 id="打开与关闭">
+<a class="header-anchor" href="#%e6%89%93%e5%bc%80%e4%b8%8e%e5%85%b3%e9%97%ad"></a>
+打开与关闭
+</h2><p>无论是读写IO操作最初都是打开文件，最后一步都是关闭文件。不close虽然不报错，但是底层C的内存释放不能自动进行。日积月累内存占用会很严重。</p>
+<h3 id="open-的参数">
+<a class="header-anchor" href="#open-%e7%9a%84%e5%8f%82%e6%95%b0"></a>
+open() 的参数
+</h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&#34;r&#34;</span><span class="p">,</span> <span class="n">buffering</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">closefd</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span></span></code></pre></div><table>
+	<thead>
+			<tr>
+					<th>参数</th>
+					<th>说明</th>
+					<th>默认</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>file</code></td>
+					<td>要打开的文件路径（位置 + 文件名），也可以传整数型文件描述符</td>
+					<td>必选</td>
+			</tr>
+			<tr>
+					<td><code>mode</code></td>
+					<td>操作类型（读 / 写 / 追加）和打开格式（文本 / 二进制）</td>
+					<td><code>&quot;r&quot;</code></td>
+			</tr>
+			<tr>
+					<td><code>buffering</code></td>
+					<td>读写缓冲策略。磁盘读写远慢于内存，缓冲就是先在内存里攒数据、到阈值再一次性写盘，减少 IO 次数</td>
+					<td><code>-1</code></td>
+			</tr>
+			<tr>
+					<td><code>encoding</code></td>
+					<td>文本模式下按什么编码把字节解码成字符串、把字符串编码成字节。<strong>仅文本模式有效</strong>，二进制模式指定它会直接报错。默认 <code>None</code>，表示用&quot;系统默认编码&quot;，取值由系统区域设置和 UTF-8 模式共同决定</td>
+					<td><code>None</code></td>
+			</tr>
+			<tr>
+					<td><code>errors</code></td>
+					<td>文本模式下编码或解码出错时的处理方式，只能文本模式用</td>
+					<td><code>None</code></td>
+			</tr>
+			<tr>
+					<td><code>newline</code></td>
+					<td>仅文本模式有效，控制读取时怎么解析换行符、写入时怎么替换换行符，用来抹平 Windows <code>\r\n</code>、Linux/macOS <code>\n</code>、旧 Mac <code>\r</code> 的差异</td>
+					<td><code>None</code></td>
+			</tr>
+			<tr>
+					<td><code>closefd</code></td>
+					<td>调用 <code>close()</code> 时是否连底层文件描述符一起关闭</td>
+					<td><code>True</code></td>
+			</tr>
+			<tr>
+					<td><code>opener</code></td>
+					<td>自定义打开函数，替换内置逻辑，用于权限校验、加密文件等高级场景，新手用不到</td>
+					<td><code>None</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>不传 <code>encoding</code> 时到底用什么编码，看这三个值就清楚了：</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>20. 函数</title><link>https://nizigen.github.io/post/20-functions/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/20-functions/</guid><description>
+<![CDATA[<h1>20. 函数</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>函数把一段可重复使用的代码封装成一个独立的功能单元：接收输入（参数）、执行逻辑、返回结果。程序里反复出现的代码都值得抽成函数——代码更短更清楚，改一处全局生效，也方便分工和测试。</p>
+<p><code>print()</code>、<code>len()</code>、<code>input()</code> 这些是 Python 自带的内置函数；用 <code>def</code> 自己定义的叫自定义函数。函数必须先定义后使用。</p>
+<h2 id="函数的定义与调用">
+<a class="header-anchor" href="#%e5%87%bd%e6%95%b0%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e8%b0%83%e7%94%a8"></a>
+函数的定义与调用
+</h2><p>用 <code>def</code> 定义函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">函数名</span><span class="p">(</span><span class="n">参数列表</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">函数体</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">表达式</span><span class="p">]</span>
+</span></span></code></pre></div><ul>
+<li>以 <code>def</code> 开头，后接函数名和圆括号 <code>()</code>，行尾是冒号，函数体缩进。</li>
+<li>函数名遵循标识符命名规则，一般是动词。命名风格用 ==snake_case==（全小写、下划线分词），详见 <a href="/post/04-coding-style/">04.编码规范</a>。</li>
+<li>参数列表是函数需要的数据，多个参数用逗号分隔。函数可以没有参数，但圆括号不能省略。</li>
+<li>函数体一般含三部分：文档说明、功能代码、<code>return [表达式]</code>。</li>
+<li><code>return</code> 结束函数并把值交给调用方；不带表达式的 <code>return</code> 或没有 <code>return</code> 语句，都相当于返回 <code>None</code>。</li>
+</ul>
+<p>定义完不调用不会执行，调用一次执行一次。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_hello</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    打印hello world
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello world&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 先定义，再调用</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_hello</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_hello</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">hello world
+</span></span><span class="line"><span class="cl">--------
+</span></span><span class="line"><span class="cl">hello world
+</span></span></code></pre></div><p>带参数和带返回值的写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_star</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    打印指定行数和列数的星号
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    返回两个数的和
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">print_star</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;add(1, 2) = &#34;</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;add(2, 3) = &#34;</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">add(1, 2) =  3
+</span></span><span class="line"><span class="cl">add(2, 3) =  5
+</span></span></code></pre></div><p>函数带来的好处：程序更简短清晰；提高开发效率和代码重用性；便于分工协作、集中管理和后期维护。</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>14. 容器类型概述</title><link>https://nizigen.github.io/post/14-container-overview/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/14-container-overview/</guid><description>
+<![CDATA[<h1>14. 容器类型概述</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>容器（container）是能够存放多个元素的对象。Python 内置的容器有列表 <code>list</code>、元组 <code>tuple</code>、字符串 <code>str</code>、集合 <code>set</code>、字典 <code>dict</code>，另外 <code>collections</code> 模块还提供了 <code>deque</code>、<code>defaultdict</code>、<code>Counter</code> 等更专用的容器，见 collections。</p>
+<p>容器可以按两个维度分类：</p>
+<ul>
+<li>能不能改（可变 / 不可变）：改的是元素本身，比如 <code>list[0] = 10</code>。</li>
+<li>有没有顺序（有序 / 无序）：有序的能用索引和切片访问。</li>
+</ul>
+<h2 id="常见容器对比">
+<a class="header-anchor" href="#%e5%b8%b8%e8%a7%81%e5%ae%b9%e5%99%a8%e5%af%b9%e6%af%94"></a>
+常见容器对比
+</h2><table>
+	<thead>
+			<tr>
+					<th>类型</th>
+					<th>示例</th>
+					<th>可变</th>
+					<th>有序</th>
+					<th>重复</th>
+					<th>使用场景</th>
+					<th>底层数据结构</th>
+					<th>扩容</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>列表 <code>list</code></td>
+					<td><code>[1, 2, 3]</code></td>
+					<td>是</td>
+					<td>是</td>
+					<td>是</td>
+					<td>有序数据集合，需要修改</td>
+					<td>动态数组</td>
+					<td>是</td>
+			</tr>
+			<tr>
+					<td>集合 <code>set</code></td>
+					<td><code>{1, 2, 3}</code></td>
+					<td>是</td>
+					<td>否</td>
+					<td>否</td>
+					<td>唯一元素集合，集合运算</td>
+					<td>哈希表</td>
+					<td>是</td>
+			</tr>
+			<tr>
+					<td>字典 <code>dict</code></td>
+					<td><code>{'a': 1, 'b': 2}</code></td>
+					<td>是</td>
+					<td>否</td>
+					<td>键唯一</td>
+					<td>键值对映射，快速查找</td>
+					<td>哈希表（3.7+ 保持插入顺序）</td>
+					<td>是</td>
+			</tr>
+			<tr>
+					<td>字节数组 <code>bytearray</code></td>
+					<td><code>bytearray(b'hello')</code></td>
+					<td>是</td>
+					<td>是</td>
+					<td>是</td>
+					<td>存储和处理二进制数据</td>
+					<td>动态数组</td>
+					<td>是</td>
+			</tr>
+			<tr>
+					<td>范围 <code>range</code></td>
+					<td><code>range(5)</code></td>
+					<td>否</td>
+					<td>是</td>
+					<td>否</td>
+					<td>等差数字序列，节省内存</td>
+					<td>惰性结构，只存 start/end/step，用的时候现算</td>
+					<td>无</td>
+			</tr>
+			<tr>
+					<td>字符串 <code>str</code></td>
+					<td><code>'hello'</code></td>
+					<td>否</td>
+					<td>是</td>
+					<td>是</td>
+					<td>文本处理，字符序列</td>
+					<td>静态数组</td>
+					<td>无</td>
+			</tr>
+			<tr>
+					<td>元组 <code>tuple</code></td>
+					<td><code>(1, 2, 3)</code></td>
+					<td>否</td>
+					<td>是</td>
+					<td>是</td>
+					<td>固定数据集合</td>
+					<td>静态数组</td>
+					<td>无</td>
+			</tr>
+			<tr>
+					<td>字节串 <code>bytes</code></td>
+					<td><code>b'hello'</code></td>
+					<td>否</td>
+					<td>是</td>
+					<td>是</td>
+					<td>不可变二进制数据</td>
+					<td>静态数组</td>
+					<td>无</td>
+			</tr>
+			<tr>
+					<td>冻结集合 <code>frozenset</code></td>
+					<td><code>frozenset([1, 2])</code></td>
+					<td>否</td>
+					<td>否</td>
+					<td>否</td>
+					<td>不可变集合</td>
+					<td>定长哈希表</td>
+					<td>无</td>
+			</tr>
+	</tbody>
+</table>
+
+  <blockquote class="alert-blockquote note">
+    <p class="alert-heading">
+      Note
+    </p>
+    <p><p>字典 3.7 以后按插入顺序输出，但仍然没有索引，取值只能靠键，所以归为无序。集合同理，虽然 CPython 里整数集合看着像排好序的，但那是实现细节，不能依赖。</p></p>
+  </blockquote>
         
         <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>09. 流程控制</title><link>https://nizigen.github.io/post/09-control-flow/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/09-control-flow/</guid><description>
 <![CDATA[<h1>09. 流程控制</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
@@ -516,357 +980,79 @@
 </table>
 <p>早期的机器语言需要拨动开关、插拔连线或使用打孔纸带来输入指令：</p>
         
-        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>04. 编码规范</title><link>https://nizigen.github.io/post/04-coding-style/</link><pubDate>Fri, 28 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/04-coding-style/</guid><description>
-<![CDATA[<h1>04. 编码规范</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item><item><title>13. 字符串方法</title><link>https://nizigen.github.io/post/13-string-methods/</link><pubDate>Wed, 16 Apr 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/13-string-methods/</guid><description>
+<![CDATA[<h1>13. 字符串方法</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
         
-          <p>随着程序越来越长，有必要遵循一些代码格式约定，让所有人写出的代码结构大致一致。PEP 8（Python Enhancement Proposal）是最古老的 PEP 之一，向 Python 程序员提供了代码格式指南：https://python.org/dev/peps/pep-0008/</p>
-<h2 id="源文件编码">
-<a class="header-anchor" href="#%e6%ba%90%e6%96%87%e4%bb%b6%e7%bc%96%e7%a0%81"></a>
-源文件编码
-</h2><p>Python 3 的源码文件使用 UTF-8 编码（Python 2 默认是 ASCII）。编辑器和 IDE 里也要统一设置为 UTF-8，设置方法见 <a href="/post/02-environment-setup/">开发环境搭建</a>。</p>
-<h2 id="缩进">
-<a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
-缩进
-</h2><p>每级缩进使用 4 个空格，既提高可读性，又给多级缩进留下足够空间。不要混用制表符和空格，建议把编辑器设置为按 Tab 键时插入空格。缩进的语法规则和报错见 <a href="/post/03-syntax-basics/">缩进</a>。</p>
-<h2 id="导入">
-<a class="header-anchor" href="#%e5%af%bc%e5%85%a5"></a>
-导入
-</h2><p>每个 <code>import</code> 语句只导入一个模块，尽量避免一次导入多个模块。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 推荐</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+          <p>Python 为字符串内置了一组方法。字符串不可变，所有方法都不会改动原字符串，而是返回新的结果（字符串、列表、布尔值或数字）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="s2">&#34;abc&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="ow">is</span> <span class="n">r</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">abc ABC False
+</span></span></code></pre></div><p>方法按用途分为下面几组。字符串的创建、索引、切片见 <a href="/post/10-strings/">字符串</a>，格式化见 <a href="/post/12-string-formatting/">字符串格式化</a>，编码见 <a href="/post/11-encoding-and-bytes/">字符编码与 bytes</a>。</p>
+<h2 id="查看方法dir-与-help">
+<a class="header-anchor" href="#%e6%9f%a5%e7%9c%8b%e6%96%b9%e6%b3%95dir-%e4%b8%8e-help"></a>
+查看方法：dir() 与 help()
+</h2><p><code>dir(obj)</code> 列出某个类、模块或对象里的全部内容，包括变量、方法、函数和类；<code>obj</code> 不写时列出当前范围内的名称。<code>help(obj)</code> 查看某个函数或模块的帮助文档；<code>obj</code> 不写时进入交互式帮助。掌握这两个函数，就能自己查阅 Python 里所有方法、函数、类的用法。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;upper&#34;</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;abc&#34;</span><span class="o">.</span><span class="n">upper</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">True
+</span></span><span class="line"><span class="cl">Return a copy of the string converted to uppercase.
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">help</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Help on method_descriptor:
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 不推荐</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
-</span></span></code></pre></div><h2 id="分号">
-<a class="header-anchor" href="#%e5%88%86%e5%8f%b7"></a>
-分号
-</h2><p>不要在行尾添加分号，也不要用分号把两条命令放在同一行。虽然语法上允许，但并不是所有情况都可以，所以不推荐：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">num</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>  <span class="c1"># 不要这样写</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;偶数&#34;</span><span class="p">);</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;双数&#34;</span><span class="p">)</span>  <span class="c1"># 不要这样写</span>
-</span></span></code></pre></div><h2 id="行长">
-<a class="header-anchor" href="#%e8%a1%8c%e9%95%bf"></a>
-行长
-</h2><p>建议每行不超过 79 个字符，注释和文档字符串不超过 72 个字符。最初制定这一指南时，大多数终端窗口每行只能容纳 79 个字符；现在屏幕宽得多，但专业程序员常在一屏里并排打开两三个文件，标准行长可以让他们同时看到各个文件的完整行。有些工具自动生成文档时还会在每行注释开头添加格式化字符，这也是 72 的由来。</p>
-<p>这条指南并非不可逾越，有些团队把最大行长设为 99。在大多数编辑器中都可以设置一条竖线作为视觉标志。学习阶段不必过度在意，但协作开发时大家几乎都遵守 PEP 8。</p>
-<p>行太长时，建议用小括号把多行内容隐式连接起来，而不推荐用反斜杠 <code>\</code> 连接：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&#34;C语言中文网是中国领先的C语言程序设计专业网站，&#34;</span>
-</span></span><span class="line"><span class="cl">     <span class="s2">&#34;提供C语言入门经典教程、C语言编译器、C语言函数手册等。&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">C语言中文网是中国领先的C语言程序设计专业网站，提供C语言入门经典教程、C语言编译器、C语言函数手册等。
-</span></span></code></pre></div><p>此规范适用于绝大多数情况，但以下 2 种情况除外：</p>
-        
-        <hr><p>Published on 2025-03-28 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-28</p>]]></description><category>python</category></item><item><title>07. 运算符</title><link>https://nizigen.github.io/post/07-operators/</link><pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/07-operators/</guid><description>
-<![CDATA[<h1>07. 运算符</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
-        
-          <h2 id="算术运算符">
-<a class="header-anchor" href="#%e7%ae%97%e6%9c%af%e8%bf%90%e7%ae%97%e7%ac%a6"></a>
-算术运算符
-</h2><p><img src="/python/attachments/Pasted%20image%2020250402195918.png" alt=""></p>
-<table>
+</span></span><span class="line"><span class="cl">upper(self, /) unbound builtins.str method
+</span></span><span class="line"><span class="cl">    Return a copy of the string converted to uppercase.
+</span></span></code></pre></div><h2 id="去除空白与前后缀">
+<a class="header-anchor" href="#%e5%8e%bb%e9%99%a4%e7%a9%ba%e7%99%bd%e4%b8%8e%e5%89%8d%e5%90%8e%e7%bc%80"></a>
+去除空白与前后缀
+</h2><table>
 	<thead>
 			<tr>
-					<th>运算符</th>
+					<th>方法</th>
 					<th>说明</th>
-					<th>实例</th>
 			</tr>
 	</thead>
 	<tbody>
 			<tr>
-					<td><code>+</code></td>
-					<td>加，或取正（取正通常省略）,拼接</td>
-					<td><code>a + b</code>、<code>+a</code></td>
+					<td><code>s.strip([x])</code></td>
+					<td>去掉两端的空白字符或指定字符</td>
 			</tr>
 			<tr>
-					<td><code>-</code></td>
-					<td>减，或取负</td>
-					<td><code>a - b</code>、<code>-a</code></td>
+					<td><code>s.lstrip([x])</code></td>
+					<td>只去掉左边</td>
 			</tr>
 			<tr>
-					<td><code>*</code></td>
-					<td>乘</td>
-					<td><code>a * b</code></td>
+					<td><code>s.rstrip([x])</code></td>
+					<td>只去掉右边</td>
 			</tr>
 			<tr>
-					<td><code>/</code></td>
-					<td>除，结果总是 float</td>
-					<td><code>a / b</code></td>
+					<td><code>s.removeprefix(p)</code></td>
+					<td>去掉指定前缀（3.9+），没有匹配则原样返回</td>
 			</tr>
 			<tr>
-					<td><code>//</code></td>
-					<td>整除，除后向下取整</td>
-					<td><code>a // b</code></td>
-			</tr>
-			<tr>
-					<td><code>%</code></td>
-					<td>模，返回除法的余数</td>
-					<td><code>a % b</code></td>
-			</tr>
-			<tr>
-					<td><code>**</code></td>
-					<td>幂</td>
-					<td><code>a ** b</code></td>
+					<td><code>s.removesuffix(p)</code></td>
+					<td>去掉指定后缀（3.9+），没有匹配则原样返回</td>
 			</tr>
 	</tbody>
 </table>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
-</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="s2">&#34; Hello, World! &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">strip</span><span class="p">()),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()),</span> <span class="nb">repr</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;***hello***&#34;</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&#34;*&#34;</span><span class="p">),</span> <span class="s2">&#34;___hello___&#34;</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s2">&#34;_&#34;</span><span class="p">),</span> <span class="s2">&#34;___hello___&#34;</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&#34;_&#34;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;+&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;-&#34;</span> <span class="o">*</span> <span class="mi">30</span><span class="p">)</span>   <span class="c1"># 输出 30 次 -</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;的&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;次方结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">**</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="p">)</span>    <span class="c1"># 注意：结果为浮点类型</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;//&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s2">&#34;%&#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="s2">&#34;的结果为&#34;</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">5 + 2 的结果为 7
-</span></span><span class="line"><span class="cl">5 - 2 的结果为 3
-</span></span><span class="line"><span class="cl">5 * 2 的结果为 10
-</span></span><span class="line"><span class="cl">------------------------------
-</span></span><span class="line"><span class="cl">5 的 2 次方结果为 25
-</span></span><span class="line"><span class="cl">5 / 2 的结果为 2.5
-</span></span><span class="line"><span class="cl">5 // 2 的结果为 2
-</span></span><span class="line"><span class="cl">5 % 2 的结果为 1
-</span></span></code></pre></div><p><code>+</code> 用于数字时表示加法，用于字符串时表示拼接；<code>*</code> 除了乘法，还可以重复字符串或序列，把 n 个同样的字符串连接起来：</p>
-        
-        <hr><p>Published on 2025-03-23 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-23</p>]]></description><category>python</category></item><item><title>06. 布尔</title><link>https://nizigen.github.io/post/06-booleans/</link><pubDate>Sun, 23 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/06-booleans/</guid><description>
-<![CDATA[<h1>06. 布尔</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
-        
-          <p>在编程中，经常需要知道一个表达式是 <code>True</code> 还是 <code>False</code>。Python 中任何表达式都可以求值，得到的结果要么是 <code>True</code>，要么是 <code>False</code>。</p>
-<h2 id="bool-是-int-的子类">
-<a class="header-anchor" href="#bool-%e6%98%af-int-%e7%9a%84%e5%ad%90%e7%b1%bb"></a>
-bool 是 int 的子类
-</h2><p>布尔类型（<code>bool</code>）是整型（<code>int</code>）的子类型：布尔值是整数的一个特例。</p>
-<ul>
-<li><code>True</code> 本质上相当于整数 1。</li>
-<li><code>False</code> 本质上相当于整数 0。</li>
-<li><code>isinstance(a, bool)</code> 和 <code>isinstance(a, int)</code> 对布尔值都返回 <code>True</code>。</li>
-</ul>
-<p>布尔值可以直接与整数、小数做数学运算，这是 Python 与 Java 等语言的重要区别。运算时 <code>True</code> 当作 1，<code>False</code> 当作 0。例如 <code>a = True</code>，<code>print(a + 1)</code> 输出 2。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="kc">True</span>
-</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="kc">False</span>
-</span></span><span class="line"><span class="cl"><span class="n">d</span> <span class="o">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">d</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">c</span> <span class="ow">is</span> <span class="n">d</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">bool</span><span class="p">),</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">True
-</span></span><span class="line"><span class="cl">True
-</span></span><span class="line"><span class="cl">2
-</span></span><span class="line"><span class="cl">False
-</span></span><span class="line"><span class="cl">False
-</span></span><span class="line"><span class="cl">True True
-</span></span></code></pre></div><p><code>True == 1</code> 为 <code>True</code>，但 <code>True is 1</code> 为 <code>False</code>，因为它们是两个不同的对象，只是值相等。<code>==</code> 与 <code>is</code> 的区别见 <a href="/post/07-operators/">== 与 is</a>。</p>
-        
-        <hr><p>Published on 2025-03-23 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-23</p>]]></description><category>python</category></item><item><title>08. 输入输出</title><link>https://nizigen.github.io/post/08-input-output/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/08-input-output/</guid><description>
-<![CDATA[<h1>08. 输入输出</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
-        
-          <h2 id="input">
-<a class="header-anchor" href="#input"></a>
-input()
-</h2><p><code>input()</code> 是 Python 的内置函数，用于从控制台读取用户输入的内容，并存放到一个变量里。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">变量</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;提示信息：&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><ul>
-<li>变量是一个字符串类型的变量，<code>input()</code> 把读取到的内容放入其中。</li>
-<li>提示信息会显示在控制台上，告诉用户应该输入什么；如果不写，就不会有任何提示。</li>
-<li><code>input()</code> 函数总是以字符串的形式处理用户输入的内容，所以用户输入的内容可以包含任何字符。要进行计算，记得先转型。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入用户名：&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;用户名是：&#34;</span><span class="p">,</span> <span class="n">username</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">age</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入年龄：&#34;</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;年龄是：&#34;</span><span class="p">,</span> <span class="n">age</span><span class="p">)</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">请输入用户名：张三
-</span></span><span class="line"><span class="cl">用户名是： 张三
-</span></span><span class="line"><span class="cl">请输入年龄：18
-</span></span><span class="line"><span class="cl">年龄是： 18
-</span></span></code></pre></div><p>输入的内容无法转换时会报错，例如在 <code>int(input(...))</code> 处输入 <code>abc</code>：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">ValueError: invalid literal for int() with base 10: &#39;abc&#39;
+</span></span><span class="line"><span class="cl"><span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://www.example.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&#34;https://&#34;</span><span class="p">),</span> <span class="n">url</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&#34;http://&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">filename</span> <span class="o">=</span> <span class="s2">&#34;document.pdf&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&#34;.pdf&#34;</span><span class="p">),</span> <span class="n">filename</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&#34;.txt&#34;</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">&#39;Hello, World!&#39; &#39;Hello, World! &#39; &#39; Hello, World!&#39;
+</span></span><span class="line"><span class="cl">hello hello___ ___hello
+</span></span><span class="line"><span class="cl">www.example.com https://www.example.com
+</span></span><span class="line"><span class="cl">document document.pdf
 </span></span></code></pre></div>
   <blockquote class="alert-blockquote warning">
     <p class="alert-heading">
       Warning
     </p>
-    <p><p><code>input(&quot;...&quot;)</code> 得到的永远是 <code>str</code>。<code>&quot;5&quot; + &quot;5&quot;</code> 是 <code>&quot;55&quot;</code> 而不是 10，所以做数值计算前要用 <code>int()</code> 或 <code>float()</code> 转换，见 <a href="/post/05-data-types/">类型转换</a>。异常的处理方法见 try-except。</p></p>
+    <p><p><code>strip()</code> 系列的参数是一组字符，不是子串，遇到集合里的任何字符都会去掉。想去掉固定的前后缀，用 <code>removeprefix()</code> / <code>removesuffix()</code>：</p></p>
   </blockquote>
-
-<p>age  =  int(input(&ldquo;请输入年龄：&rdquo;).split(&quot;,&quot;))
-这个时候也会报错因为split()返回的shi&rsquo;yi&rsquo;ge</p>
-<h2 id="print">
-<a class="header-anchor" href="#print"></a>
-print()
-</h2><p><code>print()</code> 把内容打印到控制台，完整形式是：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span></span></code></pre></div><ul>
-<li><code>value</code>：可以接受任意多个变量或值，多个内容之间用逗号隔开。</li>
-<li><code>sep</code>：指定输出多个内容时的分隔符，默认是一个空格。</li>
-<li><code>end</code>：指定输出结束后追加的内容，默认是 <code>\n</code>（换行）。</li>
-<li><code>file</code>：指定输出目标，默认是 <code>sys.stdout</code>，即屏幕。</li>
-<li><code>flush</code>：是否立即刷新缓冲区，默认 <code>False</code>。</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello world&#34;</span><span class="p">)</span>   <span class="c1"># 输出单个值</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = &#34;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="s2">&#34;，b = &#34;</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>   <span class="c1"># 输出多个参数值，用逗号分隔</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 指定参数的分隔符和结尾符</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">,</span> <span class="s2">&#34;world&#34;</span><span class="p">,</span> <span class="s2">&#34;python&#34;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34;.&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">()</span>   <span class="c1"># 单独的 print() 只输出一个换行</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 用 % 格式化输出</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;a = </span><span class="si">%d</span><span class="s2">, b = </span><span class="si">%d</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">hello world
-</span></span><span class="line"><span class="cl">a =  1 ，b =  2
-</span></span><span class="line"><span class="cl">hello-world-python.
-</span></span><span class="line"><span class="cl">a = 1, b = 2
-</span></span></code></pre></div><h3 id="sep-与-end">
-<a class="header-anchor" href="#sep-%e4%b8%8e-end"></a>
-sep 与 end
-</h3><p><code>sep</code> 改变多个值之间的分隔符：</p>
         
-        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item><item><title>05. 数据类型与类型转换</title><link>https://nizigen.github.io/post/05-data-types/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/05-data-types/</guid><description>
-<![CDATA[<h1>05. 数据类型与类型转换</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
-        
-          <h2 id="数据类型概述">
-<a class="header-anchor" href="#%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b%e6%a6%82%e8%bf%b0"></a>
-数据类型概述
-</h2><p>Python 是动态类型语言，变量不用显式声明类型，但变量引用的每个值都有明确的数据类型（见 <a href="/post/03-syntax-basics/">变量</a>）。</p>
-<p>核心概念：一切皆对象。无论 <code>int</code>、<code>float</code>、<code>bool</code> 这样的基础类型，还是函数、类，在 Python 中都是对象。这与 Java 等语言不同，Python 是更彻底的面向对象语言。</p>
-<p>按来源可以分为三层：</p>
-<table>
-	<thead>
-			<tr>
-					<th>层次</th>
-					<th>说明</th>
-					<th>例子</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>内置类型</td>
-					<td>不需要 <code>import</code>，也无需用 pip 等工具单独下载，可以直接使用</td>
-					<td>原子类型：<code>int</code>、<code>float</code>、<code>bool</code>；容器类型：<code>list</code>、<code>dict</code>、<code>str</code></td>
-			</tr>
-			<tr>
-					<td>标准库中的类型</td>
-					<td>随 Python 安装，但需要 <code>import</code></td>
-					<td>定点小数 <code>decimal.Decimal</code>、<code>datetime.datetime</code></td>
-			</tr>
-			<tr>
-					<td>扩展 / 自定义类型</td>
-					<td>不属于 Python 核心。第三方库的类型要先 <code>pip install</code>；自定义类型用 <code>class</code> 定义</td>
-					<td><code>numpy</code>、<code>pandas</code> 的类型；自己写的 <code>Person</code> 类</td>
-			</tr>
-	</tbody>
-</table>
-<p><img src="/python/attachments/Pasted%20image%2020250320221108.png" alt=""></p>
-<p>内置数据类型按类别汇总如下，赋值时由解释器根据字面量自动确定类型：</p>
-<table>
-	<thead>
-			<tr>
-					<th>类别</th>
-					<th>类型</th>
-					<th>示例</th>
-			</tr>
-	</thead>
-	<tbody>
-			<tr>
-					<td>文本类型</td>
-					<td><code>str</code></td>
-					<td><code>&quot;Hello World&quot;</code></td>
-			</tr>
-			<tr>
-					<td>数值类型</td>
-					<td><code>int</code>、<code>float</code>、<code>complex</code></td>
-					<td><code>29</code>、<code>29.5</code>、<code>1j</code></td>
-			</tr>
-			<tr>
-					<td>序列类型</td>
-					<td><code>list</code>、<code>tuple</code>、<code>range</code></td>
-					<td><code>[&quot;apple&quot;, &quot;banana&quot;]</code>、<code>(&quot;apple&quot;, &quot;banana&quot;)</code>、<code>range(6)</code></td>
-			</tr>
-			<tr>
-					<td>映射类型</td>
-					<td><code>dict</code></td>
-					<td><code>{&quot;name&quot;: &quot;Bill&quot;, &quot;age&quot;: 63}</code></td>
-			</tr>
-			<tr>
-					<td>集合类型</td>
-					<td><code>set</code>、<code>frozenset</code></td>
-					<td><code>{&quot;apple&quot;, &quot;banana&quot;}</code>、<code>frozenset({&quot;apple&quot;})</code></td>
-			</tr>
-			<tr>
-					<td>布尔类型</td>
-					<td><code>bool</code></td>
-					<td><code>True</code></td>
-			</tr>
-			<tr>
-					<td>二进制类型</td>
-					<td><code>bytes</code>、<code>bytearray</code>、<code>memoryview</code></td>
-					<td><code>b&quot;Hello&quot;</code>、<code>bytearray(5)</code>、<code>memoryview(bytes(5))</code></td>
-			</tr>
-			<tr>
-					<td>空值</td>
-					<td><code>NoneType</code></td>
-					<td><code>None</code></td>
-			</tr>
-	</tbody>
-</table>
-<p><img src="/python/attachments/Pasted%20image%2020250321201323.png" alt=""></p>
-        
-        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item><item><title>03. 语法基础</title><link>https://nizigen.github.io/post/03-syntax-basics/</link><pubDate>Thu, 20 Mar 2025 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/03-syntax-basics/</guid><description>
-<![CDATA[<h1>03. 语法基础</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
-        
-          <h2 id="注释">
-<a class="header-anchor" href="#%e6%b3%a8%e9%87%8a"></a>
-注释
-</h2><p>注释是对代码的解释说明，用来提高可读性、临时屏蔽暂时不需要的代码，也有助于定位程序中出错的位置。</p>
-<h3 id="单行注释">
-<a class="header-anchor" href="#%e5%8d%95%e8%a1%8c%e6%b3%a8%e9%87%8a"></a>
-单行注释
-</h3><p>单行注释以 <code>#</code> 开头，可以单独一行，也可以写在代码行尾。建议 <code>#</code> 之后留 1 个空格，行尾注释与代码之间留 2 个空格。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 这是一个单行注释</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">)</span>  <span class="c1"># 这是一个输出语句</span>
-</span></span></code></pre></div><h3 id="多行注释">
-<a class="header-anchor" href="#%e5%a4%9a%e8%a1%8c%e6%b3%a8%e9%87%8a"></a>
-多行注释
-</h3><p>Python 会忽略没有赋给变量的字符串字面量，所以三个单引号或三个双引号括起来的文本块可以当作多行注释使用。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">    Python 中 3 个单引号、3 个双引号引起来的文本块可以被看成多行注释。
-</span></span></span><span class="line"><span class="cl"><span class="s2">    建议每个 .py 文件顶部的文档注释使用 3 个双引号。
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 赋给变量就不再是注释，而是一个普通的多行字符串</span>
-</span></span><span class="line"><span class="cl"><span class="n">info</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">    尚硅谷
-</span></span></span><span class="line"><span class="cl"><span class="s2">        让天下有学不完的技术
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
-</span></span></code></pre></div><p><img src="/python/attachments/image-20251205204053679.png" alt=""></p>
-<ul>
-<li>单行注释可以嵌套在多行注释中，不会引起语法错误。</li>
-<li>同种引号的多行注释不能嵌套：第一个三引号之后的内容直到下一个三引号都被当作字符串，中间多出来的三引号会让后面的部分出错。运行结果：<code>SyntaxError: unterminated triple-quoted string literal</code>。</li>
-<li>不同种引号可以互相嵌套，例如在 <code>&quot;&quot;&quot;</code> 块内写 <code>'''内层'''</code> 不会报错。</li>
-</ul>
-<h3 id="文档注释">
-<a class="header-anchor" href="#%e6%96%87%e6%a1%a3%e6%b3%a8%e9%87%8a"></a>
-文档注释
-</h3><p>文档注释位于 <code>.py</code> 文件开头，用三个双引号开头和结尾，有固定的格式（如作者、时间、描述），用来说明当前源文件。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">    @Author:Irene
-</span></span></span><span class="line"><span class="cl"><span class="s2">    @Time:2026/1/28
-</span></span></span><span class="line"><span class="cl"><span class="s2">    @Desc:这是文档注释，即当前源文件中的代码说明
-</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span>
-</span></span></code></pre></div><h2 id="缩进">
-<a class="header-anchor" href="#%e7%bc%a9%e8%bf%9b"></a>
-缩进
-</h2><p><mark style="background: #FFB86CA6;">Python 采用代码缩进和冒号（ : ）来区分代码块之间的层次。</mark></p>
-        
-        <hr><p>Published on 2025-03-20 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-03-20</p>]]></description><category>python</category></item></channel></rss>
+        <hr><p>Published on 2025-04-16 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2025-04-16</p>]]></description><category>python</category></item></channel></rss>

@@ -1,0 +1,906 @@
+<!doctype html><html lang=en-us data-theme-mode=auto><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>23. 面向对象：封装、继承与多态 | Chiyuki</title><meta name=description content="日々研究してる..."><script>window.siteConfig=JSON.parse('{"anchor_icon":null,"base":"https://nizigen.github.io/","clipboard":{"copyright":{"count":50,"enable":false,"license_type":"by-nc-sa"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-br":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ","zh-cn":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-tw":"複製失敗 (ﾟ⊿ﾟ)ﾂ"},"success":{"en":"Copy successfully (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-br":"Copiado com sucesso (*^▽^*)","zh-cn":"复制成功 (*^▽^*)","zh-tw":"複製成功 (*^▽^*)"}},"code_block":{"expand":true},"icon_font":false,"outdate":{"daysago":180,"enable":false,"message":{"en":"This article was last updated on {time}. Please note that the content may no longer be applicable.","ja":"この記事は最終更新日：{time}。記載内容が現在有効でない可能性がありますのでご注意ください。","pt-br":"Este artigo foi atualizado pela última vez em {time}. Observe que o conteúdo pode não ser mais aplicável.","zh-cn":"本文最后更新于 {time}，请注意文中内容可能已不适用。","zh-tw":"本文最後更新於 {time}，請注意文中內容可能已不適用。"}}}')</script><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7cNoto%20Serif%20SC:400,400italic,700,700italic%7c&amp;display=swap" media=print onload='this.media="all"'><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/regular.min.css integrity=sha384-PmxfVzUpFiyj5ZqzN3upnv7G4x9YAlMQar/qCBLEYSaWr/DUQ9f/8ITCT0aN7byC crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/solid.min.css integrity=sha384-HMy1VqP4zke4zzaS+hmFgbW3QXDYD+qtueW3unq30MTgdOnarIgANSya8s5qKRh5 crossorigin=anonymous><link rel=preload as=style href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/brands.min.css integrity=sha384-IzIkDWjFFaoFz413tu2x9R4cMiJ3EGuxOf/7Q8X0LFhqz9fU5zT2go7BgenYdKgN crossorigin=anonymous onload='this.onload=null,this.rel="stylesheet"'><link rel=preload as=style href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/v5-font-face.min.css integrity=sha384-691KBFHHuy2pnDTyR36VZ90jy7dXWBfC5D1nzy5rkDlqQQ/vRs/nmmK++LBfAp/C crossorigin=anonymous onload='this.onload=null,this.rel="stylesheet"'><link rel=preload as=style href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0.0/css/v4-font-face.min.css integrity=sha384-7c0mz5ReY2wCEDKNNEdrKdbtS/6+5dEgNsz/dU3e9m7xldAdTFwNTAuX+s4sJHJl crossorigin=anonymous onload='this.onload=null,this.rel="stylesheet"'><link rel=stylesheet href=/css/loader.min.ac746e154f756f8220326eeb52a719f142ab038be5a8ddf30ea5ef15ef2356ea.css><meta property="og:type" content="website"><meta property="og:title" content="23. 面向对象：封装、继承与多态 | Chiyuki"><meta property="og:description" content="日々研究してる..."><meta property="og:url" content="https://nizigen.github.io/post/23-oop-encapsulation-inheritance-polymorphism/"><meta property="og:site_name" content="Chiyuki の CS Blog ですわ"><meta property="og:image" content="/"><meta property="article:author" content="Chiyuki"><meta property="article:published_time" content="2026-10-12T00:00:00+00:00"><meta property="article:modified_time" content="2026-10-12T00:00:00+00:00"><meta property="article:tag" content="pythonpython-基础python-面向对象"><meta name=twitter:card content="summary"><meta name=twitter:image content="/"><link rel="shortcut icon" href=/favicon.ico><link rel=stylesheet href=/css/main.min.07275443b47e9520055b3abb19f2a28646277374db9c84d1e865da92293abb61.css><link rel=preload as=style href=https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css integrity=sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE crossorigin=anonymous onload='this.onload=null,this.rel="stylesheet"'><link rel=preload as=style href=https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css integrity=sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP crossorigin=anonymous onload='this.onload=null,this.rel="stylesheet"'><script src=https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js integrity=sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8 crossorigin=anonymous></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@reimujs/aos@0.1.2/dist/aos.css integrity=sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa crossorigin=anonymous></head><body><div id=loader><div class="loading-left-bg loading-bg"></div><div class="loading-right-bg loading-bg"></div><div class=spinner-box><div class="loading-taichi rotate"><svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" shape-rendering="geometricPrecision"><path d="M303.5 432a80 80 0 01-12 160 80 80 0 0112-160z" fill="var(--red-1, #ff5252)"/><path d="M512 65a447 447 0 010 894V929a417 417 0 000-834 417 417 0 000 834v30a447 447 0 010-894zm0 30A417 417 0 01929 512 208.5 208.5.0 01720.5 720.5V592a80 80 0 000-160 80 80 0 000 160V720.5A208.5 208.5.0 01512 512 208.5 208.5.0 00303.5 303.5 208.5 208.5.0 0095 512 417 417 0 01512 95z" fill="var(--red-1, #ff5252)"/></svg></div><div class=loading-word>Loading...</div></div></div></div><script>var time=null,loaderEl=document.getElementById("loader"),startLoading=()=>{time=Date.now(),loaderEl.classList.remove("loading")},hideLoader=()=>{document.body.style.overflow="auto",loader.classList.add("loading")},endLoading=()=>{time?Date.now()-time>500?(time=null,hideLoader()):(setTimeout(endLoading,500-(Date.now()-time)),time=null):hideLoader()};window.addEventListener("DOMContentLoaded",endLoading),loaderEl.addEventListener("click",endLoading)</script><div id=copy-tooltip></div><div id=lang-tooltip>This article does not have a corresponding language version</div><div id=heatmap-tooltip></div><div id=container><div id=wrap><div id=header-nav><nav id=main-nav aria-label="Primary navigation"><span class=main-nav-link-wrap><div class='main-nav-icon icon'>&#xf015;</div><a class=main-nav-link href=/>Home</a>
+</span><span class=main-nav-link-wrap><div class='main-nav-icon icon'>&#xf187;</div><a class=main-nav-link href=/archives>Archives</a>
+</span><span class=main-nav-link-wrap><div class='main-nav-icon icon'>&#xf007;</div><a class=main-nav-link href=/about>About</a>
+</span><span class=main-nav-link-wrap><div class='main-nav-icon icon'>&#xf0c0;</div><a class=main-nav-link href=/friend>Friend</a>
+</span><a id=main-nav-toggle class=nav-icon aria-label="Toggle navigation" role=button></a></nav><nav id=sub-nav aria-label="Secondary navigation"></nav></div><header id=header aria-label="Site header"><picture></picture>
+<img fetchpriority=high src=/images/banner.jpg alt="23. 面向对象：封装、继承与多态"><div id=header-outer><div id=header-title><span id=logo><h1 data-aos=slide-up>23. 面向对象：封装、继承与多态</h1></span><h2 id=subtitle-wrap data-aos=slide-down></h2></div></div></header><div id=content aria-label="Page content" class=sidebar-right><aside id=sidebar aria-label=Sidebar><div class="sidebar-wrapper-container sticky"><div class=sidebar-wrapper><div class=sidebar-wrap data-aos=fade-up><div class=sidebar-toc-sidebar><h3 class=toc-title>Contents</h3><div class="sidebar-toc-wrapper toc-div-class"><nav id=TableOfContents><ul><li><a href=#封装>封装</a><ul><li><a href=#约定式封装单下划线-_attr>约定式封装：单下划线 <code>_attr</code></a></li><li><a href=#接口式封装property>接口式封装：<code>@property</code></a></li><li><a href=#名称改写式封装双下划线-__attr>名称改写式封装：双下划线 <code>__attr</code></a></li><li><a href=#_-与-__-怎么选><code>_</code> 与 <code>__</code> 怎么选</a></li></ul></li><li><a href=#最小封装原则>最小封装原则</a></li><li><a href=#继承>继承</a><ul><li><a href=#单继承与-super>单继承与 <code>super()</code></a></li><li><a href=#属性覆盖>属性覆盖</a></li><li><a href=#重写父类的方法>重写父类的方法</a></li><li><a href=#多继承与-mixin>多继承与 Mixin</a></li></ul></li><li><a href=#mro>MRO</a><ul><li><a href=#菱形继承>菱形继承</a></li><li><a href=#指定调用某个父类的方法>指定调用某个父类的方法</a></li><li><a href=#多继承的初始化两种方案>多继承的初始化：两种方案</a></li></ul></li><li><a href=#多态与鸭子类型>多态与鸭子类型</a></li><li><a href=#抽象类>抽象类</a></li><li><a href=#案例愤怒的小鸟>案例：愤怒的小鸟</a><ul><li><a href=#类设计>类设计</a></li><li><a href=#核心代码>核心代码</a></li></ul></li><li><a href=#相关笔记>相关笔记</a></li></ul></nav></div></div><div class="sidebar-common-sidebar hidden"><div class=sidebar-author><img data-src=/avatar/avatar.webp data-sizes=auto alt=Chiyuki class=lazyload><div class=sidebar-author-name>Chiyuki</div><div class=sidebar-description>日々研究してる...</div></div><div class=sidebar-state><div class=sidebar-state-article><div>Posts</div><div class=sidebar-state-number>25</div></div><a class=sidebar-state-category href=/categories/ aria-label=sidebar-state-category-link><div>Categories</div><div class=sidebar-state-number>1</div></a><a class=sidebar-state-tag href=/tags/ aria-label=sidebar-state-tag-link><div>Tags</div><div class=sidebar-state-number>13</div></a></div><div class=sidebar-social><div class="icon-bilibili sidebar-social-icon"><a href=https://space.bilibili.com/295004457 itemprop=url target=_blank aria-label=bilibili rel="noopener nofollow noreferrer"></a></div><div class="icon-discord sidebar-social-icon"><a href=https://discordapp.com/users/chiyuki itemprop=url target=_blank aria-label=discord rel="noopener nofollow noreferrer"></a></div><div class="icon-email sidebar-social-icon"><a href=mailto:l12345p9876x0@gmail.com itemprop=url target=_blank aria-label=email rel="noopener nofollow noreferrer"></a></div><div class="icon-github sidebar-social-icon"><a href=https://github.com/nizigen itemprop=url target=_blank aria-label=github rel="noopener nofollow noreferrer"></a></div></div><div class=sidebar-menu><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/ aria-label=Home></a><div class='sidebar-menu-icon icon'>&#xf015;</div><div class=sidebar-menu-link>Home</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/archives aria-label=Archives></a><div class='sidebar-menu-icon icon'>&#xf187;</div><div class=sidebar-menu-link>Archives</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/about aria-label=About></a><div class='sidebar-menu-icon icon'>&#xf007;</div><div class=sidebar-menu-link>About</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/friend aria-label=Friend></a><div class='sidebar-menu-icon icon'>&#xf0c0;</div><div class=sidebar-menu-link>Friend</div></div></div></div><div class=sidebar-btn-wrapper style=position:static><div class="sidebar-toc-btn current"></div><div class=sidebar-common-btn></div></div></div></div><div class=sidebar-widget></div></div></aside><section id=main aria-label="Main content"><article class="h-entry article" itemscope itemtype=https://schema.org/BlogPosting><div class=article-inner data-aos=fade-up><div class=article-meta><div class=article-date><span class="article-date-link icon-calendar" data-aos=zoom-in><time datetime="2026-10-12 00:00:00 +0000 UTC" itemprop=datePublished>2026-10-12</time>
+<time style=display:none id=post-update-time>2026-10-12</time></span></div><div class=article-category><a class=article-category-link href=/categories/python data-aos=zoom-in>PYTHON</a></div></div><div class=hr-line></div><div class="e-content article-entry" itemprop=articleBody><p>封装、继承、多态是面向对象的三大特征。类与对象的语法见 <a href=/post/22-oop-classes/>类与对象</a>，这一篇讲三者各自的实现方式，以及把它们串起来的 MRO。</p><h2 id=封装><a class=header-anchor href=#%e5%b0%81%e8%a3%85></a>封装</h2><p>封装的目的与 Java 完全一致，只有实现方式不同：</p><ol><li>隐藏内部实现——把数据和操作数据的方法绑在一起，外部不必知道内部如何存储和处理；</li><li>保证数据安全——限制外部随意修改，通过统一接口做校验、日志、联动更新；</li><li>降低耦合——外部只依赖暴露的接口，内部实现变了，只要接口不变就不用改外部代码。</li></ol><p>Java 把「私有化属性」当作实现封装的唯一常规手段，于是有了「私有化 = 封装」的印象；Python 提供了多种更灵活的方式，私有化只是其中一种，而且不是最常用的。</p><h3 id=约定式封装单下划线-_attr><a class=header-anchor href=#%e7%ba%a6%e5%ae%9a%e5%bc%8f%e5%b0%81%e8%a3%85%e5%8d%95%e4%b8%8b%e5%88%92%e7%ba%bf-_attr></a>约定式封装：单下划线 <code>_attr</code></h3><p>属性或方法以单个下划线开头（<code>self._age</code>、<code>def _calc_score(self)</code>），向其他开发者传递信号：这是内部实现，外部不要直接访问。Python 不会做任何语法限制，PyCharm 等检查工具会对外部访问给出提示，靠的是约定。下划线含义的完整规则见 <a href=/post/03-syntax-basics/>标识符与命名</a>。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Student</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>math</span><span class=p>,</span> <span class=n>english</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>math</span> <span class=o>=</span> <span class=n>math</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>english</span> <span class=o>=</span> <span class=n>english</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>_total</span> <span class=o>=</span> <span class=n>math</span> <span class=o>+</span> <span class=n>english</span>  <span class=c1># 内部属性，外部无需关注</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 内部实现：单下划线标识，外部不要调用</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>_calc_average</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_total</span> <span class=o>/</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># 外部接口：公开方法，供外部调用</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>get_average</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_calc_average</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span> <span class=o>=</span> <span class=n>Student</span><span class=p>(</span><span class=mi>90</span><span class=p>,</span> <span class=mi>80</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>s</span><span class=o>.</span><span class=n>get_average</span><span class=p>())</span>  <span class=c1># 正确用法</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>s</span><span class=o>.</span><span class=n>_total</span><span class=p>)</span>         <span class=c1># 语法上能跑，PyCharm 会警告</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>s</span><span class=o>.</span><span class=n>_calc_average</span><span class=p>())</span>  <span class=c1># 语法上能跑，PyCharm 会警告</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>85.0
+</span></span><span class=line><span class=cl>170
+</span></span><span class=line><span class=cl>85.0
+</span></span></code></pre></div><h3 id=接口式封装property><a class=header-anchor href=#%e6%8e%a5%e5%8f%a3%e5%bc%8f%e5%b0%81%e8%a3%85property></a>接口式封装：<code>@property</code></h3><p>这是替代 Java getter/setter 的方案，目标是「给属性加逻辑，同时保持 <code>对象.属性</code> 这种简洁接口」（<code>@property</code> 本身是装饰器的应用，见 装饰器）：</p><ul><li>用 <code>@property</code> 标记一个返回属性值的方法，称为 getter；</li><li>用 <code>@getter方法名.setter</code> 标记一个设置属性值的方法，称为 setter；</li><li>封装对调用方完全透明，以后给原本公开的属性加上校验，外部代码不用改；</li><li><code>@property</code> 装饰的方法名不要和实例属性重名，否则无限递归。</li></ul><p>原来没有校验的 <code>Person</code>：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Person</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>age</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>age</span> <span class=o>=</span> <span class=n>age</span>
+</span></span></code></pre></div><p>改成接口式封装后，外部的访问方式一个字都不用变：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Person</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=o>=</span><span class=kc>None</span><span class=p>,</span> <span class=n>age</span><span class=o>=</span><span class=kc>None</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__age</span> <span class=o>=</span> <span class=n>age</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@property</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>age</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>__age</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@age.setter</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>age</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>age</span> <span class=o>&lt;</span> <span class=mi>0</span> <span class=ow>or</span> <span class=n>age</span> <span class=o>&gt;</span> <span class=mi>100</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s2>&#34;年龄超出范围&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__age</span> <span class=o>=</span> <span class=n>age</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>Person</span><span class=p>(</span><span class=s2>&#34;张三&#34;</span><span class=p>,</span> <span class=mi>18</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;姓名：</span><span class=si>{</span><span class=n>p</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>,年龄：</span><span class=si>{</span><span class=n>p</span><span class=o>.</span><span class=n>age</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=s2>&#34;张三丰&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>.</span><span class=n>age</span> <span class=o>=</span> <span class=mi>23</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;姓名：</span><span class=si>{</span><span class=n>p</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>,年龄：</span><span class=si>{</span><span class=n>p</span><span class=o>.</span><span class=n>age</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>p</span><span class=o>.</span><span class=n>age</span> <span class=o>=</span> <span class=mi>200</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>ValueError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;p.age = 200 -&gt;&#34;</span><span class=p>,</span> <span class=n>e</span><span class=p>)</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>姓名：张三,年龄：18
+</span></span><span class=line><span class=cl>姓名：张三丰,年龄：23
+</span></span><span class=line><span class=cl>p.age = 200 -&gt; 年龄超出范围
+</span></span></code></pre></div><blockquote class="alert-blockquote warning"><p class=alert-heading>Warning</p><p><p>上面 <code>__init__</code> 里写的是 <code>self.__age = age</code>，它==绕过了 setter==，非法值照样进对象：实测 <code>Person("李四", 200).age</code> 输出 <code>200</code>，没有被拦截。把这一行改成 <code>self.age = age</code> 才会走校验逻辑。</p></p></blockquote><blockquote class="alert-blockquote warning"><p class=alert-heading>Warning</p><p><p>名字撞车就是死循环：getter 里写 <code>return self.age</code>、setter 里写 <code>self.age = age</code>，都会再次触发属性本身：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Traceback (most recent call last):
+</span></span><span class=line><span class=cl>  File &#34;b02b_property_recursion.py&#34;, line 14, in &lt;module&gt;
+</span></span><span class=line><span class=cl>    p = Person(18)
+</span></span><span class=line><span class=cl>  File &#34;b02b_property_recursion.py&#34;, line 3, in __init__
+</span></span><span class=line><span class=cl>    self.age = age
+</span></span><span class=line><span class=cl>  File &#34;b02b_property_recursion.py&#34;, line 11, in age
+</span></span><span class=line><span class=cl>    self.age = age
+</span></span><span class=line><span class=cl>  ...
+</span></span><span class=line><span class=cl>  [Previous line repeated 995 more times]
+</span></span><span class=line><span class=cl>RecursionError: maximum recursion depth exceeded
+</span></span></code></pre></div><p>真实属性用另一个名字（例如 <code>self.__age</code>）存放即可。</p></p></blockquote><h3 id=名称改写式封装双下划线-__attr><a class=header-anchor href=#%e5%90%8d%e7%a7%b0%e6%94%b9%e5%86%99%e5%bc%8f%e5%b0%81%e8%a3%85%e5%8f%8c%e4%b8%8b%e5%88%92%e7%ba%bf-__attr></a>名称改写式封装：双下划线 <code>__attr</code></h3><p>Python 没有 <code>private</code> 关键字，双下划线是唯一的语法级封装手段，也是语法上最接近「私有化」的写法。但它的本质是<strong>名称改写（name mangling）</strong>，不是真正的私有。</p><ul><li>定义 <code>__secret</code> 时，Python 在编译期把它改写成 <code>_类名__secret</code>；</li><li>外部写 <code>对象.__secret</code> 或 <code>类名.__secret</code> 会抛 <code>AttributeError</code>，但用改写后的名字 <code>对象._类名__secret</code> 仍能访问；</li><li><code>__方法</code> 同理。</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Person</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;人的类&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=n>__home</span> <span class=o>=</span> <span class=s2>&#34;earth&#34;</span>  <span class=c1># 私有类属性</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=o>=</span><span class=mi>0</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__name</span> <span class=o>=</span> <span class=n>name</span>  <span class=c1># 私有实例属性</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>__check_age</span><span class=p>(</span><span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=bp>self</span><span class=o>.</span><span class=n>__age</span> <span class=o>=</span> <span class=n>age</span>  <span class=c1># 私有实例属性</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>__check_age</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>age</span><span class=p>):</span>  <span class=c1># 私有方法</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>age</span> <span class=o>&lt;</span> <span class=mi>0</span> <span class=ow>or</span> <span class=n>age</span> <span class=o>&gt;</span> <span class=mi>100</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s2>&#34;年龄超出范围&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=kc>True</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__str__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=sa>f</span><span class=s2>&#34;姓名：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>__name</span><span class=si>}</span><span class=s2>，年龄：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>__age</span><span class=si>}</span><span class=s2>&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>Person</span><span class=p>(</span><span class=s2>&#34;张三&#34;</span><span class=p>,</span> <span class=mi>18</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>p</span><span class=o>.</span><span class=n>__name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>AttributeError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;p.__name -&gt;&#34;</span><span class=p>,</span> <span class=n>e</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>Person</span><span class=o>.</span><span class=n>__home</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>AttributeError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Person.__home -&gt;&#34;</span><span class=p>,</span> <span class=n>e</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Person.__home = </span><span class=si>{</span><span class=n>Person</span><span class=o>.</span><span class=n>_Person__home</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;p.__name = </span><span class=si>{</span><span class=n>p</span><span class=o>.</span><span class=n>_Person__name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;p.__age = </span><span class=si>{</span><span class=n>p</span><span class=o>.</span><span class=n>_Person__age</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>p</span><span class=o>.</span><span class=n>_Person__check_age</span><span class=p>(</span><span class=mi>20</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>Person</span><span class=p>(</span><span class=s2>&#34;李四&#34;</span><span class=p>,</span> <span class=o>-</span><span class=mi>18</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>ValueError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Person(&#39;李四&#39;, -18) -&gt;&#34;</span><span class=p>,</span> <span class=n>e</span><span class=p>)</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>姓名：张三，年龄：18
+</span></span><span class=line><span class=cl>p.__name -&gt; &#39;Person&#39; object has no attribute &#39;__name&#39;
+</span></span><span class=line><span class=cl>Person.__home -&gt; type object &#39;Person&#39; has no attribute &#39;__home&#39;
+</span></span><span class=line><span class=cl>Person.__home = earth
+</span></span><span class=line><span class=cl>p.__name = 张三
+</span></span><span class=line><span class=cl>p.__age = 18
+</span></span><span class=line><span class=cl>True
+</span></span><span class=line><span class=cl>Person(&#39;李四&#39;, -18) -&gt; 年龄超出范围
+</span></span></code></pre></div><p>注意 <code>p.__name</code> 报错是因为在类体之外不做改写，而 <code>p._Person__name</code> 直接命中改写后的名字。日常封装极少用这种方式，原因有三：</p><ol><li>用改写后的名字照样能访问，挡不住有心人；</li><li>写法繁琐，破坏 Python 的简洁，违背「约定优于强制」的设计哲学；</li><li>只在继承场景中、需要防止子类意外覆盖父类内部属性时偶尔使用。</li></ol><p>第三种场景长这样——父子类各有一个 <code>__info</code>，改写后是两个不同的属性，互不覆盖：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Parent</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__info</span> <span class=o>=</span> <span class=s2>&#34;父类的内部信息&#34;</span>  <span class=c1># 改写为 _Parent__info</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Child</span><span class=p>(</span><span class=n>Parent</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__info</span> <span class=o>=</span> <span class=s2>&#34;子类的信息&#34;</span>  <span class=c1># 改写为 _Child__info</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>Parent</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=n>Child</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>p</span><span class=o>.</span><span class=n>_Parent__info</span><span class=p>)</span>   <span class=c1># 父类的内部信息</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>c</span><span class=o>.</span><span class=n>_Child__info</span><span class=p>)</span>    <span class=c1># 子类的信息</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>c</span><span class=o>.</span><span class=n>_Parent__info</span><span class=p>)</span>   <span class=c1># 父类的内部信息</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>父类的内部信息
+</span></span><span class=line><span class=cl>子类的信息
+</span></span><span class=line><span class=cl>父类的内部信息
+</span></span></code></pre></div><h3 id=_-与-__-怎么选><a class=header-anchor href=#_-%e4%b8%8e-__-%e6%80%8e%e4%b9%88%e9%80%89></a><code>_</code> 与 <code>__</code> 怎么选</h3><table><thead><tr><th>单下划线 <code>_name</code>（约定私有）</th><th>双下划线 <code>__name</code>（名称改写）</th></tr></thead><tbody><tr><td>类的内部成员，希望子类能继承/修改，但不希望外部业务代码随意访问</td><td>类的核心成员，绝对不希望子类重写/修改，避免命名冲突</td></tr><tr><td>模块内的变量与函数，只希望在模块内部使用，不希望被 <code>import *</code> 导入</td><td>敏感成员（密码、核心配置），需要语言层面的保护</td></tr><tr><td>临时的、辅助性的成员，开发调试时需要方便访问</td><td>框架/库的底层类，需要严格封装，避免使用者改内部逻辑</td></tr></tbody></table><h2 id=最小封装原则><a class=header-anchor href=#%e6%9c%80%e5%b0%8f%e5%b0%81%e8%a3%85%e5%8e%9f%e5%88%99></a>最小封装原则</h2><p>Python 的「伪私有」本质是：==没有真正不可突破的私有==——双下划线的 <code>__name</code> 也能用 <code>_类名__name</code> 绕过去，和 Java/C++ 的 <code>private</code> 有本质区别。</p><p>Python 的设计哲学里有一句经典的话：<strong>&ldquo;We are all consenting adults here&rdquo;</strong>（我们都是成年人），意思是 Python 不强制限制开发者做什么，更倾向于「约定优于强制」。私有设计的思路是<strong>阻止粗心的错误，而非阻止恶意的破坏</strong>：无论单下划线的约定私有，还是双下划线的名称改写，都是为了规范协作，而不是限制操作。</p><p>社区对封装的理解可以总结成一句话：==能不封装就不封装，需要封装时极简封装==，这和 Java「所有属性都要封装」形成鲜明对比。具体落地规则：</p><ol><li>简单属性（无校验、无逻辑、无内部关联）：直接公开，不用 <code>_</code> 也不用 <code>property</code>，比如 <code>self.name</code>、<code>self.gender</code>；</li><li>类内自用的属性/方法（外部无需关注）：用单下划线 <code>_attr</code> 做约定式封装；</li><li>需要数据校验、日志、联动逻辑的属性：用 <code>property</code> 做接口式封装；</li><li>继承场景中防止子类覆盖：才考虑双下划线 <code>__attr</code>。</li></ol><p>核心是<strong>避免过度封装</strong>：封装是为了让代码更安全、更容易维护，不是为封装而封装，Python 拒绝为「形式上的封装」写繁琐的代码。</p><h2 id=继承><a class=header-anchor href=#%e7%bb%a7%e6%89%bf></a>继承</h2><p>Python 中没有显式指定父类的类，默认继承自 <code>object</code>，它是所有类的根类（顶级父类）。</p><p>继承的目的是让子类（派生类）复用父类（基类/超类）的属性和方法，同时可以扩展、重写父类的内容。它的前提是 <strong>is-a 关系</strong>：狗是一种动物 → <code>Dog</code> 继承 <code>Animal</code>；学生是一种人 → <code>Student</code> 继承 <code>Person</code>；矩形是一种图形 → <code>Rectangle</code> 继承 <code>Shape</code>。</p><table><thead><tr><th>优点</th><th>缺点</th></tr></thead><tbody><tr><td>代码复用：父类的通用逻辑只写一次</td><td>耦合度高：父类一改，所有子类都受影响</td></tr><tr><td>功能扩展：新增/重写方法即可，符合开闭原则</td><td>多继承复杂：MRO、菱形继承增加理解成本</td></tr><tr><td>结构清晰：类之间的层级关系一目了然</td><td>灵活性低：继承关系在定义时就固定了</td></tr></tbody></table><h3 id=单继承与-super><a class=header-anchor href=#%e5%8d%95%e7%bb%a7%e6%89%bf%e4%b8%8e-super></a>单继承与 <code>super()</code></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>子类名</span><span class=p>(</span><span class=n>父类名</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>子类体</span>
+</span></span></code></pre></div><p><code>__init__</code> 的调用规则：</p><ol><li>子类没有重写 <code>__init__</code>，实例化子类时自动调用父类的 <code>__init__</code>；</li><li>子类重写了 <code>__init__</code>，只执行子类的，父类的不会自动执行，需要用 <code>super().__init__(...)</code> 手动调用，否则父类的初始化逻辑会丢失。</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Person</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>age</span> <span class=o>=</span> <span class=n>age</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>eat</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>吃东西....&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Student</span><span class=p>(</span><span class=n>Person</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=p>,</span> <span class=n>score</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>score</span> <span class=o>=</span> <span class=n>score</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>study</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>在学习，年龄为</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=si>}</span><span class=s2>，得分为</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>score</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Teacher</span><span class=p>(</span><span class=n>Person</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=p>,</span> <span class=n>major</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>major</span> <span class=o>=</span> <span class=n>major</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>teach</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>老师，年龄为</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=si>}</span><span class=s2>，主攻</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>major</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Doctor</span><span class=p>(</span><span class=n>Person</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>work</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>医生，年龄为</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>s</span> <span class=o>=</span> <span class=n>Student</span><span class=p>(</span><span class=s2>&#34;张三&#34;</span><span class=p>,</span> <span class=mi>18</span><span class=p>,</span> <span class=mi>90</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>eat</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>s</span><span class=o>.</span><span class=n>study</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>t</span> <span class=o>=</span> <span class=n>Teacher</span><span class=p>(</span><span class=s2>&#34;李四&#34;</span><span class=p>,</span> <span class=mi>28</span><span class=p>,</span> <span class=s2>&#34;Python&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>t</span><span class=o>.</span><span class=n>eat</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>t</span><span class=o>.</span><span class=n>teach</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>Doctor</span><span class=p>(</span><span class=s2>&#34;王五&#34;</span><span class=p>,</span> <span class=mi>38</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>eat</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>work</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>张三吃东西....
+</span></span><span class=line><span class=cl>张三在学习，年龄为18，得分为90
+</span></span><span class=line><span class=cl>李四吃东西....
+</span></span><span class=line><span class=cl>李四老师，年龄为28，主攻Python
+</span></span><span class=line><span class=cl>王五吃东西....
+</span></span><span class=line><span class=cl>王五医生，年龄为38
+</span></span></code></pre></div><p><code>Doctor</code> 没有写 <code>__init__</code>，直接复用了 <code>Person</code> 的，所以 <code>Doctor("王五", 38)</code> 能用。</p><h3 id=属性覆盖><a class=header-anchor href=#%e5%b1%9e%e6%80%a7%e8%a6%86%e7%9b%96></a>属性覆盖</h3><p>父类的同名<strong>类属性</strong>不会被覆盖，父类非 <code>__</code> 私有的同名<strong>实例属性</strong>会被覆盖：</p><ul><li>父子类同名属性逻辑意义相同时，父类声明过，子类不必重新定义；</li><li>逻辑意义不同时，应该用不同的名字区分；</li><li>绝不允许子类覆盖的属性，用 <code>__attr</code> 私有化。</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Parent</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=c1># 类属性</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>    <span class=n>_b</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>    <span class=n>__c</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># 实例属性</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>x</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>_y</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__z</span> <span class=o>=</span> <span class=mi>10</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Child</span><span class=p>(</span><span class=n>Parent</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>a</span> <span class=o>=</span> <span class=mi>20</span>    <span class=c1># 语法允许，但不建议</span>
+</span></span><span class=line><span class=cl>    <span class=n>_b</span> <span class=o>=</span> <span class=mi>20</span>
+</span></span><span class=line><span class=cl>    <span class=n>__c</span> <span class=o>=</span> <span class=mi>20</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=c1># self.x = 20   # 会覆盖父类的实例属性 x</span>
+</span></span><span class=line><span class=cl>        <span class=c1># self._y = 20  # 会覆盖父类的实例属性 _y</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>__z</span> <span class=o>=</span> <span class=mi>20</span>   <span class=c1># 不会覆盖父类的 __z（父类的已被改写为 _Parent__z）</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;父子类的类属性：&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;父类的a=</span><span class=si>{</span><span class=n>Parent</span><span class=o>.</span><span class=n>a</span><span class=si>}</span><span class=s2>,子类a=</span><span class=si>{</span><span class=n>Child</span><span class=o>.</span><span class=n>a</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;父类的_b=</span><span class=si>{</span><span class=n>Parent</span><span class=o>.</span><span class=n>_b</span><span class=si>}</span><span class=s2>,子类_b=</span><span class=si>{</span><span class=n>Child</span><span class=o>.</span><span class=n>_b</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;父类的__c=</span><span class=si>{</span><span class=n>Parent</span><span class=o>.</span><span class=n>_Parent__c</span><span class=si>}</span><span class=s2>,子类__c=</span><span class=si>{</span><span class=n>Child</span><span class=o>.</span><span class=n>_Child__c</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;父子类的实例属性：&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;x=</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>x</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;_y=</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>_y</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;__z=</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>__z</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;_Parent__z=</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>_Parent__z</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=n>Child</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>c</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>父子类的类属性：
+</span></span><span class=line><span class=cl>父类的a=10,子类a=20
+</span></span><span class=line><span class=cl>父类的_b=10,子类_b=20
+</span></span><span class=line><span class=cl>父类的__c=10,子类__c=20
+</span></span><span class=line><span class=cl>父子类的实例属性：
+</span></span><span class=line><span class=cl>x=10
+</span></span><span class=line><span class=cl>_y=10
+</span></span><span class=line><span class=cl>__z=20
+</span></span><span class=line><span class=cl>_Parent__z=10
+</span></span></code></pre></div><p>同名类属性各自独立（<code>Parent.a</code> 与 <code>Child.a</code> 都还在）；实例属性 <code>x</code>、<code>_y</code> 由父类初始化，子类没动，所以是 10；<code>self.__z</code> 在子类里是 <code>_Child__z</code>，父类的 <code>_Parent__z</code> 也留着，两者并存。</p><h3 id=重写父类的方法><a class=header-anchor href=#%e9%87%8d%e5%86%99%e7%88%b6%e7%b1%bb%e7%9a%84%e6%96%b9%e6%b3%95></a>重写父类的方法</h3><p>方法名相同即重写。Python 没有方法重载，同名方法后定义的会覆盖先定义的。</p><p><strong>重写实例方法</strong>时，可以用 <code>super().方法名()</code> 调用父类的实现（用 <code>父类名.方法名(self)</code> 效果相同）：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Flyable</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;飞行能力类：使用此类的子类需要提供 name 属性&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 正在飞行&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Bird</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;鸟类基类&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>make_sound</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 在鸣叫&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>eat</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>吃东西....&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Duck</span><span class=p>(</span><span class=n>Bird</span><span class=p>,</span> <span class=n>Flyable</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;鸭子类 - 继承鸟类和飞行能力&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>price</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>price</span> <span class=o>=</span> <span class=n>price</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>catch_fish</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>        <span class=c1># 新增方法</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 抓 fish&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>make_sound</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>        <span class=c1># 重写 Bird 的 make_sound</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 嘎嘎嘎&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>eat</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>food</span><span class=p>):</span>         <span class=c1># 重写 Bird 的 eat，形参列表可以不同</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 吃</span><span class=si>{</span><span class=n>food</span><span class=si>}</span><span class=s2>....&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>               <span class=c1># 重写 Flyable 的 fly</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>fly</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 飞也飞不高&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>duck</span> <span class=o>=</span> <span class=n>Duck</span><span class=p>(</span><span class=s2>&#34;小黄鸭&#34;</span><span class=p>,</span> <span class=mi>10</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>catch_fish</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>make_sound</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>eat</span><span class=p>(</span><span class=s2>&#34;虫子&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>fly</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>小黄鸭 抓 fish
+</span></span><span class=line><span class=cl>小黄鸭 嘎嘎嘎
+</span></span><span class=line><span class=cl>小黄鸭 吃虫子....
+</span></span><span class=line><span class=cl>小黄鸭 正在飞行
+</span></span><span class=line><span class=cl>小黄鸭 飞也飞不高
+</span></span></code></pre></div><p><strong>重写类方法和静态方法</strong>时，调用父类实现的方式有区别：</p><ul><li><code>父类名.类方法()</code>：父类方法收到的 <code>cls</code> 是父类（推荐）；</li><li><code>父类名.静态方法()</code>：没有 <code>cls</code> 参数（推荐）；</li><li><code>super().类方法()</code>：父类方法收到的 <code>cls</code> 是子类（可以，但不推荐）；</li><li><code>super().静态方法()</code>：<strong>不支持</strong>——静态方法里没有 <code>self</code>/<code>cls</code>，无参 <code>super()</code> 拿不到参数，实测抛 <code>RuntimeError: super(): no arguments</code>；绕法是 <code>super(子类, 子类).静态方法()</code>，但没有必要。</li></ul><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Bird</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>info</span> <span class=o>=</span> <span class=s2>&#34;鸟类&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@classmethod</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>print_info</span><span class=p>(</span><span class=bp>cls</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Bird类.print_info，cls类名是</span><span class=si>{</span><span class=bp>cls</span><span class=o>.</span><span class=vm>__name__</span><span class=si>}</span><span class=s2>,</span><span class=si>{</span><span class=bp>cls</span><span class=o>.</span><span class=n>info</span><span class=si>=}</span><span class=s2>,</span><span class=si>{</span><span class=n>Bird</span><span class=o>.</span><span class=n>info</span><span class=si>=}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@staticmethod</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Bird类.show,</span><span class=si>{</span><span class=n>Bird</span><span class=o>.</span><span class=n>info</span><span class=si>=}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Duck</span><span class=p>(</span><span class=n>Bird</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>info</span> <span class=o>=</span> <span class=s2>&#34;鸭子&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@classmethod</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>print_info</span><span class=p>(</span><span class=bp>cls</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>print_info</span><span class=p>()</span>      <span class=c1># 此处父类方法的 cls 是 Duck</span>
+</span></span><span class=line><span class=cl>        <span class=c1># Bird.print_info()       # 换成这种写法，父类方法的 cls 就是 Bird</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Duck类.print_info，cls类名是</span><span class=si>{</span><span class=bp>cls</span><span class=o>.</span><span class=vm>__name__</span><span class=si>}</span><span class=s2>,</span><span class=si>{</span><span class=bp>cls</span><span class=o>.</span><span class=n>info</span><span class=si>=}</span><span class=s2>,</span><span class=si>{</span><span class=n>Duck</span><span class=o>.</span><span class=n>info</span><span class=si>=}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@staticmethod</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=n>Bird</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Duck类.show,</span><span class=si>{</span><span class=n>Duck</span><span class=o>.</span><span class=n>info</span><span class=si>=}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>Duck</span><span class=o>.</span><span class=n>print_info</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>Duck</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Bird类.print_info，cls类名是Duck,cls.info=&#39;鸭子&#39;,Bird.info=&#39;鸟类&#39;
+</span></span><span class=line><span class=cl>Duck类.print_info，cls类名是Duck,cls.info=&#39;鸭子&#39;,Duck.info=&#39;鸭子&#39;
+</span></span><span class=line><span class=cl>Bird类.show,Bird.info=&#39;鸟类&#39;
+</span></span><span class=line><span class=cl>Duck类.show,Duck.info=&#39;鸭子&#39;
+</span></span></code></pre></div><p>第一行里 <code>cls</code> 是 <code>Duck</code>，所以 <code>cls.info</code> 拿到的是子类的 <code>"鸭子"</code>，而 <code>Bird.info</code> 仍是 <code>"鸟类"</code>——<code>cls</code> 由调用者决定，这正是 <code>super()</code> 在类方法里的行为。</p><h3 id=多继承与-mixin><a class=header-anchor href=#%e5%a4%9a%e7%bb%a7%e6%89%bf%e4%b8%8e-mixin></a>多继承与 Mixin</h3><p>多继承的语法是 <code>class 类名(父类1, 父类2, ...)</code>，调用方法时先在子类里找，找不到再从左到右依次找父类。把不同能力拆成职责单一的类再组合进来，这种设计模式叫<strong>混入类（Mixin）</strong>：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Flyable</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;飞行能力类：使用此类的子类需要提供 name 属性&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 正在飞行&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Swimming</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;游泳能力类：使用此类的子类需要提供 name 属性&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>swim</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 正在游泳&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Bird</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;鸟类基类&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>make_sound</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 在鸣叫&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Duck</span><span class=p>(</span><span class=n>Bird</span><span class=p>,</span> <span class=n>Flyable</span><span class=p>,</span> <span class=n>Swimming</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;鸭子类 - 继承鸟类和多种能力&#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>name</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>catch_fish</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 抓 fish&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>duck</span> <span class=o>=</span> <span class=n>Duck</span><span class=p>(</span><span class=s2>&#34;小黄鸭&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>fly</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>swim</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>make_sound</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>duck</span><span class=o>.</span><span class=n>catch_fish</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>小黄鸭 正在飞行
+</span></span><span class=line><span class=cl>小黄鸭 正在游泳
+</span></span><span class=line><span class=cl>小黄鸭 在鸣叫
+</span></span><span class=line><span class=cl>小黄鸭 抓 fish
+</span></span></code></pre></div><p><code>Flyable</code>、<code>Swimming</code> 都是混入类：各自只提供一种能力，假设使用者提供 <code>name</code> 属性。混入类的特点是不单独实例化、一般不含 <code>__init__</code>、依赖关系靠约定或文档说明；好处是单一职责、可复用、可自由组合、结构清晰。</p><h2 id=mro><a class=header-anchor href=#mro></a>MRO</h2><p>如果多个父类有同名方法，子类调用时按一个固定顺序查找，这个顺序就是<strong>方法解析顺序（Method Resolution Order，MRO）</strong>。MRO 是 Python 为多继承设计的方法/属性查找规则，本质是一个类的线性搜索列表，可以用 <code>类名.__mro__</code> 或 <code>类名.mro()</code> 查看。</p><p>Python 3 的 MRO 遵循 <strong>C3 算法</strong>，要点是：</p><ol><li>先找子类自己的方法；</li><li>再按父类定义的顺序从左到右查找；</li><li>最后找共同的祖先类。</li></ol><p>C3 算法的三个关键性质：</p><ul><li><strong>局部优先顺序</strong>：子类优先于父类，同一父类的多个子类保持声明顺序。下图图 1 是 <code>D(B, C)</code>，先 B 后 C；图 2 是 <code>D(C, B)</code>，先 C 后 B。</li><li><strong>一致性</strong>：如果 D 继承 B、B 继承 A，那么 MRO 中 D 必须在 B 之前、B 必须在 A 之前。</li><li><strong>单调性</strong>：子类的 MRO 不会破坏父类的 MRO 顺序。Python 2.2 之前用 DFS（深度优先搜索），图 1 会得到 <code>DBAC</code>，破坏「子类优先于父类」；自 Python 2.3 引入 C3 算法后得到 <code>DBCA</code>。</li></ul><p><img src=/python/attachments/image-20260205203601948.png alt></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>A</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_one</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;A的show_one&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_two</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;A的show_two&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_three</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;A的show_three&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_four</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;A的show_four&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>B</span><span class=p>(</span><span class=n>A</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_one</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;B的show_one&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_two</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;B的show_two&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_three</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;B的show_three&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>show_three</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_four</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;B的show_four&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>show_four</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>C</span><span class=p>(</span><span class=n>A</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_one</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;C的show_one&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_two</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;C的show_two&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_three</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;C的show_three&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_four</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;C的show_four&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>show_four</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>D</span><span class=p>(</span><span class=n>B</span><span class=p>,</span> <span class=n>C</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_one</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;D的show_one&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_two</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;D的show_two&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>show_two</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_three</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;D的show_three&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>show_three</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_four</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;D的show_four&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=n>show_four</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>D</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;D.mro() =&#34;</span><span class=p>,</span> <span class=n>D</span><span class=o>.</span><span class=n>mro</span><span class=p>())</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;类名顺序：&#34;</span><span class=p>,</span> <span class=p>[</span><span class=bp>cls</span><span class=o>.</span><span class=vm>__name__</span> <span class=k>for</span> <span class=bp>cls</span> <span class=ow>in</span> <span class=n>D</span><span class=o>.</span><span class=vm>__mro__</span><span class=p>])</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;调用show_one方法&#34;</span><span class=o>.</span><span class=n>center</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=s2>&#34;-&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>show_one</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;调用show_two方法&#34;</span><span class=o>.</span><span class=n>center</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=s2>&#34;-&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>show_two</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;调用show_three方法&#34;</span><span class=o>.</span><span class=n>center</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=s2>&#34;-&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>show_three</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;调用show_four方法&#34;</span><span class=o>.</span><span class=n>center</span><span class=p>(</span><span class=mi>50</span><span class=p>,</span> <span class=s2>&#34;-&#34;</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>show_four</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>D.mro() = [&lt;class &#39;__main__.D&#39;&gt;, &lt;class &#39;__main__.B&#39;&gt;, &lt;class &#39;__main__.C&#39;&gt;, &lt;class &#39;__main__.A&#39;&gt;, &lt;class &#39;object&#39;&gt;]
+</span></span><span class=line><span class=cl>类名顺序： [&#39;D&#39;, &#39;B&#39;, &#39;C&#39;, &#39;A&#39;, &#39;object&#39;]
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-------------------调用show_one方法-------------------
+</span></span><span class=line><span class=cl>D的show_one
+</span></span><span class=line><span class=cl>-------------------调用show_two方法-------------------
+</span></span><span class=line><span class=cl>D的show_two
+</span></span><span class=line><span class=cl>B的show_two
+</span></span><span class=line><span class=cl>------------------调用show_three方法------------------
+</span></span><span class=line><span class=cl>D的show_three
+</span></span><span class=line><span class=cl>B的show_three
+</span></span><span class=line><span class=cl>C的show_three
+</span></span><span class=line><span class=cl>------------------调用show_four方法-------------------
+</span></span><span class=line><span class=cl>D的show_four
+</span></span><span class=line><span class=cl>B的show_four
+</span></span><span class=line><span class=cl>C的show_four
+</span></span><span class=line><span class=cl>A的show_four
+</span></span></code></pre></div><p>两种查找情形：</p><ul><li>沿着 MRO 找到方法就停止（<code>show_one</code> 命中 <code>D</code>，<code>show_two</code> 命中 <code>D</code> 后没有 <code>super()</code>，停在 D）；</li><li>找到的方法里还有 <code>super().方法()</code> 就继续沿着 MRO 往下走，直到某一步没有 <code>super()</code> 为止（<code>show_three</code>、<code>show_four</code> 依次穿过 D、B、C、A）。</li></ul><h3 id=菱形继承><a class=header-anchor href=#%e8%8f%b1%e5%bd%a2%e7%bb%a7%e6%89%bf></a>菱形继承</h3><p><code>D</code> 继承 <code>B</code> 和 <code>C</code>，<code>B</code>、<code>C</code> 又都继承自 <code>A</code>，就是菱形（钻石）结构：</p><p><img src=/python/attachments/image-20260205220318491.png alt></p><p>没有 MRO 的 C3 算法时，调用 <code>D</code> 的方法可能让 <code>A</code> 的方法被 B 和 C ==各调用一次==，造成逻辑重复。C3 算法把共同基类 <code>A</code> 放在 MRO 列表的最后一个父类之后，保证它只被查找一次。</p><blockquote class="alert-blockquote note"><p class=alert-heading>Note</p><p><p>多继承中 <code>super()</code> 查找的不是「当前类的父类」，而是 ==MRO 列表里的下一个类==。这是 <code>super()</code> 的核心逻辑，也是 MRO 能解决菱形继承的关键。<code>super().show_three()</code> 在 B 里执行时，找到的是 C 而不是 A。</p></p></blockquote><p>避坑两条：</p><ol><li>写了多继承就第一时间用 <code>类名.mro()</code> 看查找顺序，别凭直觉猜方法会走到谁；</li><li>尽量避免多继承中出现大量同名方法。多继承适合「复用不同父类的不同方法」，不适合用 MRO 去调和一堆同名冲突。</li></ol><h3 id=指定调用某个父类的方法><a class=header-anchor href=#%e6%8c%87%e5%ae%9a%e8%b0%83%e7%94%a8%e6%9f%90%e4%b8%aa%e7%88%b6%e7%b1%bb%e7%9a%84%e6%96%b9%e6%b3%95></a>指定调用某个父类的方法</h3><p>方式一是显式传实例：<code>父类名.方法名(实例, 参数)</code>。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>A</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>func</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;A的func&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>B</span><span class=p>(</span><span class=n>A</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>func</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;B的func&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>C</span><span class=p>(</span><span class=n>A</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>func</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;C的func&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>D</span><span class=p>(</span><span class=n>B</span><span class=p>,</span> <span class=n>C</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>D</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>d</span><span class=o>.</span><span class=n>func</span><span class=p>()</span>      <span class=c1># 按 MRO，默认调用 B 的 func</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>C</span><span class=o>.</span><span class=n>func</span><span class=p>(</span><span class=n>d</span><span class=p>)</span>     <span class=c1># 强行调用 C 的 func</span>
+</span></span><span class=line><span class=cl><span class=n>A</span><span class=o>.</span><span class=n>func</span><span class=p>(</span><span class=n>d</span><span class=p>)</span>     <span class=c1># 强行调用 A 的 func</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>B的func
+</span></span><span class=line><span class=cl>C的func
+</span></span><span class=line><span class=cl>A的func
+</span></span></code></pre></div><p>方式二是 <code>super().方法名(参数)</code> 或 <code>super(类型, self).方法名(参数)</code>，此时找的是「MRO 中该类之后的那个类」：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>D</span><span class=p>(</span><span class=n>B</span><span class=p>,</span> <span class=n>C</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>func</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=c1># super().func()          # 从 D 之后开始找，命中 B</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>(</span><span class=n>D</span><span class=p>,</span> <span class=bp>self</span><span class=p>)</span><span class=o>.</span><span class=n>func</span><span class=p>()</span>     <span class=c1># 等价写法</span>
+</span></span><span class=line><span class=cl>        <span class=c1># super(B, self).func()   # 从 B 之后开始找，命中 C</span>
+</span></span><span class=line><span class=cl>        <span class=c1># super(C, self).func()   # 从 C 之后开始找，命中 A</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>B的func
+</span></span><span class=line><span class=cl>[&#39;D&#39;, &#39;B&#39;, &#39;C&#39;, &#39;A&#39;, &#39;object&#39;]
+</span></span></code></pre></div><h3 id=多继承的初始化两种方案><a class=header-anchor href=#%e5%a4%9a%e7%bb%a7%e6%89%bf%e7%9a%84%e5%88%9d%e5%a7%8b%e5%8c%96%e4%b8%a4%e7%a7%8d%e6%96%b9%e6%a1%88></a>多继承的初始化：两种方案</h3><p><code>ElectricCar</code> 同时继承 <code>Vehicle</code> 和 <code>Electronic</code>，两个父类又都继承 <code>Goods</code>。</p><p>方式一：每个父类里用 <code>父类名.__init__(self, ...)</code> 直接点名，子类分别调用两个父类的构造方法。这样不会因为 <code>super()</code> 沿着 MRO 跑而漏掉或重复初始化。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Goods</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>goods_name</span> <span class=o>=</span> <span class=n>goods_name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>goods_price</span> <span class=o>=</span> <span class=n>goods_price</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Vehicle</span><span class=p>(</span><span class=n>Goods</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>max_speed</span><span class=p>,</span> <span class=n>seat_num</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>max_speed</span> <span class=o>=</span> <span class=n>max_speed</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>seat_num</span> <span class=o>=</span> <span class=n>seat_num</span>
+</span></span><span class=line><span class=cl>        <span class=c1># super().__init__(goods_name, goods_price)  # 对 ElectricCar 来说，super() 会去找 Electronic</span>
+</span></span><span class=line><span class=cl>        <span class=n>Goods</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>drive</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;最大速度</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>max_speed</span><span class=si>}</span><span class=s2>km/h，</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>seat_num</span><span class=si>}</span><span class=s2>座车辆正在行驶&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Electronic</span><span class=p>(</span><span class=n>Goods</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>battery_cap</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>battery_cap</span> <span class=o>=</span> <span class=n>battery_cap</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>electric</span> <span class=o>=</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>        <span class=n>Goods</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>charge</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>electric</span> <span class=o>=</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>battery_cap</span><span class=si>}</span><span class=s2>kWh电池已充满，电量100%&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ElectricCar</span><span class=p>(</span><span class=n>Vehicle</span><span class=p>,</span> <span class=n>Electronic</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>max_speed</span><span class=p>,</span> <span class=n>seat_num</span><span class=p>,</span> <span class=n>battery_cap</span><span class=p>,</span> <span class=n>autopilot_level</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>Vehicle</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>max_speed</span><span class=p>,</span> <span class=n>seat_num</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>Electronic</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>battery_cap</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>autopilot_level</span> <span class=o>=</span> <span class=n>autopilot_level</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_info</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;=====电动车完整信息=====&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;自动驾驶等级：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>autopilot_level</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;商品名称：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>goods_name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;商品价格：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>goods_price</span><span class=si>}</span><span class=s2>万&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;最高时速：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>max_speed</span><span class=si>}</span><span class=s2> km/h&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;座位数量：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>seat_num</span><span class=si>}</span><span class=s2> 座&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;电池容量：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>battery_cap</span><span class=si>}</span><span class=s2> kWh&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;当前电量：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>electric</span><span class=si>}</span><span class=s2> %&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tesla</span> <span class=o>=</span> <span class=n>ElectricCar</span><span class=p>(</span><span class=n>goods_name</span><span class=o>=</span><span class=s2>&#34;特斯拉&#34;</span><span class=p>,</span> <span class=n>goods_price</span><span class=o>=</span><span class=mi>50</span><span class=p>,</span> <span class=n>max_speed</span><span class=o>=</span><span class=mi>220</span><span class=p>,</span> <span class=n>seat_num</span><span class=o>=</span><span class=mi>5</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=n>battery_cap</span><span class=o>=</span><span class=mi>75</span><span class=p>,</span> <span class=n>autopilot_level</span><span class=o>=</span><span class=s2>&#34;L4&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tesla</span><span class=o>.</span><span class=n>show_info</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>--调用交通工具方法--&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tesla</span><span class=o>.</span><span class=n>drive</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>--调用电子产品充电方法--&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tesla</span><span class=o>.</span><span class=n>charge</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>=====电动车完整信息=====
+</span></span><span class=line><span class=cl>自动驾驶等级：L4
+</span></span><span class=line><span class=cl>商品名称：特斯拉
+</span></span><span class=line><span class=cl>商品价格：50万
+</span></span><span class=line><span class=cl>最高时速：220 km/h
+</span></span><span class=line><span class=cl>座位数量：5 座
+</span></span><span class=line><span class=cl>电池容量：75 kWh
+</span></span><span class=line><span class=cl>当前电量：100 %
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>--调用交通工具方法--
+</span></span><span class=line><span class=cl>最大速度220km/h，5座车辆正在行驶
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>--调用电子产品充电方法--
+</span></span><span class=line><span class=cl>75kWh电池已充满，电量100%
+</span></span></code></pre></div><p>方式二：协作式 <code>super().__init__(**params)</code>——每个父类只处理自己的参数，剩下的用 <code>**params</code> 继续往 MRO 下一站传递，共同基类 <code>Goods</code> 的初始化只发生一次。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Goods</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=o>**</span><span class=n>params</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>goods_name</span> <span class=o>=</span> <span class=n>goods_name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>goods_price</span> <span class=o>=</span> <span class=n>goods_price</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=o>**</span><span class=n>params</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Vehicle</span><span class=p>(</span><span class=n>Goods</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>max_speed</span><span class=p>,</span> <span class=n>seat_num</span><span class=p>,</span> <span class=o>**</span><span class=n>params</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>max_speed</span> <span class=o>=</span> <span class=n>max_speed</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>seat_num</span> <span class=o>=</span> <span class=n>seat_num</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>goods_name</span><span class=o>=</span><span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=o>=</span><span class=n>goods_price</span><span class=p>,</span> <span class=o>**</span><span class=n>params</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>drive</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;最大速度</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>max_speed</span><span class=si>}</span><span class=s2>km/h，</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>seat_num</span><span class=si>}</span><span class=s2>座车辆正在行驶&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Electronic</span><span class=p>(</span><span class=n>Goods</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>battery_cap</span><span class=p>,</span> <span class=o>**</span><span class=n>params</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>battery_cap</span> <span class=o>=</span> <span class=n>battery_cap</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>electric</span> <span class=o>=</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>goods_name</span><span class=o>=</span><span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=o>=</span><span class=n>goods_price</span><span class=p>,</span> <span class=o>**</span><span class=n>params</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>charge</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>electric</span> <span class=o>=</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>battery_cap</span><span class=si>}</span><span class=s2>kWh电池已充满，电量100%&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>ElectricCar</span><span class=p>(</span><span class=n>Vehicle</span><span class=p>,</span> <span class=n>Electronic</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=p>,</span> <span class=n>max_speed</span><span class=p>,</span> <span class=n>seat_num</span><span class=p>,</span> <span class=n>battery_cap</span><span class=p>,</span> <span class=n>autopilot_level</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=n>goods_name</span><span class=o>=</span><span class=n>goods_name</span><span class=p>,</span> <span class=n>goods_price</span><span class=o>=</span><span class=n>goods_price</span><span class=p>,</span> <span class=n>max_speed</span><span class=o>=</span><span class=n>max_speed</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                         <span class=n>seat_num</span><span class=o>=</span><span class=n>seat_num</span><span class=p>,</span> <span class=n>battery_cap</span><span class=o>=</span><span class=n>battery_cap</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>autopilot_level</span> <span class=o>=</span> <span class=n>autopilot_level</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show_info</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;=====电动车完整信息=====&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;自动驾驶等级：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>autopilot_level</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;商品名称：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>goods_name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;商品价格：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>goods_price</span><span class=si>}</span><span class=s2>万&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;最高时速：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>max_speed</span><span class=si>}</span><span class=s2> km/h&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;座位数量：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>seat_num</span><span class=si>}</span><span class=s2> 座&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;电池容量：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>battery_cap</span><span class=si>}</span><span class=s2> kWh&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;当前电量：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>electric</span><span class=si>}</span><span class=s2> %&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>tesla</span> <span class=o>=</span> <span class=n>ElectricCar</span><span class=p>(</span><span class=n>goods_name</span><span class=o>=</span><span class=s2>&#34;特斯拉&#34;</span><span class=p>,</span> <span class=n>goods_price</span><span class=o>=</span><span class=mi>50</span><span class=p>,</span> <span class=n>max_speed</span><span class=o>=</span><span class=mi>220</span><span class=p>,</span> <span class=n>seat_num</span><span class=o>=</span><span class=mi>5</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                    <span class=n>battery_cap</span><span class=o>=</span><span class=mi>75</span><span class=p>,</span> <span class=n>autopilot_level</span><span class=o>=</span><span class=s2>&#34;L4&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>tesla</span><span class=o>.</span><span class=n>show_info</span><span class=p>()</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>=====电动车完整信息=====
+</span></span><span class=line><span class=cl>自动驾驶等级：L4
+</span></span><span class=line><span class=cl>商品名称：特斯拉
+</span></span><span class=line><span class=cl>商品价格：50万
+</span></span><span class=line><span class=cl>最高时速：220 km/h
+</span></span><span class=line><span class=cl>座位数量：5 座
+</span></span><span class=line><span class=cl>电池容量：75 kWh
+</span></span><span class=line><span class=cl>当前电量：100 %
+</span></span></code></pre></div><p>两种方式输出完全一致，区别在维护性：</p><table><thead><tr><th></th><th><code>父类名.__init__(self, ...)</code></th><th>协作式 <code>super().__init__(**params)</code></th></tr></thead><tbody><tr><td>是否依赖 MRO</td><td>不依赖，点名调用</td><td>依赖，沿 MRO 依次传递</td></tr><tr><td>共同基类初始化次数</td><td>每个父类各调一次（这里 <code>Goods.__init__</code> 被调了两次）</td><td>只调一次</td></tr><tr><td>新增父类时</td><td>要在子类里再写一行</td><td>通常不用改子类</td></tr><tr><td>可读性</td><td>直观，但硬编码父类名</td><td>需要理解 <code>**params</code> 的传递链</td></tr></tbody></table><p><code>ElectricCar</code> 的 MRO 是 <code>['ElectricCar', 'Vehicle', 'Electronic', 'Goods', 'object']</code>，协作式写法正是沿着这条链一次走完。</p><h2 id=多态与鸭子类型><a class=header-anchor href=#%e5%a4%9a%e6%80%81%e4%b8%8e%e9%b8%ad%e5%ad%90%e7%b1%bb%e5%9e%8b></a>多态与鸭子类型</h2><p>多态的定义是：同一操作作用于不同的对象，产生不同的执行结果。</p><p>实现多态效果有两种方式。基于继承加方法重写，是 Java 这类语言的常规做法：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Animal</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Dog</span><span class=p>(</span><span class=n>Animal</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;小狗跑&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Fish</span><span class=p>(</span><span class=n>Animal</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;鱼儿游&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Bird</span><span class=p>(</span><span class=n>Animal</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;鸟儿飞&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=n>animal</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>animal</span><span class=o>.</span><span class=n>go</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>dog</span> <span class=o>=</span> <span class=n>Dog</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>fish</span> <span class=o>=</span> <span class=n>Fish</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>bird</span> <span class=o>=</span> <span class=n>Bird</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>go</span><span class=p>(</span><span class=n>dog</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>go</span><span class=p>(</span><span class=n>fish</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>go</span><span class=p>(</span><span class=n>bird</span><span class=p>)</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>小狗跑
+</span></span><span class=line><span class=cl>鱼儿游
+</span></span><span class=line><span class=cl>鸟儿飞
+</span></span></code></pre></div><p>Python 作为动态类型语言，更常用的是鸭子类型：不需要继承，也不需要声明类型，只要对象有同名方法就能用：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Dog</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;小狗跑&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Fish</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;鱼儿游&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Bird</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;鸟儿飞&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Car</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;汽车开&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>go</span><span class=p>(</span><span class=n>animal</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>animal</span><span class=o>.</span><span class=n>go</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>obj</span> <span class=ow>in</span> <span class=p>(</span><span class=n>Dog</span><span class=p>(),</span> <span class=n>Fish</span><span class=p>(),</span> <span class=n>Bird</span><span class=p>(),</span> <span class=n>Car</span><span class=p>()):</span>
+</span></span><span class=line><span class=cl>    <span class=n>go</span><span class=p>(</span><span class=n>obj</span><span class=p>)</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>小狗跑
+</span></span><span class=line><span class=cl>鱼儿游
+</span></span><span class=line><span class=cl>鸟儿飞
+</span></span><span class=line><span class=cl>汽车开
+</span></span></code></pre></div><p><strong>鸭子类型</strong>（Duck Typing）的精髓是一句话：==如果它走起来像鸭子，叫起来像鸭子，那么它就是鸭子==。翻译成编程术语：一个对象有没有用，不取决于它继承自哪个类，而取决于它有没有实现特定的方法或属性。</p><table><thead><tr><th>特性</th><th>传统继承/接口（Java/C++ 风格）</th><th>鸭子类型（Python 风格）</th></tr></thead><tbody><tr><td>检查时机</td><td>编译期（或代码编写期）</td><td>运行时</td></tr><tr><td>关注点</td><td>对象是什么（is-a）</td><td>对象能做什么</td></tr><tr><td>代码耦合度</td><td>较高，必须显式继承</td><td>极低，只需实现同名方法</td></tr><tr><td>灵活性</td><td>较差，改类型结构成本高</td><td>极高，任何「会叫」的对象都能用</td></tr></tbody></table><p>鸭子类型最典型的落地就是内置函数和魔法方法：<code>len()</code> 不要求参数是列表或元组，只要对象实现了 <code>__len__()</code>；<code>for</code> 不要求参数是列表，只要对象实现了 <code>__iter__()</code>（迭代器协议见 迭代器与生成器）。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>MyCollection</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__len__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=mi>100</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>MyCollection</span><span class=p>()))</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Countdown</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>start</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>start</span> <span class=o>=</span> <span class=n>start</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__iter__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>n</span> <span class=o>=</span> <span class=bp>self</span><span class=o>.</span><span class=n>start</span>
+</span></span><span class=line><span class=cl>        <span class=k>while</span> <span class=n>n</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>yield</span> <span class=n>n</span>
+</span></span><span class=line><span class=cl>            <span class=n>n</span> <span class=o>-=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>Countdown</span><span class=p>(</span><span class=mi>3</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>100
+</span></span><span class=line><span class=cl>3
+</span></span><span class=line><span class=cl>2
+</span></span><span class=line><span class=cl>1
+</span></span></code></pre></div><blockquote class="alert-blockquote warning"><p class=alert-heading>Warning</p><p><p>鸭子类型的代价是错误只能在运行时暴露：方法名拼错、参数个数不对，都要等真正调用到那一行才报 <code>AttributeError</code> 或 <code>TypeError</code>。类型注解和 <code>mypy</code> 这类工具能在编写期补上这一层检查，见 类型注解与泛型。</p></p></blockquote><h2 id=抽象类><a class=header-anchor href=#%e6%8a%bd%e8%b1%a1%e7%b1%bb></a>抽象类</h2><p>抽象类是包含抽象方法的类，它不能被直接实例化，子类继承后必须重写所有抽象方法。父类定义抽象方法的意义是约定「所有子类都必须提供某个方法」。</p><p>Python 里的抽象类要满足两个条件：</p><ol><li>继承 <code>abc.ABC</code>；</li><li>抽象方法上加 <code>@abc.abstractmethod</code> 装饰器。</li></ol><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>abc</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Person</span><span class=p>(</span><span class=n>abc</span><span class=o>.</span><span class=n>ABC</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>age</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>age</span> <span class=o>=</span> <span class=n>age</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=nd>@abc.abstractmethod</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>eat</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>pass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>show</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;姓名：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>，年龄：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>age</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Student</span><span class=p>(</span><span class=n>Person</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>eat</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;吃学生餐&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>try</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>p</span> <span class=o>=</span> <span class=n>Person</span><span class=p>(</span><span class=s2>&#34;张三&#34;</span><span class=p>,</span> <span class=mi>23</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>except</span> <span class=ne>TypeError</span> <span class=k>as</span> <span class=n>e</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;Person(&#39;张三&#39;, 23) -&gt;&#34;</span><span class=p>,</span> <span class=n>e</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>Student</span><span class=p>(</span><span class=s2>&#34;张三&#34;</span><span class=p>,</span> <span class=mi>23</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>.</span><span class=n>show</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>.</span><span class=n>eat</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>Student</span><span class=o>.</span><span class=vm>__mro__</span><span class=p>)</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Person(&#39;张三&#39;, 23) -&gt; Can&#39;t instantiate abstract class Person without an implementation for abstract method &#39;eat&#39;
+</span></span><span class=line><span class=cl>姓名：张三，年龄：23
+</span></span><span class=line><span class=cl>吃学生餐
+</span></span><span class=line><span class=cl>(&lt;class &#39;__main__.Student&#39;&gt;, &lt;class &#39;__main__.Person&#39;&gt;, &lt;class &#39;abc.ABC&#39;&gt;, &lt;class &#39;object&#39;&gt;)
+</span></span></code></pre></div><h2 id=案例愤怒的小鸟><a class=header-anchor href=#%e6%a1%88%e4%be%8b%e6%84%a4%e6%80%92%e7%9a%84%e5%b0%8f%e9%b8%9f></a>案例：愤怒的小鸟</h2><p>绿色小猪偷走了鸟蛋，小鸟们用各自的技能攻击小猪建造的障碍物。这个案例把前面几节的知识点串一遍。</p><h3 id=类设计><a class=header-anchor href=#%e7%b1%bb%e8%ae%be%e8%ae%a1></a>类设计</h3><table><thead><tr><th>类</th><th>角色</th><th>属性</th><th>方法</th></tr></thead><tbody><tr><td><code>Birds</code></td><td>所有小鸟的基类，定义通用属性和行为</td><td><code>name</code>、<code>color</code>、<code>skill_description</code></td><td><code>fly()</code>、<code>call()</code>、<code>use_skill()</code></td></tr><tr><td><code>RedBirds</code> / <code>YellowBirds</code> / <code>BlueBirds</code></td><td>具体小鸟，继承 <code>Birds</code>，重写部分方法</td><td>通过 <code>super().__init__()</code> 初始化三个属性</td><td>重写 <code>fly()</code>、<code>call()</code>，继承 <code>use_skill()</code></td></tr><tr><td><code>Obstacle</code></td><td>障碍物，负责被攻击的逻辑</td><td><code>name</code>、<code>strength</code></td><td><code>be_attacked(bird)</code></td></tr></tbody></table><p>设计意图：<code>Birds</code> 体现抽象与封装；三个子类各自重写 <code>fly()</code>、<code>call()</code> 体现继承与多态；<code>Obstacle.be_attacked(bird)</code> 接收任意小鸟对象，靠 <code>isinstance</code> 判断种类决定伤害，体现对象之间的交互。</p><h3 id=核心代码><a class=header-anchor href=#%e6%a0%b8%e5%bf%83%e4%bb%a3%e7%a0%81></a>核心代码</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Birds</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>color</span><span class=p>,</span> <span class=n>skill_description</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>color</span> <span class=o>=</span> <span class=n>color</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>skill_description</span> <span class=o>=</span> <span class=n>skill_description</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 正在飞行...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>call</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 发出叫声...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>use_skill</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 使用了技能：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>skill_description</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>RedBirds</span><span class=p>(</span><span class=n>Birds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=s2>&#34;红火&#34;</span><span class=p>,</span> <span class=s2>&#34;红色&#34;</span><span class=p>,</span> <span class=s2>&#34;撞击前方障碍物，造成大量伤害&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;红火以稳定的速度向前飞行...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>call</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;红火发出 &#39;wei呀....&#39; 的叫声&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Obstacle</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>strength</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>strength</span> <span class=o>=</span> <span class=n>strength</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>be_attacked</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>bird</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>bird</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 冲向了 </span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>bird</span><span class=o>.</span><span class=n>use_skill</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>bird</span><span class=p>,</span> <span class=n>RedBirds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>damage</span> <span class=o>=</span> <span class=mi>80</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>bird</span><span class=p>,</span> <span class=n>YellowBirds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>damage</span> <span class=o>=</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>bird</span><span class=p>,</span> <span class=n>BlueBirds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>damage</span> <span class=o>=</span> <span class=mi>30</span> <span class=o>*</span> <span class=mi>3</span>  <span class=c1># 分裂成三只，每只造成 30 点伤害</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>strength</span> <span class=o>-=</span> <span class=n>damage</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>strength</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 被摧毁了！&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 还剩余 </span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>strength</span><span class=si>}</span><span class=s2> 点强度&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p>运行结果（完整代码见下面的折叠块）：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>红火 冲向了 木头堡垒
+</span></span><span class=line><span class=cl>红火 使用了技能：撞击前方障碍物，造成大量伤害
+</span></span><span class=line><span class=cl>木头堡垒 还剩余 20 点强度
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>小黄 冲向了 石头塔楼
+</span></span><span class=line><span class=cl>小黄 使用了技能：瞬间加速，穿透薄障碍物
+</span></span><span class=line><span class=cl>石头塔楼 还剩余 150 点强度
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>小蓝 冲向了 石头塔楼
+</span></span><span class=line><span class=cl>小蓝 使用了技能：分裂成三只小鸟，分散攻击
+</span></span><span class=line><span class=cl>石头塔楼 还剩余 60 点强度
+</span></span></code></pre></div><blockquote class="alert-blockquote example"><p class=alert-heading>Example</p><p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>class</span> <span class=nc>Birds</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>color</span><span class=p>,</span> <span class=n>skill_description</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>color</span> <span class=o>=</span> <span class=n>color</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>skill_description</span> <span class=o>=</span> <span class=n>skill_description</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 正在飞行...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>call</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 发出叫声...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>use_skill</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 使用了技能：</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>skill_description</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>RedBirds</span><span class=p>(</span><span class=n>Birds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=s2>&#34;红火&#34;</span><span class=p>,</span> <span class=s2>&#34;红色&#34;</span><span class=p>,</span> <span class=s2>&#34;撞击前方障碍物，造成大量伤害&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;红火以稳定的速度向前飞行...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>call</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;红火发出 &#39;wei呀....&#39; 的叫声&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>YellowBirds</span><span class=p>(</span><span class=n>Birds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=s2>&#34;小黄&#34;</span><span class=p>,</span> <span class=s2>&#34;黄色&#34;</span><span class=p>,</span> <span class=s2>&#34;瞬间加速，穿透薄障碍物&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;小黄快速向前飞行...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>call</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;小黄发出 &#39;啾啾啾....&#39; 的叫声&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>BlueBirds</span><span class=p>(</span><span class=n>Birds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>super</span><span class=p>()</span><span class=o>.</span><span class=fm>__init__</span><span class=p>(</span><span class=s2>&#34;小蓝&#34;</span><span class=p>,</span> <span class=s2>&#34;蓝色&#34;</span><span class=p>,</span> <span class=s2>&#34;分裂成三只小鸟，分散攻击&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>fly</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;小蓝优雅地向前飞行...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>call</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;小蓝发出 &#39;叽叽叽....&#39; 的叫声&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>class</span> <span class=nc>Obstacle</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>name</span><span class=p>,</span> <span class=n>strength</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>name</span> <span class=o>=</span> <span class=n>name</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>strength</span> <span class=o>=</span> <span class=n>strength</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>def</span> <span class=nf>be_attacked</span><span class=p>(</span><span class=bp>self</span><span class=p>,</span> <span class=n>bird</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=n>bird</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 冲向了 </span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>bird</span><span class=o>.</span><span class=n>use_skill</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>bird</span><span class=p>,</span> <span class=n>RedBirds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>damage</span> <span class=o>=</span> <span class=mi>80</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>bird</span><span class=p>,</span> <span class=n>YellowBirds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>damage</span> <span class=o>=</span> <span class=mi>50</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=nb>isinstance</span><span class=p>(</span><span class=n>bird</span><span class=p>,</span> <span class=n>BlueBirds</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>damage</span> <span class=o>=</span> <span class=mi>30</span> <span class=o>*</span> <span class=mi>3</span>  <span class=c1># 分裂成三只，每只造成 30 点伤害</span>
+</span></span><span class=line><span class=cl>        <span class=bp>self</span><span class=o>.</span><span class=n>strength</span> <span class=o>-=</span> <span class=n>damage</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=bp>self</span><span class=o>.</span><span class=n>strength</span> <span class=o>&lt;=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 被摧毁了！&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;</span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>name</span><span class=si>}</span><span class=s2> 还剩余 </span><span class=si>{</span><span class=bp>self</span><span class=o>.</span><span class=n>strength</span><span class=si>}</span><span class=s2> 点强度&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s2>&#34;__main__&#34;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>red_bird</span> <span class=o>=</span> <span class=n>RedBirds</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>yellow_bird</span> <span class=o>=</span> <span class=n>YellowBirds</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>blue_bird</span> <span class=o>=</span> <span class=n>BlueBirds</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>obstacle1</span> <span class=o>=</span> <span class=n>Obstacle</span><span class=p>(</span><span class=s2>&#34;木头堡垒&#34;</span><span class=p>,</span> <span class=mi>100</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>obstacle2</span> <span class=o>=</span> <span class=n>Obstacle</span><span class=p>(</span><span class=s2>&#34;石头塔楼&#34;</span><span class=p>,</span> <span class=mi>200</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>obstacle1</span><span class=o>.</span><span class=n>be_attacked</span><span class=p>(</span><span class=n>red_bird</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>obstacle2</span><span class=o>.</span><span class=n>be_attacked</span><span class=p>(</span><span class=n>yellow_bird</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>obstacle2</span><span class=o>.</span><span class=n>be_attacked</span><span class=p>(</span><span class=n>blue_bird</span><span class=p>)</span>
+</span></span></code></pre></div></p></blockquote><blockquote class="alert-blockquote tip"><p class=alert-heading>Tip</p><p><p><code>be_attacked</code> 里用 <code>isinstance</code> 逐个判断小鸟类型，是这段代码里最脆弱的地方：新增一种小鸟就要回来改这里。更好的做法是让小鸟自己给出伤害值（例如加一个 <code>damage</code> 属性或 <code>attack()</code> 方法），<code>Obstacle</code> 只管减法——这就是多态替代类型判断的典型场景。</p></p></blockquote><h2 id=相关笔记><a class=header-anchor href=#%e7%9b%b8%e5%85%b3%e7%ac%94%e8%ae%b0></a>相关笔记</h2><ul><li><a href=/post/22-oop-classes/>类与对象</a></li><li><a href=/post/03-syntax-basics/>标识符与命名</a></li><li>装饰器</li><li>迭代器与生成器</li><li>类型注解与泛型</li></ul></div><footer class=article-footer><ul class=article-tag-list itemprop=keywords><li class=article-tag-list-item data-aos=zoom-in><a class=article-tag-list-link href=/tags/python rel=tag>PYTHON</a></li><li class=article-tag-list-item data-aos=zoom-in><a class=article-tag-list-link href=/tags/python-%e5%9f%ba%e7%a1%80 rel=tag>PYTHON-基础</a></li><li class=article-tag-list-item data-aos=zoom-in><a class=article-tag-list-link href=/tags/python-%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1 rel=tag>PYTHON-面向对象</a></li></ul></footer></div><nav id=article-nav aria-label="Article navigation" data-aos=fade-up><div class="article-nav-link-wrap left"><img data-src="https://github.com/nizigen/live2d_api/blob/main/img/5.jpg?raw=true" data-sizes=auto alt="Python 基础目录" class=lazyload><a href=/post/python-basics-catalog/ aria-label="Prev:Python 基础目录" title="Prev:Python 基础目录"></a><div class=article-nav-caption>Prev</div><h3 class=article-nav-title>Python 基础目录</h3></div><div class="article-nav-link-wrap right"><img data-src="https://github.com/nizigen/live2d_api/blob/main/img/10.jpg?raw=true" data-sizes=auto alt="22. 面向对象：类与对象" class=lazyload><a href=/post/22-oop-classes/ aria-label="Next:22. 面向对象：类与对象" title="Next:22. 面向对象：类与对象"></a><div class=article-nav-caption>Next</div><h3 class=article-nav-title>22. 面向对象：类与对象</h3></div></nav></article></section></div><footer id=footer aria-label="Site footer"><div style=width:100%;overflow:hidden><div class=footer-line></div></div><div id=footer-info><div><span class=icon-copyright></span>2024-2026<span class="footer-info-sep rotate"></span>
+Chiyuki</div><div>Powered by&nbsp;<a href=https://gohugo.io/ target=_blank rel="noopener nofollow noreferrer">Hugo</a>&nbsp; Theme.<a href=https://github.com/D-Sketon/hugo-theme-reimu target=_blank rel="noopener nofollow noreferrer">Reimu</a></div><div><span class=icon-brush>&nbsp;23.5k</span>
+&nbsp;|&nbsp;
+<span class=icon-coffee>&nbsp;02:04</span></div></div></footer><div class=sidebar-top><div class="sidebar-top-taichi rotate"></div><div class=arrow-up></div></div><div id=mask class=hide></div></div><nav id=mobile-nav aria-label="Mobile navigation"><div class=sidebar-wrap><div class=sidebar-toc-sidebar><h3 class=toc-title>Contents</h3><div class="sidebar-toc-wrapper toc-div-class"><nav id=TableOfContents><ul><li><a href=#封装>封装</a><ul><li><a href=#约定式封装单下划线-_attr>约定式封装：单下划线 <code>_attr</code></a></li><li><a href=#接口式封装property>接口式封装：<code>@property</code></a></li><li><a href=#名称改写式封装双下划线-__attr>名称改写式封装：双下划线 <code>__attr</code></a></li><li><a href=#_-与-__-怎么选><code>_</code> 与 <code>__</code> 怎么选</a></li></ul></li><li><a href=#最小封装原则>最小封装原则</a></li><li><a href=#继承>继承</a><ul><li><a href=#单继承与-super>单继承与 <code>super()</code></a></li><li><a href=#属性覆盖>属性覆盖</a></li><li><a href=#重写父类的方法>重写父类的方法</a></li><li><a href=#多继承与-mixin>多继承与 Mixin</a></li></ul></li><li><a href=#mro>MRO</a><ul><li><a href=#菱形继承>菱形继承</a></li><li><a href=#指定调用某个父类的方法>指定调用某个父类的方法</a></li><li><a href=#多继承的初始化两种方案>多继承的初始化：两种方案</a></li></ul></li><li><a href=#多态与鸭子类型>多态与鸭子类型</a></li><li><a href=#抽象类>抽象类</a></li><li><a href=#案例愤怒的小鸟>案例：愤怒的小鸟</a><ul><li><a href=#类设计>类设计</a></li><li><a href=#核心代码>核心代码</a></li></ul></li><li><a href=#相关笔记>相关笔记</a></li></ul></nav></div></div><div class="sidebar-common-sidebar hidden"><div class=sidebar-author><img data-src=/avatar/avatar.webp data-sizes=auto alt=Chiyuki class=lazyload><div class=sidebar-author-name>Chiyuki</div><div class=sidebar-description>日々研究してる...</div></div><div class=sidebar-state><div class=sidebar-state-article><div>Posts</div><div class=sidebar-state-number>25</div></div><a class=sidebar-state-category href=/categories/ aria-label=sidebar-state-category-link><div>Categories</div><div class=sidebar-state-number>1</div></a><a class=sidebar-state-tag href=/tags/ aria-label=sidebar-state-tag-link><div>Tags</div><div class=sidebar-state-number>13</div></a></div><div class=sidebar-social><div class="icon-bilibili sidebar-social-icon"><a href=https://space.bilibili.com/295004457 itemprop=url target=_blank aria-label=bilibili rel="noopener nofollow noreferrer"></a></div><div class="icon-discord sidebar-social-icon"><a href=https://discordapp.com/users/chiyuki itemprop=url target=_blank aria-label=discord rel="noopener nofollow noreferrer"></a></div><div class="icon-email sidebar-social-icon"><a href=mailto:l12345p9876x0@gmail.com itemprop=url target=_blank aria-label=email rel="noopener nofollow noreferrer"></a></div><div class="icon-github sidebar-social-icon"><a href=https://github.com/nizigen itemprop=url target=_blank aria-label=github rel="noopener nofollow noreferrer"></a></div></div><div class=sidebar-menu><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/ aria-label=Home></a><div class='sidebar-menu-icon icon'>&#xf015;</div><div class=sidebar-menu-link>Home</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/archives aria-label=Archives></a><div class='sidebar-menu-icon icon'>&#xf187;</div><div class=sidebar-menu-link>Archives</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/about aria-label=About></a><div class='sidebar-menu-icon icon'>&#xf007;</div><div class=sidebar-menu-link>About</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/friend aria-label=Friend></a><div class='sidebar-menu-icon icon'>&#xf0c0;</div><div class=sidebar-menu-link>Friend</div></div></div></div></div><div class=sidebar-btn-wrapper><div class="sidebar-toc-btn current"></div><div class=sidebar-common-btn></div></div></nav></div><script src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js integrity=sha384-3gT/vsepWkfz/ff7PpWNUeMzeWoH3cDhm/A8jM7ouoAK0/fP/9bcHHR5kHq2nf+e crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js integrity=sha384-J08i8An/QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q crossorigin=anonymous></script><script src=/js/main.js integrity crossorigin=anonymous></script><script src=/js/aos.js integrity crossorigin=anonymous></script><script>var aosInit=()=>{AOS.init({duration:1e3,easing:"ease",once:!0,offset:50})};document.readyState==="loading"?document.addEventListener("DOMContentLoaded",aosInit):aosInit()</script><script src=/js/pjax_main.js integrity crossorigin=anonymous data-pjax></script><script src=https://cdn.jsdelivr.net/npm/mouse-firework@0.1.1/dist/index.umd.js integrity=sha384-8LyaidD9GPxQQgLJO/WRw/O2h3BoNq/ApI/ecpvM6RsrCz2qP2ppBXUKihP4V/2d crossorigin=anonymous></script><script>if(window.firework){const e=JSON.parse('{"excludeelements":["a","button"],"particles":[{"colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"duration":[1200,1800],"easing":"easeOutExpo","move":["emit"],"number":20,"shape":"circle","shapeOptions":{"alpha":[0.3,0.5],"radius":[16,32]}},{"colors":["var(--red-0)"],"duration":[1200,1800],"easing":"easeOutExpo","move":["diffuse"],"number":1,"shape":"circle","shapeOptions":{"alpha":[0.2,0.5],"lineWidth":6,"radius":20}}]}');e.excludeElements=e.excludeelements,delete e.excludeelements,window.firework(e)}</script><script src=/resources/live2d-widgets@0.9.0/autoload.js defer></script><div id=lazy-script><div><script data-pjax>window.REIMU_POST={author:"Chiyuki",title:"23. 面向对象：封装、继承与多态",url:"https://nizigen.github.io/post/23-oop-encapsulation-inheritance-polymorphism/",description:`封装、继承、多态是面向对象的三大特征。类与对象的语法见 类与对象，这一篇讲三者各自的实现方式，以及把它们串起来的 MRO。
+封装 封装的目的与 Java 完全一致，只有实现方式不同：
+隐藏内部实现——把数据和操作数据的方法绑在一起，外部不必知道内部如何存储和处理； 保证数据安全——限制外部随意修改，通过统一接口做校验、日志、联动更新； 降低耦合——外部只依赖暴露的接口，内部实现变了，只要接口不变就不用改外部代码。 Java 把「私有化属性」当作实现封装的唯一常规手段，于是有了「私有化 = 封装」的印象；Python 提供了多种更灵活的方式，私有化只是其中一种，而且不是最常用的。
+约定式封装：单 …`,cover:"https://nizigen.github.io/images/banner.jpg"}</script><script src=/js/insert_highlight.js integrity crossorigin=anonymous data-pjax></script><script type=module data-pjax>const PhotoSwipeLightbox = (await safeImport("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js", "sha384-DiL6M\/gG\u002bwmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF\/N6lrZi\/")).default;const initPswp = (gallery, children) => {
+          if (_$$(`${gallery} ${children}`).length > 0) {
+            new PhotoSwipeLightbox({
+              gallery,
+              children,pswpModule: () => safeImport("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8\u002boTJ7m3DfYEWX1fu1scuS4\u002bs")}).init();
+          }
+        }
+        const pswp = () => {
+          initPswp('.article-entry', 'a.article-gallery-item');
+          initPswp('.article-gallery', 'a.article-gallery-item');
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script></div></div><script>"serviceWorker"in navigator&&navigator.serviceWorker.getRegistrations().then(e=>{for(let t of e)t.unregister()})</script><script>const reimuCopyright=String.raw`
+   ______     ______     __     __    __     __  __    
+  /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+  \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+   \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+    \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                    
+  `;console.log(String.raw`%c ${reimuCopyright}`,"color: #ff5252;"),console.log("%c Theme.Reimu %c https://github.com/D-Sketon/hugo-theme-reimu ","color: white; background: #ff5252; padding:5px 0;","padding:4px;border:1px solid #ff5252;")</script></body></html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python-函数 on Chiyuki の CS Blog ですわ</title><link>https://nizigen.github.io/tags/python-%E5%87%BD%E6%95%B0/</link><description>Recent content from Chiyuki の CS Blog ですわ</description><generator>Hugo</generator><language>en-us</language><managingEditor>l12345p9876x0@gmail.com (Chiyuki)</managingEditor><webMaster>l12345p9876x0@gmail.com (Chiyuki)</webMaster><copyright>All articles on this blog are licensed under the BY-NC-SA license agreement unless otherwise stated. Please indicate the source when reprinting!</copyright><lastBuildDate>Mon, 12 Oct 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://nizigen.github.io/tags/python-%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml"/><item><title>20. 函数</title><link>https://nizigen.github.io/post/20-functions/</link><pubDate>Mon, 12 Oct 2026 00:00:00 +0000</pubDate><author>l12345p9876x0@gmail.com (Chiyuki)</author><guid>https://nizigen.github.io/post/20-functions/</guid><description>
+<![CDATA[<h1>20. 函数</h1><p>Author: Chiyuki(l12345p9876x0@gmail.com)</p>
+        
+          <p>函数把一段可重复使用的代码封装成一个独立的功能单元：接收输入（参数）、执行逻辑、返回结果。程序里反复出现的代码都值得抽成函数——代码更短更清楚，改一处全局生效，也方便分工和测试。</p>
+<p><code>print()</code>、<code>len()</code>、<code>input()</code> 这些是 Python 自带的内置函数；用 <code>def</code> 自己定义的叫自定义函数。函数必须先定义后使用。</p>
+<h2 id="函数的定义与调用">
+<a class="header-anchor" href="#%e5%87%bd%e6%95%b0%e7%9a%84%e5%ae%9a%e4%b9%89%e4%b8%8e%e8%b0%83%e7%94%a8"></a>
+函数的定义与调用
+</h2><p>用 <code>def</code> 定义函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">函数名</span><span class="p">(</span><span class="n">参数列表</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">函数体</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">表达式</span><span class="p">]</span>
+</span></span></code></pre></div><ul>
+<li>以 <code>def</code> 开头，后接函数名和圆括号 <code>()</code>，行尾是冒号，函数体缩进。</li>
+<li>函数名遵循标识符命名规则，一般是动词。命名风格用 ==snake_case==（全小写、下划线分词），详见 <a href="/post/04-coding-style/">04.编码规范</a>。</li>
+<li>参数列表是函数需要的数据，多个参数用逗号分隔。函数可以没有参数，但圆括号不能省略。</li>
+<li>函数体一般含三部分：文档说明、功能代码、<code>return [表达式]</code>。</li>
+<li><code>return</code> 结束函数并把值交给调用方；不带表达式的 <code>return</code> 或没有 <code>return</code> 语句，都相当于返回 <code>None</code>。</li>
+</ul>
+<p>定义完不调用不会执行，调用一次执行一次。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_hello</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    打印hello world
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;hello world&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 先定义，再调用</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_hello</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;--------&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">print_hello</span><span class="p">()</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">hello world
+</span></span><span class="line"><span class="cl">--------
+</span></span><span class="line"><span class="cl">hello world
+</span></span></code></pre></div><p>带参数和带返回值的写法：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">print_star</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    打印指定行数和列数的星号
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;*&#34;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&#34; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    返回两个数的和
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">print_star</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;add(1, 2) = &#34;</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;add(2, 3) = &#34;</span><span class="p">,</span> <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">* * * * * * * * * *
+</span></span><span class="line"><span class="cl">add(1, 2) =  3
+</span></span><span class="line"><span class="cl">add(2, 3) =  5
+</span></span></code></pre></div><p>函数带来的好处：程序更简短清晰；提高开发效率和代码重用性；便于分工协作、集中管理和后期维护。</p>
+        
+        <hr><p>Published on 2026-10-12 at <a href='https://nizigen.github.io/'>Chiyuki の CS Blog ですわ</a>, last modified on 2026-10-12</p>]]></description><category>python</category></item></channel></rss>
